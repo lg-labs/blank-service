@@ -1,0 +1,156 @@
+asyncapi: 3.0.0
+info:
+  title: blank Async API
+  version: 1.0.0-alpha
+  description: |-
+    The blank async API allows you to manage into blanksystem.
+    ### Check out its awesome features:
+    * Receive real-time information about ... 📈
+  termsOfService: https://lg5.org/terms/
+  contact:
+    name: Async API Support
+    url: https://www.lglabx.com/support
+    email: blanksystem@mail.com
+  license:
+    name: Apache 2.0
+    url: https://www.apache.org/licenses/LICENSE-2.0
+  tags:
+    - name: blank
+  externalDocs:
+    description: Find more info here
+    url: https://www.asyncapi.org
+
+defaultContentType: application/json
+
+servers:
+  development:
+    host: localhost:19092,localhost:29092,localhost:39092
+    protocol: kafka
+    protocolVersion: '3.5'
+    description: Event Sourcing
+    security:
+      - $ref: '#/components/securitySchemes/plain'
+    tags:
+      - name: "env:development"
+        description: "This environment is meant for developers to run their own tests."
+  staging:
+    host: st.kafka.cluster.lg5.com
+    protocol: kafka
+    protocolVersion: '3.5'
+    description: Event Sourcing
+    security:
+      - $ref: '#/components/securitySchemes/plain'
+    tags:
+      - name: "env:staging"
+        description: "This environment is a replica of the production environment."
+
+channels:
+  blankChannel:
+    address: blank.1.0.event.{blankId}.created
+    messages:
+      blankCreated:
+        $ref: '#/components/messages/blankCreated'
+      blankApproved:
+        $ref: '#/components/messages/blankApproved'
+    description: The topic on which blank created may be consumed.
+    parameters:
+      blankId:
+        $ref: '#/components/parameters/blankId'
+    servers:
+      - $ref: '#/servers/development'
+
+operations:
+  blankCreated:
+    action: receive
+    channel:
+      $ref: '#/channels/blankChannel'
+    summary:  >-
+      Inform about the conditions of the blank created of 
+      a particular blank.
+    traits:
+      - $ref: '#/components/operationTraits/kafka'
+    messages:
+      - $ref: '#/channels/blankChannel/messages/blankCreated'
+
+  blankApproved:
+    action: send
+    channel:
+      $ref: '#/channels/blankChannel'
+    summary:  >-
+      Inform about the conditions of the blank approved of 
+      a particular blank.
+    traits:
+      - $ref: '#/components/operationTraits/kafka'
+    messages:
+      - $ref: '#/channels/blankChannel/messages/blankApproved'
+
+components:
+  messages:
+    blankCreated:
+      name: blankCreated
+      title: blank Created
+      summary: >-
+        Inform about the conditions of the blank created of a particular blank.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/commonHeaders'
+      payload:
+        $ref: '#/components/schemas/blankCreatedPayload'
+    blankApproved:
+      name: blankApproved
+      title: blank Approved
+      summary: >-
+        Inform about the conditions of the blank approved of 
+        a particular blank.
+      contentType: application/json
+      traits:
+        - $ref: '#/components/messageTraits/commonHeaders'
+      payload:
+        $ref: '#/components/schemas/blankApprovedPayload'
+
+  schemas:
+    blankCreatedPayload:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+    blankApprovedPayload:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+
+  securitySchemes:
+    plain:
+      type: plain
+      description: Provide your plain authentication
+  parameters:
+    blankId:
+      description: The ID of the blank.
+  messageTraits:
+    commonHeaders:
+      headers:
+        type: object
+        properties:
+          kafka_receivedMessageKey:
+            type: array
+            items:
+              type: string
+          kafka_receivedPartitionId:
+            type: array
+            items:
+              type: integer
+          kafka_offset:
+            type: array
+            items:
+              type: number
+  operationTraits:
+    kafka:
+      bindings:
+        kafka:
+          clientId:
+            type: string
+            enum:
+              - blank-id

@@ -1,0 +1,15 @@
+{
+  "Servers": {
+    "1": {
+      "Name": "PostgreSQL Server",
+      "Group": "blanksystem",
+      "Host": "postgres",
+      "Port": 5432,
+      "MaintenanceDB": "blank",
+      "Username": "blanksystem-db",
+      "Password": "blanksystem-db",
+      "SSLMode": "prefer",
+      "UseSSHTunnel": 0
+    }
+  }
+}

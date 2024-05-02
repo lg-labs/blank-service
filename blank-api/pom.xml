@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.blanksystem</groupId>
+        <artifactId>blank-service</artifactId>
+        <version>1.0.0-alpha</version>
+    </parent>
+
+    <artifactId>blank-api</artifactId>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.blanksystem</groupId>
+            <artifactId>blank-application-service</artifactId>
+        </dependency>
+
+        <!--lglabs dependencies-->
+        <dependency>
+            <groupId>com.lg5.spring</groupId>
+            <artifactId>lg5-spring-api-rest</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

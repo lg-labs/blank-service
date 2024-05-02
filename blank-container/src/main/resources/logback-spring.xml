@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <springProperty scope="context" name="application_name" source="spring.application.name"/>
+    <springProperty scope="context" name="LOG_PATH" source="log.path"/>
+
+    <!-- Example for logging into the build folder of your project -->
+    <property name="LOG_FILE" value="${LOG_PATH:-${java.io.tmpdir:-/tmp}}/${application_name}"/>
+
+    <!-- You can override this to have a custom pattern -->
+    <property name="CONSOLE_LOG_PATTERN"
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+
+    <!-- Appender to log to console -->
+    <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <!-- Minimum logging level to be presented in the console logs-->
+            <level>INFO</level>
+        </filter>
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+
+    <!-- Appender to log to file in a JSON format -->
+    <appender name="logstash" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}-complex.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}-complex.json.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--Max Size of file to start Archive -->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <uuid/>
+
+                <version/>
+                <logLevel/>
+                <message/>
+                <loggerName/>
+                <threadName/>
+                <context/>
+                <tags/>
+                <pattern>
+                    <omitEmptyFields>true</omitEmptyFields>
+                    <pattern>
+                        {
+                        "timestamp": "@timestamp",
+                        "level": "%level",
+                        "application_name": "${application_name:-}",
+                        "trace": "%X{traceId:-}",
+                        "span": "%X{spanId:-}",
+                        "baggage": "%X{key:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "message": "%message",
+                        "myCustomField": "fieldValue",
+                        "relative": "#asLong{%relative}",
+                        "traceId": "%mdc{traceId}",
+                        "custom_constant": "123",
+                        "tags": ["one", "two"]
+                        }
+                    </pattern>
+                </pattern>
+                <stackTrace>
+                    <!--        <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
+                              <maxDepthPerThrowable>30</maxDepthPerThrowable>
+                              <maxLength>2048</maxLength>
+                              <shortenedClassNameLength>20</shortenedClassNameLength>
+                              <exclude>^sun\.reflect\..*\.invoke</exclude>
+                              <exclude>^net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
+                              <rootCauseFirst>true</rootCauseFirst>
+                            </throwableConverter>-->
+                </stackTrace>
+
+
+            </providers>
+        </encoder>
+    </appender>
+
+    <!-- Appender to log to file in a JSON Simple format -->
+    <appender name="logstash-simple" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_FILE}-simple.log</file>
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_FILE}-simple.json.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <!--Max Size of file to start Archive -->
+                <maxFileSize>10MB</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+            <maxHistory>7</maxHistory>
+        </rollingPolicy>
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "timestamp": "@timestamp",
+                        "level": "%level",
+                        "application_name": "${application_name:-}",
+                        "trace": "%X{traceId:-}",
+                        "span": "%X{spanId:-}",
+                        "baggage": "%X{key:-}",
+                        "pid": "${PID:-}",
+                        "thread": "%thread",
+                        "class": "%logger{40}",
+                        "message": "%message"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
+        </encoder>
+    </appender>
+
+    <root level="INFO">
+        <appender-ref ref="console"/>
+        <!-- uncomment this to have also JSON logs -->
+
+        <appender-ref ref="logstash"/>
+        <appender-ref ref="logstash-simple"/>
+
+
+    </root>
+</configuration>

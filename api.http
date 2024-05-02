@@ -1,0 +1,13 @@
+### Customer Service API
+POST localhost:8185/blank
+Content-Type: application/json
+
+{
+  "id": "{{$random.uuid}}"
+}
+> {%
+    client.test("Request executed successfully", function () {
+        client.assert(response.status === 200, "Response status is not 200");
+        client.assert(response.body["message"] === "Customer saved successfully!", "Response message is not valid");
+    });
+%}

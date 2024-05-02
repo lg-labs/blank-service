@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.blanksystem</groupId>
+        <artifactId>blank-message</artifactId>
+        <version>1.0.0-alpha</version>
+    </parent>
+
+    <artifactId>blank-message-core</artifactId>
+
+    <dependencies>
+        <!-- Implements OUTPUT ports from application service layer -->
+        <dependency>
+            <groupId>com.blanksystem</groupId>
+            <artifactId>blank-application-service</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.blanksystem</groupId>
+            <artifactId>blank-message-model</artifactId>
+        </dependency>
+        <!-- if you need to produce events-->
+        <dependency>
+            <groupId>com.lg5.spring.kafka</groupId>
+            <artifactId>lg5-spring-kafka-producer</artifactId>
+        </dependency>
+        <!-- if you need to consume events-->
+        <dependency>
+            <groupId>com.lg5.spring.kafka</groupId>
+            <artifactId>lg5-spring-kafka-consumer</artifactId>
+        </dependency>
+    </dependencies>
+
+</project>

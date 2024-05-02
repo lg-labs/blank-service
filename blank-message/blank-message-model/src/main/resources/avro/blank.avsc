@@ -1,0 +1,13 @@
+{
+    "namespace": "com.blanksystem.message.model.avro",
+    "type": "record",
+    "name": "BlankAvroModel",
+    "fields": [
+        {
+            "name": "id",
+            "type": {
+                "type": "string"
+            }
+        }
+    ]
+}

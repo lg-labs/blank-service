@@ -1,0 +1,107 @@
+openapi: 3.1.0
+info:
+  title: Customer OpenAPI
+  description: |-
+    This is a Customer Server based on the OpenAPI 3.1 specification.
+
+    Some useful links:
+    - [The Customer repository](https://github.com/lg-lab/food-ordering-system/tree/main/customer-service)
+    - [The source API definition for the Customer](https://github.com/lg-lab/food-ordering-system/tree/main/customer-service/customer-application/src/main/resources/spec/openapi.yaml)
+
+  termsOfService: https://github.com/lg-lab/food-ordering-system
+  contact:
+    email: 105936384+lglabs@users.noreply.github.com
+  license:
+    name: GNU General Public License
+    url: https://github.com/lg-lab/food-ordering-system/tree/main/LICENSE
+  version: v3.0
+externalDocs:
+  description: Find out more about Order System
+  url: https://github.com/lg-lab/food-ordering-system
+servers:
+  - url: http://localhost:8181
+tags:
+  - name: customer
+    description: Operations about customer
+    externalDocs:
+      description: Find out more about our order system
+      url: https://github.com/lg-lab/food-ordering-system
+paths:
+  /customer:
+    post:
+      tags:
+        - customer
+      summary: Add a new customer to the order system
+      description: Add a new customer to the order system
+      operationId: addCustomer
+      requestBody:
+        $ref: '#/components/requestBodies/Customer'
+      responses:
+        '202':
+          description: Accepted
+        '400':
+          description: Invalid input
+        '422':
+          description: Validation exception
+      security:
+        - customer_auth:
+            - write:customer
+components:
+  schemas:
+    Customer:
+      type: object
+      properties:
+        id:
+          type: string
+          format: uuid
+        username:
+          type: string
+          examples: [username]
+        firstName:
+          type: string
+          examples: [firstName]
+        lastName:
+          type: string
+          examples: [lastName]
+
+  requestBodies:
+    Customer:
+      description: Customer object that needs to be added to the order system
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/Customer'
+          examples:
+            customer1:
+              $ref: '#/components/examples/customer1'
+            customer2:
+              $ref: '#/components/examples/customer2'
+
+  examples:
+    customer1:
+      summary: An example of a Customer 1
+      value:
+        id: d215b5f8-0249-4dc5-89a3-51fd148cfb41
+        username: lgusername1
+        firstName: lgfirstName1
+        lastName: lglastName1
+    customer2:
+      summary: An example of a Customer 2
+      value:
+        id: d215b5f8-0249-4dc5-89a3-51fd148cfb42
+        username: lgusername2
+        firstName: lgfirstName2
+        lastName: lglastName2
+
+  securitySchemes:
+    customer_auth:
+      type: oauth2
+      flows:
+        implicit:
+          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          scopes:
+            write:customer: add customer in your system
+    api_key:
+      type: apiKey
+      name: api_key
+      in: header
