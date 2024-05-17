@@ -7,7 +7,7 @@ server:
 
 logging:
   level:
-    com.food.ordering.system: DEBUG
+    com.blanksystem: DEBUG
 blanksystem:
   blank:
     service:
@@ -29,13 +29,10 @@ spring:
     url: jdbc:postgresql://localhost:54322/postgres?currentSchema=blank&binaryTransfer=true&reWriteBatchedInserts=true
     username: sa
     password: sa
-    driver-class-name: org.postgresql.Driver
-  sql:
-    init:
-      mode: always
-      platform: postgres
-      schema-locations: classpath:init-schema.sql
 
+  liquibase:
+    liquibase-schema: public
+    change-log: classpath:db/changelog/db.changelog-master.yaml
 
 kafka-config:
   bootstrap-servers: localhost:19092, localhost:29092, localhost:39092
@@ -72,5 +69,5 @@ kafka-consumer-config:
   max-partition-fetch-bytes-boost-factor: 1
   poll-timeout-ms: 150
 
-#log:
-#  path: /Users/autentia/Documents/lg/labs/infrastructure/elk/filebeat_ingest_data
+log:
+  path: /Users/autentia/Documents/lg/labs/infrastructure/elk/filebeat_ingest_data
