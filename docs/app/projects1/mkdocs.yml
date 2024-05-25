@@ -141,6 +141,7 @@ markdown_extensions:
 
 nav:
   - Home: index.md
+  - Getting started: domain-service.md
   - Domain Core Module: domain-core-module.md
   - Domain App Module: domain-app-module.md
   - Data Module: data-module.md
