@@ -8,8 +8,8 @@
 
 ```xml title="pom.xml" linenums="1" hl_lines="3"
 <dependency>
-    <groupId>com.lg5.jvm</groupId>
-    <artifactId>lg5-jvm-atdd</artifactId>
+    <groupId>com.lg5.spring</groupId>
+    <artifactId>lg5-spring-atdd</artifactId>
 </dependency> 
 ```
 
@@ -64,7 +64,7 @@
 
 === "message-core-module"
 
-    ```xml title="pom.xml(core)" linenums="1" hl_lines="5 10"
+    ```xml title="pom.xml" linenums="1" hl_lines="5 10"
         <dependencies>
             <!-- if you need to produce events-->
             <dependency>
@@ -82,7 +82,7 @@
 
 === "message-model-module"
 
-    ```xml title="pom.xml(model)" linenums="1" hl_lines="4"
+    ```xml title="pom.xml" linenums="1" hl_lines="4"
         <dependencies>
             <dependency>
                 <groupId>com.lg5.spring.kafka</groupId>
