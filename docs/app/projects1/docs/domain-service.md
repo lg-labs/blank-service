@@ -4,80 +4,140 @@
 
 > ⏳ Analyse the context and begin by Acceptance Test and Domain Core...
 
-## Acceptance Test Module
+## [Acceptance Test Module](atdd-module.md)
 
-Use or need of acceptance test module
+```xml title="pom.xml" linenums="1" hl_lines="3"
+<dependency>
+    <groupId>com.lg5.jvm</groupId>
+    <artifactId>lg5-jvm-atdd</artifactId>
+</dependency> 
+```
 
+## [Domain Core Module](domain-core-module.md)
 
-## Domain Core Module
+```xml title="pom.xml" linenums="1" hl_lines="3"
+<dependency>
+    <groupId>lg5.common</groupId>
+    <artifactId>lg5-common-domain</artifactId>
+</dependency> 
+```
 
-Use or need of common domain module
+## [Application Service Domain Module](domain-app-module.md)
 
-- BaseEntity
-- AggregateRoot
-- BaseId(e.g: V.O)
+```xml title="pom.xml" linenums="1" hl_lines="4 9 13"
+<dependencies>
+    <dependency>
+        <groupId>lg5.common</groupId>
+        <artifactId>lg5-common-application-service</artifactId>
+    </dependency>
+    <!-- if you need SAGA Pattern/Outbox Pattern, else remove dependencies -->
+    <dependency>
+        <groupId>com.lg5.spring.outbox</groupId>
+        <artifactId>lg5-spring-outbox</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.lg5.jvm</groupId>
+        <artifactId>lg5-jvm-saga</artifactId>
+    </dependency>
+    ...
+</dependencies>
+```
 
-**Part I.**
+## [Data Access Module](data-module.md)
 
-- Aggregate Root
-- Entities
-- Value Object
+```xml title="pom.xml" linenums="1" hl_lines="4 9"
+<dependencies>
+    <dependency>
+        <groupId>com.lg5.spring</groupId>
+        <artifactId>lg5-spring-data-jpa</artifactId>
+    </dependency>
+    <!-- if you need SAGA Pattern/Outbox Pattern, else remove dependencies -->
+    <dependency>
+        <groupId>com.lg5.spring.outbox</groupId>
+        <artifactId>lg5-spring-outbox</artifactId>
+    </dependency>
+    ...
+</dependencies>
+```
 
-**Part II**
+## [Message Module](message-module.md)
 
-- Exception classes
-- Domain Events
-- Domain Service
+=== "message-core-module"
 
-## Application Service Domain Module
+    ```xml title="pom.xml(core)" linenums="1" hl_lines="5 10"
+        <dependencies>
+            <!-- if you need to produce events-->
+            <dependency>
+                <groupId>com.lg5.spring.kafka</groupId>
+                <artifactId>lg5-spring-kafka-producer</artifactId>
+            </dependency>
+            <!-- if you need to consume events-->
+            <dependency>
+                <groupId>com.lg5.spring.kafka</groupId>
+                <artifactId>lg5-spring-kafka-consumer</artifactId>
+            </dependency>
+            ...
+        </dependencies>
+    ```
 
-**Part I.**
+=== "message-model-module"
 
-- DTOs
-- Mappers
-- Exceptions
-- Ports
-    - Input
-        - Listeners
-        - Domain Service
-    - Output
-        - Publishers
-        - Repositories
+    ```xml title="pom.xml(model)" linenums="1" hl_lines="4"
+        <dependencies>
+            <dependency>
+                <groupId>com.lg5.spring.kafka</groupId>
+                <artifactId>lg5-spring-kafka-model</artifactId>
+            </dependency>
+            ...
+        </dependencies>
+    ```
 
-**Part II.**
+## [External Module](external-module.md)
+```xml title="pom.xml" linenums="1" hl_lines="4"
+<dependencies>
+    <dependency>
+        <groupId>com.lg5.spring</groupId>
+        <artifactId>lg5-spring-client</artifactId>
+    </dependency>
+    ...
+</dependencies>
+```
 
-- implementing input ports
+## [API Module](api-module.md)
+```xml title="pom.xml" linenums="1" hl_lines="4"
+<dependencies>
+    <dependency>
+        <groupId>com.lg5.spring</groupId>
+        <artifactId>lg5-spring-api-rest</artifactId>
+    </dependency>
+    ...
+</dependencies>
+```
 
-## Data Access Module
-
-Part I.
-
-- Secondary Adapter to DB
-- Mapper
-- Explicit Repositories to DB
-
-## Messaging Module
-
-Part I.
-
-- Models from Event Specification(e.g: Avro Models)
-- Mappers
-
-Part II.
-
-- Implementing output ports(Publishers/Producers)
-    - Secondary Adapter
-- Implementing input ports(Listener/Consumers)
-    - Primary Adapter
-
-## Container
-
-Part I.
-
-- Main Application
-- Create Beans(e.g: Domain Service)
-- Configurations
-- Properties
+## [Container Module](container-module.md)
+```xml title="pom.xml" linenums="1" hl_lines="4 8 13 18"
+<dependencies>
+    <dependency>
+        <groupId>com.lg5.spring</groupId>
+        <artifactId>lg5-spring-starter</artifactId>
+    </dependency>
+    <dependency>
+        <groupId>com.lg5.spring</groupId>
+        <artifactId>lg5-spring-logger</artifactId>
+    </dependency>
+    <!-- tests -->
+    <dependency>
+        <groupId>com.lg5.spring</groupId>
+        <artifactId>lg5-spring-test</artifactId>
+        <scope>test</scope>
+    </dependency>
+    <dependency>
+        <groupId>com.lg5.spring</groupId>
+        <artifactId>lg5-spring-testcontainers</artifactId>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
+```
 
 
 

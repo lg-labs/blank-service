@@ -141,12 +141,11 @@ markdown_extensions:
 
 nav:
   - Home: index.md
-  - Domain Service: domain-service.md
-  - ATDD Module: atdd-module.md
   - Domain Core Module: domain-core-module.md
   - Domain App Module: domain-app-module.md
   - Data Module: data-module.md
   - Message Module: message-module.md
   - External Module: external-module.md
-  - API Module: api-module.md
   - Container Module: container-module.md
+  - API Module: api-module.md
+  - ATDD Module: atdd-module.md
