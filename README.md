@@ -10,13 +10,16 @@
 
 From **Lg Pentagon** or **lg5**! Get [Lg5-Spring][4] to develop μ-services faster.
 
-For more information, check this pages https://lufgarciaqu.medium.com.
+For more information, check this pages [https://lufgarciaqu.medium.com][1].
 <h1></h1>
 
-> <h1> ⚠️ Replace _blank_ with the Domain Name ⚠️</h1>  
+> <h1> ⚠️ Replace _blank_ with the Domain Name ⚠️</h1> 
+
+For full documentation visit the [Wiki][11].
+
 # Using Lg5 Spring `1.0.0-alpha`, JDK 21
 
-[More details][4]
+[More details][12] and [Repository][4].
 
 
 ## 🚀 Build project
@@ -137,6 +140,8 @@ The MIT License (MIT). Please see [License][LIC] for more information.
 [8]: https://github.com/lg-labs/blank-infra
 [9]: http://localhost:5013
 [10]: http://localhost:9080
+[11]: https://lg-labs.github.io/blank-service
+[12]: https://lg-labs-pentagon.github.io/lg5-spring/
 
 [LIC]: LICENSE
 

@@ -1,6 +1,6 @@
 ## 🛠️ Blank μ-service with Hex Arch, DDD, SAGA, Outbox&Kafka
 
-For full documentation visit [mkdocs.org](https://www.mkdocs.org).
+For full code visit [Repository][11].
 
 
 > <h1> ⚠️ Replace _blank_ with the Domain Name ⚠️</h1>  
@@ -127,6 +127,7 @@ The MIT License (MIT). Please see [License][LIC] for more information.
 [8]: https://github.com/lg-labs/blank-infra
 [9]: http://localhost:5013
 [10]: http://localhost:9080
+[11]: https://github.com/lg-labs/blank-service
 
 [LIC]: LICENSE
 
