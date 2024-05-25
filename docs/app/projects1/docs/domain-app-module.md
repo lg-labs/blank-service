@@ -1,7 +1,14 @@
 # Application Service Domain Module
 
-**Part I.**
+## Defined Primary Adapters
 
+<p>
+Allows the isolated domain to communicate with an outside. Orchestrate transaction, security, looking up proper aggregates and saving state changes of the domain to the database. Does not common any business logic.
+
+Domain event listeners are special kind of Application services that are triggered by domain events. Each domain event listener can have a separate domain service to handle business logic.
+</p>
+
+**Part I.**
 - DTOs
 - Mappers
 - Exceptions
@@ -14,16 +21,7 @@
         - Repositories
 
 **Part II.**
-
 - implementing input ports
-
-## Defined Primary Adapters
-
-<p>
-Allows the isolated domain to communicate with outside. Orchesytaye transaction, security, looking up proper aggregates and saving state changes of the domain to the database. Does not common any business logic.
-
-Domain event listeners are special kind of Application services that is triggered by domain events. Each domain event listener can have a separate domain service to handle business logic.
-</p>
 
 ## Why use Lombok?
 
