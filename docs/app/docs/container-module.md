@@ -172,7 +172,7 @@ wiremock:
     port: 7070
 ```
 ## Project structure
-```markdown linenums="1" hl_lines="11"
+```markdown linenums="1" hl_lines="25 26 27 31 32 33"
  ├── main/
  │  ├── java/
  │  │  └── com.blanksystem.blank.service.container
