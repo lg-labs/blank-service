@@ -1,3 +1,35 @@
+## Define Principal Module
+
+> Using Lg5 Spring Framework `1.0.0-alpha`, JDK 21  
+> [More details][1]
+
+```xml title="pom.xml" linenums="1" hl_lines="4 10"
+<project>
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <groupId>com.lg5.spring</groupId>
+        <artifactId>lg5-spring-parent</artifactId>
+        <version>1.0.0-alpha.[check lts version]</version>
+        <relativePath/>
+    </parent>
+    
+    <groupId>com.blanksystem</groupId>
+    <artifactId>blank-service</artifactId>
+    <version>1.0.0-alpha</version>
+    <packaging>pom</packaging>
+    <modules>
+        ...
+    </modules>
+    
+    <dependencyManagement>
+        <dependencies>
+            ...
+        </dependencies>
+    </dependencyManagement>
+</project>
+```
+_Note: Please check the [latest version][2]_
+
 ## How do you implement a domain service?
 
 **Starter** Describe step per step to implement a **_blank_ domain service**.
@@ -13,35 +45,39 @@
 </dependency> 
 ```
 
-## [Domain Core Module](domain-core-module.md)
+## [Domain Module](domain-core-module.md)
 
-```xml title="pom.xml" linenums="1" hl_lines="3"
-<dependency>
-    <groupId>lg5.common</groupId>
-    <artifactId>lg5-common-domain</artifactId>
-</dependency> 
-```
+=== "Domain Core Module"
 
-## [Application Service Domain Module](domain-app-module.md)
-
-```xml title="pom.xml" linenums="1" hl_lines="4 9 13"
-<dependencies>
+    [Domain Core Module](domain-core-module.md)
+    ```xml title="pom.xml" linenums="1" hl_lines="3"
     <dependency>
         <groupId>lg5.common</groupId>
-        <artifactId>lg5-common-application-service</artifactId>
-    </dependency>
-    <!-- if you need SAGA Pattern/Outbox Pattern, else remove dependencies -->
-    <dependency>
-        <groupId>com.lg5.spring.outbox</groupId>
-        <artifactId>lg5-spring-outbox</artifactId>
-    </dependency>
-    <dependency>
-        <groupId>com.lg5.jvm</groupId>
-        <artifactId>lg5-jvm-saga</artifactId>
-    </dependency>
-    ...
-</dependencies>
-```
+        <artifactId>lg5-common-domain</artifactId>
+    </dependency> 
+    ```
+
+=== "Application Service Domain Module"
+
+    [Application Service Domain Module](domain-app-module.md)
+    ```xml title="pom.xml" linenums="1" hl_lines="4 9 13"
+    <dependencies>
+        <dependency>
+            <groupId>lg5.common</groupId>
+            <artifactId>lg5-common-application-service</artifactId>
+        </dependency>
+        <!-- if you need SAGA Pattern/Outbox Pattern, else remove dependencies -->
+        <dependency>
+            <groupId>com.lg5.spring.outbox</groupId>
+            <artifactId>lg5-spring-outbox</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.lg5.jvm</groupId>
+            <artifactId>lg5-jvm-saga</artifactId>
+        </dependency>
+        ...
+    </dependencies>
+    ```
 
 ## [Data Access Module](data-module.md)
 
@@ -56,8 +92,11 @@
         <groupId>com.lg5.spring.outbox</groupId>
         <artifactId>lg5-spring-outbox</artifactId>
     </dependency>
-    ...
-</dependencies>
+                <groupId>com.lg5.spring.kafka</groupId>
+                <artifactId>lg5-spring-kafka-producer</artifactId>
+            </dependency>
+        ...
+        </dependencies>
 ```
 
 ## [Message Module](message-module.md)
@@ -68,9 +107,6 @@
         <dependencies>
             <!-- if you need to produce events-->
             <dependency>
-                <groupId>com.lg5.spring.kafka</groupId>
-                <artifactId>lg5-spring-kafka-producer</artifactId>
-            </dependency>
             <!-- if you need to consume events-->
             <dependency>
                 <groupId>com.lg5.spring.kafka</groupId>
@@ -140,4 +176,26 @@
 ```
 
 
+## Project structure
+```markdown
+└── blank-service
+   ├── blank-acceptance-test
+   │  └── pom.xml
+   ├── blank-api
+   │  └── pom.xml
+   ├── blank-container
+   │  └── pom.xml
+   ├── blank-data-access
+   │  └── pom.xml
+   ├── blank-domain
+   │  └── pom.xml
+   ├── blank-external
+   │  └── pom.xml
+   ├── blank-message
+   │  └── pom.xml
+   └── pom.xml
+``` 
 
+
+[1]: https://lg-labs-pentagon.github.io/lg5-spring/
+[2]: https://github.com/lg-labs-pentagon/lg5-spring/packages/2125499

@@ -28,7 +28,7 @@ It has two plugins prepared for build image. Only, you need to add the plugin.
 !!! tip 
 
     The image name is `com.blanksystem/blank-service:1.0.0-alpha`   
-    Given from maven **parent module** as `group/artefact:version`  
+    Given from maven **parent module** as `groupId/artifactId:version`  
     Also -> `com.[system]/[domain]-service:[current_version]`
 
 === "Using Jib Plugin"
