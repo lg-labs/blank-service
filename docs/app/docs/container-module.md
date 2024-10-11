@@ -83,9 +83,9 @@ You need to add the following Java classes to the test directory.
 === "TestContainers Loader"
 
     ```java title="TestContainersLoader.java" linenums="1" hl_lines="6"
-    import com.lg5.spring.testcontainer.DataBaseContainerCustomConfig;
-    import com.lg5.spring.testcontainer.KafkaContainerCustomConfig;
-    import com.lg5.spring.testcontainer.WiremockContainerCustomConfig;
+    import com.lg5.spring.testcontainer.container.DataBaseContainerCustomConfig;
+    import com.lg5.spring.testcontainer.container.KafkaContainerCustomConfig;
+    import com.lg5.spring.testcontainer.container.WiremockContainerCustomConfig;
     import org.springframework.context.annotation.Import;
     
     @Import({
@@ -103,7 +103,7 @@ You need to add the following Java classes to the test directory.
     — Else, extend of `Lg5TestBootPortNone` class_
 
       ```java title="Bootstrap.java" linenums="1" hl_lines="5"
-      import com.lg5.spring.testcontainer.Lg5TestBoot;
+      import com.lg5.spring.testcontainer.boot.Lg5TestBoot;
       import org.springframework.context.annotation.Import;
     
       @Import(TestContainersLoader.class)
