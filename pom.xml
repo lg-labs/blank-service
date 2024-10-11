@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.lg5.spring</groupId>
         <artifactId>lg5-spring-parent</artifactId>
-        <version>1.0.0-alpha.89da38a</version>
+        <version>1.0.0-alpha.aa373a9</version>
         <relativePath/>
     </parent>
 
@@ -15,20 +15,20 @@
     <artifactId>blank-service</artifactId>
     <version>1.0.0-alpha</version>
     <packaging>pom</packaging>
+
     <modules>
-        <module>blank-acceptance-test</module>
         <module>blank-api</module>
         <module>blank-container</module>
         <module>blank-data-access</module>
         <module>blank-domain</module>
         <module>blank-external</module>
         <module>blank-message</module>
+        <module>blank-acceptance-test</module>
     </modules>
 
 
     <dependencyManagement>
         <dependencies>
-
             <dependency>
                 <groupId>com.blanksystem</groupId>
                 <artifactId>blank-domain-core</artifactId>
@@ -64,32 +64,7 @@
                 <artifactId>blank-message-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
-
         </dependencies>
     </dependencyManagement>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <release>21</release>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-checkstyle-plugin</artifactId>
-            </plugin>
-
-
-                    <plugin>
-                        <groupId>com.github.ferstl</groupId>
-                        <artifactId>depgraph-maven-plugin</artifactId>
-                        <version>4.0.3</version>
-                    </plugin>
-
-        </plugins>
-    </build>
 
 </project>

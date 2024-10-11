@@ -3,11 +3,23 @@ info:
     name: ${spring.application.name}
     version: "@project.version@"
 server:
-  port: 8185
+  port: 8080
 
 logging:
   level:
-    com.blanksystem: DEBUG
+    com.blanksystem: INFO
+    io.confluent.kafka: ERROR
+    org.apache: ERROR
+    feign: DEBUG
+    feign.client: DEBUG
+    com.netflix: DEBUG
+    com.netflix.client: DEBUG
+    com.netflix.loadbalancer: DEBUG
+    org.springframework.cloud.openfeign: DEBUG
+
+    org.apache.http: DEBUG
+    org.apache.http.wire: DEBUG
+
 blanksystem:
   blank:
     service:
@@ -33,6 +45,9 @@ spring:
   liquibase:
     liquibase-schema: public
     change-log: classpath:db/changelog/db.changelog-master.yaml
+  sleuth:
+    sampler:
+      probability: 1.0
 
 kafka-config:
   bootstrap-servers: localhost:19092, localhost:29092, localhost:39092
@@ -69,5 +84,24 @@ kafka-consumer-config:
   max-partition-fetch-bytes-boost-factor: 1
   poll-timeout-ms: 150
 
+third:
+  basic:
+    auth:
+      username: admin
+      password: admin
+  jsonplaceholder:
+    url: localhost:7070
+    basic:
+      auth:
+        username: admin
+        password: pass
+feign:
+  client:
+    config:
+      jsonplaceholder:
+        url: ${third.jsonplaceholder.url}
+      default:
+        loggerLevel: FULL
+
 log:
-  path: /Users/autentia/Documents/lg/labs/infrastructure/elk/filebeat_ingest_data
+  path: ./logs

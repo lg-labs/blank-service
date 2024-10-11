@@ -1,16 +1,37 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <configuration>
-    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
 
-    <springProperty scope="context" name="application_name" source="spring.application.name"/>
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+
+
+    <springProperty scope="context" name="application_name" source="info.app.name"/>
+    <springProperty scope="context" name="application_version" source="info.app.version"/>
     <springProperty scope="context" name="LOG_PATH" source="log.path"/>
 
-    <!-- Example for logging into the build folder of your project -->
+    <!-- Define level aliases for some loggers based on Spring Boot 'logging.level' props -->
+    <!-- .com.blanksystem must be replaced to project package -->
+    <springProperty scope="context" name="root"         source="logging.level.root"                         defaultValue="warn" />
+    <springProperty scope="context" name="blanksystem"  source="logging.level.com.blanksystem"              defaultValue="warn" />
+    <springProperty scope="context" name="spring"       source="logging.level.org.springframework"          defaultValue="warn" />
+    <springProperty scope="context" name="data"         source="logging.level.org.springframework.data"     defaultValue="warn" />
+    <springProperty scope="context" name="web"          source="logging.level.org.springframework.web"      defaultValue="warn" />
+    <springProperty scope="context" name="security"     source="logging.level.org.springframework.security" defaultValue="warn" />
+
+    <!-- Set up logging level for some loggers -->
+    <logger name="com.blanksystem"              level="${blanksystem}" />
+    <logger name="org.springframework"          level="${spring}" />
+    <logger name="org.springframework.data"     level="${data}" />
+    <logger name="org.springframework.web"      level="${web}" />
+    <logger name="org.springframework.security" level="${security}" />
+
     <property name="LOG_FILE" value="${LOG_PATH:-${java.io.tmpdir:-/tmp}}/${application_name}"/>
+    <property name="LOG_FILE_MAX_SIZE" value="${LOG_FILE_MAX_SIZE:-50MB}"/>
+
 
     <!-- You can override this to have a custom pattern -->
     <property name="CONSOLE_LOG_PATTERN"
-              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint} %clr(%-40.40logger{39}){cyan} %clr(:){faint} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
+              value="%clr(%d{yyyy-MM-dd HH:mm:ss.SSS}){faint} %clr(${LOG_LEVEL_PATTERN:-%5p}) %clr(${PID:- }){magenta} %clr(---){faint} %clr([%15.15t]){faint}   %clr(:){faint} %clr(%-60logger){cyan} %m%n${LOG_EXCEPTION_CONVERSION_WORD:-%wEx}"/>
 
     <!-- Appender to log to console -->
     <appender name="console" class="ch.qos.logback.core.ConsoleAppender">
@@ -19,8 +40,34 @@
             <level>INFO</level>
         </filter>
         <encoder>
+            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n [trace=%X{traceId}, span=%X{spanId}]</pattern>-->
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
             <charset>utf8</charset>
+        </encoder>
+    </appender>
+
+
+    <appender name="CONSOLE" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+            <providers>
+                <timestamp>
+                    <timeZone>UTC</timeZone>
+                </timestamp>
+                <pattern>
+                    <pattern>
+                        {
+                        "level": "%level",
+                        "thread": "%thread",
+                        "logger": "%logger",
+                        "message": "%msg",
+                        "context": "%mdc",
+                        "traceId": "%X{traceId:-}",
+                        "spanId": "%X{spanId:-}",
+                        "exception": "%ex"
+                        }
+                    </pattern>
+                </pattern>
+            </providers>
         </encoder>
     </appender>
 
@@ -30,9 +77,11 @@
         <file>${LOG_FILE}-complex.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_FILE}-complex.json.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+            <minIndex>1</minIndex>
+            <maxIndex>1</maxIndex>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFileNamingAndTriggeringPolicy">
                 <!--Max Size of file to start Archive -->
-                <maxFileSize>10MB</maxFileSize>
+                <maxFileSize>${LOG_FILE_MAX_SIZE}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
@@ -43,27 +92,45 @@
                     <timeZone>UTC</timeZone>
                 </timestamp>
                 <uuid/>
-
                 <version/>
                 <logLevel/>
                 <message/>
                 <loggerName/>
                 <threadName/>
                 <context/>
+                <contextName />
                 <tags/>
+                <throwable />
+                <callerData>
+                    <classFieldName>class</classFieldName>
+                    <methodFieldName>method</methodFieldName>
+                    <lineFieldName>line</lineFieldName>
+                </callerData>
+                <mdc>
+                    <includeMdcKeyName>springVersion</includeMdcKeyName>
+                    <includeMdcKeyName>javaVersion</includeMdcKeyName>
+                    <includeMdcKeyName>SpringBootVersion</includeMdcKeyName>
+                    <includeMdcKeyName>Lg5Spring</includeMdcKeyName>
+                </mdc>
                 <pattern>
                     <omitEmptyFields>true</omitEmptyFields>
                     <pattern>
                         {
+                        "thread": "%thread",
+                        "class": "%logger",
+                        "message_preview": "%msg",
+                        "context": "%mdc",
+                        "exception": "%ex",
+                        "traceId_alt": "%X{traceId:-}",
                         "timestamp": "@timestamp",
                         "level": "%level",
                         "application_name": "${application_name:-}",
+                        "application_version": "${application_version:-}",
                         "trace": "%X{traceId:-}",
                         "span": "%X{spanId:-}",
                         "baggage": "%X{key:-}",
                         "pid": "${PID:-}",
-                        "thread": "%thread",
-                        "class": "%logger{40}",
+                        "short_class": "%logger{40}",
                         "message": "%message",
                         "myCustomField": "fieldValue",
                         "relative": "#asLong{%relative}",
@@ -83,8 +150,6 @@
                               <rootCauseFirst>true</rootCauseFirst>
                             </throwableConverter>-->
                 </stackTrace>
-
-
             </providers>
         </encoder>
     </appender>
@@ -94,9 +159,9 @@
         <file>${LOG_FILE}-simple.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_FILE}-simple.json.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
-                <!--Max Size of file to start Archive -->
-                <maxFileSize>10MB</maxFileSize>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFileNamingAndTriggeringPolicy">
+                <!--Max Size of a file to start Archive -->
+                <maxFileSize>${LOG_FILE_MAX_SIZE}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
             <maxHistory>7</maxHistory>
         </rollingPolicy>
@@ -111,6 +176,7 @@
                         "timestamp": "@timestamp",
                         "level": "%level",
                         "application_name": "${application_name:-}",
+                        "application_version": "${application_version:-}",
                         "trace": "%X{traceId:-}",
                         "span": "%X{spanId:-}",
                         "baggage": "%X{key:-}",
@@ -124,14 +190,9 @@
             </providers>
         </encoder>
     </appender>
-
     <root level="INFO">
         <appender-ref ref="console"/>
-        <!-- uncomment this to have also JSON logs -->
-
         <appender-ref ref="logstash"/>
         <appender-ref ref="logstash-simple"/>
-
-
     </root>
 </configuration>

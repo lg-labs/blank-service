@@ -109,7 +109,62 @@ You can specify the directory for stored the *.log files. Now, genera two file l
 **_Simple_**: `Simple details about application logs.`
 **_Complex_**:  `More details about application logs.`
 
+## 🧪 Testing Project
+![Sonar Results][img2]
 
+> **✅ Checkstyle 1/4:** configuration that checks the Google coding conventions from Google Java Style.
+>
+> ```bash
+> make run-checkstyle 
+> ```
+
+>**🧪 Running Unit Test 2/4:** Using JUnit 5.
+>
+>```bash
+>make run-unit-test 
+>```
+
+>**🌾 Running Integration Test 3/4:** Using Test Containers, JUnit 5 and Rest-Assured.
+>
+>```bash
+>make run-integration-test 
+>```
+
+>**🥒Running Acceptance Test 4/4:** Using Cucumber, Test Containers, JUnit 5 and Rest-Assured.
+>
+>```bash
+>make run-acceptance-test
+>```
+### Interaction with tests one-to-one
+
+> 🧪 Run a Unit Test
+>```bash
+>make run-ut-spec TEST_NAME=BlankMessageListenerImplTest
+>```
+>Details: `make run-ut-spec TEST_NAME=[TestNameTest]`
+
+> 🌾Run an Integration Test
+>```bash
+>make run-it-spec TEST_NAME=OtherRepositoryIT
+>```
+>Details: `make run-it-spec TEST_NAME=[TestNameTest|TestNameIT]`
+
+> 🥒 Run an Acceptance Test
+>```bash
+>make run-at-spec TEST_NAME=StartAcceptanceT
+>```
+>Details: `make run-at-spec TEST_NAME=[TestNameAcceptanceT]`
+
+> ⚠️ Any Test: _Be careful, this option is slower._
+>```bash
+>make run-test-spec TEST_NAME=BlankMessageListenerImplTest
+>```
+>Details: `make run-test-spec TEST_NAME=[TestNameTest|TestNameIT|TestNameAcceptanceT]`
+>
+
+## [🥒 Acceptance Test Report][13]
+
+You can show the [Acceptance Test Report Online][13].
 
 ## ⚖️ License
 
@@ -128,7 +183,9 @@ The MIT License (MIT). Please see [License][LIC] for more information.
 [9]: http://localhost:5013
 [10]: http://localhost:9080
 [11]: https://github.com/lg-labs/blank-service
+[13]: https://lg-labs.github.io/blank-service
 
 [LIC]: LICENSE
 
 [img1]: https://github.com/lg-labs-pentagon/lg-labs-boot-parent/assets/105936384/31c27db8-1e77-478d-a38e-7acf6ba2571c
+[img2]: sonar-results.png

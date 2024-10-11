@@ -5,6 +5,7 @@ import com.blanksystem.blank.service.domain.dto.create.CreateBlankCommand;
 import com.blanksystem.blank.service.domain.dto.create.CreateBlankResponse;
 import com.blanksystem.blank.service.domain.ports.input.service.BlankApplicationService;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -28,7 +29,9 @@ public class BlankController {
         log.info("Creating blank with id : {}", createBlankCommand.id());
         final CreateBlankResponse createBlankResponse = blankApplicationService.createBlank(createBlankCommand);
         log.info("Blank with id: {} was created", createBlankResponse.id());
-        return ResponseEntity.ok(createBlankResponse);
+        return ResponseEntity.accepted()
+                .header(HttpHeaders.LOCATION, "/blank/" + createBlankResponse.id())
+                .body(createBlankResponse);
     }
 
 }

@@ -1,5 +1,5 @@
 ### Customer Service API
-POST localhost:8185/blank
+POST localhost:8080/blank
 Content-Type: application/json
 
 {
@@ -7,7 +7,7 @@ Content-Type: application/json
 }
 > {%
     client.test("Request executed successfully", function () {
-        client.assert(response.status === 200, "Response status is not 200");
-        client.assert(response.body["message"] === "Customer saved successfully!", "Response message is not valid");
+        client.assert(response.status === 202, "Response status is not 202");
+        client.assert(response.body["message"] === "Blank saved successfully!", "Response message is not valid");
     });
 %}

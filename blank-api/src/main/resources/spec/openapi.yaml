@@ -1,41 +1,41 @@
 openapi: 3.1.0
 info:
-  title: Customer OpenAPI
+  title: Blank OpenAPI
   description: |-
-    This is a Customer Server based on the OpenAPI 3.1 specification.
+    This is a Blank Server based on the OpenAPI 3.1 specification.
 
     Some useful links:
-    - [The Customer repository](https://github.com/lg-lab/food-ordering-system/tree/main/customer-service)
-    - [The source API definition for the Customer](https://github.com/lg-lab/food-ordering-system/tree/main/customer-service/customer-application/src/main/resources/spec/openapi.yaml)
+    - [The Blank repository](https://github.com/lg-labs/blank-service)
+    - [The source API definition for the Blank](https://github.com/lg-labs/blank-service/tree/main/blank-api/src/main/resources/spec/openapi.yaml)
 
-  termsOfService: https://github.com/lg-lab/food-ordering-system
+  termsOfService: https://github.com/lg-labs/blank-service
   contact:
     email: 105936384+lglabs@users.noreply.github.com
   license:
-    name: GNU General Public License
-    url: https://github.com/lg-lab/food-ordering-system/tree/main/LICENSE
+    name: MIT License
+    url: https://github.com/lg-labs/blank-service/tree/main/LICENSE
   version: v3.0
 externalDocs:
-  description: Find out more about Order System
-  url: https://github.com/lg-lab/food-ordering-system
+  description: Find out more about Blank System
+  url: https://lg-labs.github.io/blank-service/
 servers:
   - url: http://localhost:8181
 tags:
-  - name: customer
-    description: Operations about customer
+  - name: blank
+    description: Operations about blank
     externalDocs:
-      description: Find out more about our order system
-      url: https://github.com/lg-lab/food-ordering-system
+      description: Find out more about our blank system
+      url: https://lg-labs.github.io/blank-service/
 paths:
-  /customer:
+  /blank:
     post:
       tags:
-        - customer
-      summary: Add a new customer to the order system
-      description: Add a new customer to the order system
-      operationId: addCustomer
+        - blank
+      summary: Add a new blank to the blank system
+      description: Add a new blank to the blank system
+      operationId: addBlank
       requestBody:
-        $ref: '#/components/requestBodies/Customer'
+        $ref: '#/components/requestBodies/Blank'
       responses:
         '202':
           description: Accepted
@@ -44,11 +44,11 @@ paths:
         '422':
           description: Validation exception
       security:
-        - customer_auth:
-            - write:customer
+        - blank_auth:
+            - write:blank
 components:
   schemas:
-    Customer:
+    Blank:
       type: object
       properties:
         id:
@@ -65,42 +65,42 @@ components:
           examples: [lastName]
 
   requestBodies:
-    Customer:
-      description: Customer object that needs to be added to the order system
+    Blank:
+      description: Blank object that needs to be added to the blank system
       content:
         application/json:
           schema:
-            $ref: '#/components/schemas/Customer'
+            $ref: '#/components/schemas/Blank'
           examples:
             customer1:
-              $ref: '#/components/examples/customer1'
+              $ref: '#/components/examples/blank1'
             customer2:
-              $ref: '#/components/examples/customer2'
+              $ref: '#/components/examples/blank2'
 
   examples:
-    customer1:
-      summary: An example of a Customer 1
+    blank1:
+      summary: An example of a Blank 1
       value:
         id: d215b5f8-0249-4dc5-89a3-51fd148cfb41
-        username: lgusername1
-        firstName: lgfirstName1
-        lastName: lglastName1
-    customer2:
-      summary: An example of a Customer 2
+        username: blank1
+        firstName: blank1
+        lastName: blank1
+    blank2:
+      summary: An example of a Blank 2
       value:
         id: d215b5f8-0249-4dc5-89a3-51fd148cfb42
-        username: lgusername2
-        firstName: lgfirstName2
-        lastName: lglastName2
+        username: blank2
+        firstName: blank2
+        lastName: blank2
 
   securitySchemes:
-    customer_auth:
+    blank_auth:
       type: oauth2
       flows:
         implicit:
-          authorizationUrl: https://petstore3.swagger.io/oauth/authorize
+          authorizationUrl: https://lg-labs.github.io/blank-service/
           scopes:
-            write:customer: add customer in your system
+            write:blank: add blank in your system
     api_key:
       type: apiKey
       name: api_key

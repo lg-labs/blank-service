@@ -14,7 +14,7 @@ services:
     image: provectuslabs/kafka-ui:${KAFKA_UI_VERSION}
     container_name: kafka-ui
     ports:
-      - "${KAFKA_UI_PORT}:8080"
+      - "9080:8080"
     restart: always
     environment:
       - DYNAMIC_CONFIG_ENABLED='true'

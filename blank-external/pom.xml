@@ -17,6 +17,15 @@
             <groupId>com.blanksystem</groupId>
             <artifactId>blank-application-service</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.lg5.spring</groupId>
+            <artifactId>lg5-spring-client</artifactId>
+        </dependency>
+        <!--Fixme-->
+        <dependency>
+            <groupId>org.apache.commons</groupId>
+            <artifactId>commons-lang3</artifactId>
+            <version>3.14.0</version>
+        </dependency>
     </dependencies>
-
 </project>

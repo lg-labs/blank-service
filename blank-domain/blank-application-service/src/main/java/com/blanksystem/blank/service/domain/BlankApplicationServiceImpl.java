@@ -43,6 +43,6 @@ class BlankApplicationServiceImpl implements BlankApplicationService {
         blankMessagePublisher.publish(blankCreatedEvent);
         return blankDataMapper
                 .blankToCreateBlankResponse(blankCreatedEvent.getBlank(),
-                        "Customer saved successfully!");
+                        "Blank saved successfully!");
     }
 }
