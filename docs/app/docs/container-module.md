@@ -61,21 +61,6 @@ It has two plugins prepared for build image. Only, you need to add the plugin.
         </build>
     ```
 
-## Project structure
-```markdown linenums="1" hl_lines="11"
-./
-└── com.blanksystem.blank.service.api
-   ├── exception/
-   │  └── handler/
-   │     └── BlankGlobalExceptionHandler.java
-   └── rest/
-      └── BlankController.java
-...
-└── resources/
-    └── spec/
-       └── openapi.yaml
-``` 
-
 ## Integration Test with Lg5Container
 
 You need to add the following Java classes to the test directory.
@@ -186,6 +171,45 @@ wiremock:
     url: "third.jsonplaceholder.url"
     port: 7070
 ```
+## Project structure
+```markdown linenums="1" hl_lines="11"
+ ├── main/
+ │  ├── java/
+ │  │  └── com.blanksystem.blank.service.container
+ │  │     ├── Application.java
+ │  │     └── BeanConfiguration.java
+ │  └── resources/
+ │     ├── config/
+ │     │  ├── application-local.yaml
+ │     │  ├── application.yaml
+ │     │  └── bootstrap.yml
+ │     └── logback-spring.xml
+ └── test/
+    ├── java/
+    │  └── com.blanksystem.blank.service.container
+    │     ├── api/
+    │     │  └── ...
+    │     ├── data/
+    │     │  └── ...
+    │     ├── external/
+    │     │  └── ...
+    │     ├── repository/
+    │     │  └── ...
+    │     ├── support/
+    │     │  └── ...
+    │     ├── [*]TestApplication.java
+    │     ├── [*]Bootstrap.java
+    │     └── [*]TestContainersLoader.java
+    └── resources/
+       ├── config/
+       │  └── application-test.yaml
+       └── wiremock/
+          └── third_system/
+             └── template.json
+``` 
+
+> **[*]** There are Java classes to the test directory.
+
 ## 2'DO
 
 #### Add more TestContainer custom
