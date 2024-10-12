@@ -12,9 +12,7 @@
     <artifactId>blank-container</artifactId>
 
     <properties>
-        <start-class>com.blanksystem.blank.service.container.Application</start-class>
-        <docker.from.image.platform.os>linux</docker.from.image.platform.os>
-        <docker.from.image.platform.architecture>arm64</docker.from.image.platform.architecture>
+
     </properties>
 
     <dependencies>
@@ -76,21 +74,7 @@
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
             </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <source>21</source>
-                    <target>21</target>
-                    <compilerArgs>--enable-preview</compilerArgs>
-                </configuration>
-            </plugin>
-            <!--<plugin>
-                <groupId>org.springframework.boot</groupId>
-                <artifactId>spring-boot-maven-plugin</artifactId>
-            </plugin>-->
         </plugins>
-
     </build>
     <repositories>
         <repository>
@@ -99,5 +83,4 @@
             <url>https://repo.maven.apache.org/maven2/</url>
         </repository>
     </repositories>
-
 </project>
