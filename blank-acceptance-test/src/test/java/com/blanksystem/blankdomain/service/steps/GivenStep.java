@@ -1,4 +1,4 @@
-package com.blanksystem.blankdomain.service.atdd.steps;
+package com.blanksystem.blankdomain.service.steps;
 
 import io.cucumber.java.en.Given;
 import io.cucumber.java.en.Then;

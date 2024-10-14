@@ -1,4 +1,4 @@
-package com.blanksystem.blankdomain.service.atdd;
+package com.blanksystem.blankdomain.service.boot;
 
 import io.cucumber.junit.platform.engine.Constants;
 import org.junit.jupiter.api.Test;
@@ -7,7 +7,6 @@ import org.junit.platform.suite.api.ConfigurationParameters;
 import org.junit.platform.suite.api.IncludeEngines;
 import org.junit.platform.suite.api.SelectClasspathResource;
 import org.junit.platform.suite.api.Suite;
-import org.springframework.context.annotation.Import;
 
 import java.io.File;
 
@@ -21,8 +20,7 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
                 "html:target/cucumber-reports.html"),
         @ConfigurationParameter(key = Constants.GLUE_PROPERTY_NAME, value = "com.blanksystem.blankdomain.service")
 })
-class StartAcceptanceT {
-
+class AcceptanceTestCase {
 
 
     @Test
