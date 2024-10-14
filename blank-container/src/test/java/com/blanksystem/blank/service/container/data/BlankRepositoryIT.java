@@ -1,6 +1,6 @@
 package com.blanksystem.blank.service.container.data;
 
-import com.blanksystem.blank.service.container.Bootstrap;
+import com.blanksystem.blank.service.boot.Bootstrap;
 import com.blanksystem.blank.service.data.entity.BlankEntity;
 import com.blanksystem.blank.service.data.repository.BlankJPARepository;
 import com.blanksystem.blank.service.domain.entity.Blank;

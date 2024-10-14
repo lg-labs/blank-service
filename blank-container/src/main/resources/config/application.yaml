@@ -8,8 +8,8 @@ info:
 logging:
   level:
     com.blanksystem: INFO
-    io.confluent.kafka: ERROR
-    org.apache: ERROR
+    io.confluent.kafka: INFO
+    org.apache: INFO
     feign: DEBUG
     feign.client: DEBUG
     com.netflix: DEBUG

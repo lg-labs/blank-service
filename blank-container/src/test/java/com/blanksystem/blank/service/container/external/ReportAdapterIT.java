@@ -1,6 +1,6 @@
 package com.blanksystem.blank.service.container.external;
 
-import com.blanksystem.blank.service.container.Bootstrap;
+import com.blanksystem.blank.service.boot.Bootstrap;
 import com.blanksystem.blank.service.domain.entity.Blank;
 import com.blanksystem.blank.service.domain.ports.output.repository.ReportRepository;
 import com.blanksystem.blank.service.domain.valueobject.BlankId;

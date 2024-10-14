@@ -1,5 +1,6 @@
-package com.blanksystem.blank.service.container;
+package com.blanksystem.blank.service.boot;
 
+import com.blanksystem.blank.service.container.Application;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Import;

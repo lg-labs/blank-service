@@ -12,7 +12,7 @@
     <artifactId>blank-container</artifactId>
 
     <properties>
-
+        <start-class>com.blanksystem.blank.service.container.Application</start-class>
     </properties>
 
     <dependencies>

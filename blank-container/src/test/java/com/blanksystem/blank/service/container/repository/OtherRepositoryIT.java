@@ -1,6 +1,6 @@
 package com.blanksystem.blank.service.container.repository;
 
-import com.blanksystem.blank.service.container.Bootstrap;
+import com.blanksystem.blank.service.boot.Bootstrap;
 import com.blanksystem.blank.service.domain.ports.output.repository.OtherRepository;
 import io.restassured.specification.RequestSpecification;
 import org.junit.jupiter.api.BeforeEach;

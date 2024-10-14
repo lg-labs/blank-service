@@ -1,6 +1,6 @@
 package com.blanksystem.blank.service.container.api;
 
-import com.blanksystem.blank.service.container.Bootstrap;
+import com.blanksystem.blank.service.boot.Bootstrap;
 import com.blanksystem.blank.service.container.support.TestKafkaListener;
 import com.blanksystem.blank.service.domain.dto.create.CreateBlankCommand;
 import com.blanksystem.blank.service.domain.entity.Blank;
