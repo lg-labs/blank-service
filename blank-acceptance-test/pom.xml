@@ -11,107 +11,25 @@
 
     <artifactId>blank-acceptance-test</artifactId>
 
-    <properties>
-
-        <!-- Acceptance Test-->
-        <cucumber.version>7.18.0</cucumber.version>
-        <junit-jupiter.version>5.11.0-M1</junit-jupiter.version>
-        <junit-platform-suite.version>1.11.0-M2</junit-platform-suite.version>
-        <reporting-plugin.version>7.11.0</reporting-plugin.version>
-
-    </properties>
-
-    <dependencyManagement>
-
-    </dependencyManagement>
-
     <dependencies>
         <dependency>
             <groupId>com.lg5.spring</groupId>
             <artifactId>lg5-spring-starter</artifactId>
         </dependency>
-
-        <!-- Acceptance Test-->
-        <!-- JUnit 5 -->
-        <dependency>
-            <groupId>org.junit.jupiter</groupId>
-            <artifactId>junit-jupiter</artifactId>
-            <version>${junit-jupiter.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>org.junit.platform</groupId>
-            <artifactId>junit-platform-suite</artifactId>
-            <version>${junit-platform-suite.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- Cucumber -->
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-java</artifactId>
-            <version>${cucumber.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-junit-platform-engine</artifactId>
-            <version>${cucumber.version}</version>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>io.cucumber</groupId>
-            <artifactId>cucumber-spring</artifactId>
-            <version>${cucumber.version}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- tests -->
+        <!-- Test-->
         <dependency>
             <groupId>com.lg5.spring</groupId>
             <artifactId>lg5-spring-test</artifactId>
-            <exclusions>
-                <exclusion>
-                    <groupId>com.vaadin.external.google</groupId>
-                    <artifactId>android-json</artifactId>
-                </exclusion>
-                <exclusion>
-                    <groupId>org.junit.vintage</groupId>
-                    <artifactId>junit-vintage-engine</artifactId>
-                </exclusion>
-            </exclusions>
         </dependency>
         <dependency>
             <groupId>com.lg5.spring</groupId>
             <artifactId>lg5-spring-testcontainers</artifactId>
             <scope>test</scope>
         </dependency>
-
+        <dependency>
+            <groupId>com.lg5.spring</groupId>
+            <artifactId>lg5-spring-acceptance-test</artifactId>
+            <scope>test</scope>
+        </dependency>
     </dependencies>
-    <repositories>
-        <repository>
-            <id>maven_central</id>
-            <name>Maven Central</name>
-            <url>https://repo.maven.apache.org/maven2/</url>
-        </repository>
-    </repositories>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-surefire-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-failsafe-plugin</artifactId>
-            </plugin>
-            <plugin>
-                <groupId>com.github.ferstl</groupId>
-                <artifactId>depgraph-maven-plugin</artifactId>
-                <version>4.0.3</version>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>
