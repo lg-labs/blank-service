@@ -34,7 +34,7 @@
         <!--unit test -->
         <dependency>
             <groupId>com.lg5.jvm</groupId>
-            <artifactId>lg5-jvm-test</artifactId>
+            <artifactId>lg5-jvm-unit-test</artifactId>
         </dependency>
     </dependencies>
 

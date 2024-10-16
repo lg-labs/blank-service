@@ -19,15 +19,6 @@
         <!-- Test-->
         <dependency>
             <groupId>com.lg5.spring</groupId>
-            <artifactId>lg5-spring-test</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.lg5.spring</groupId>
-            <artifactId>lg5-spring-testcontainers</artifactId>
-            <scope>test</scope>
-        </dependency>
-        <dependency>
-            <groupId>com.lg5.spring</groupId>
             <artifactId>lg5-spring-acceptance-test</artifactId>
             <scope>test</scope>
         </dependency>

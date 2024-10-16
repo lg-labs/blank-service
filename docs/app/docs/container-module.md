@@ -70,12 +70,7 @@ You need to add the following Java classes to the test directory.
     ```xml title="pom.xml" linenums="1" hl_lines="3 8"
     <dependency>
         <groupId>com.lg5.spring</groupId>
-        <artifactId>lg5-spring-test</artifactId>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>com.lg5.spring</groupId>
-        <artifactId>lg5-spring-testcontainers</artifactId>
+        <artifactId>lg5-spring-integration-test</artifactId>
         <scope>test</scope>
     </dependency>
     ```

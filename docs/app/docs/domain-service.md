@@ -164,12 +164,7 @@ _Note: Please check the [latest version][2]_
     <!-- tests -->
     <dependency>
         <groupId>com.lg5.spring</groupId>
-        <artifactId>lg5-spring-test</artifactId>
-        <scope>test</scope>
-    </dependency>
-    <dependency>
-        <groupId>com.lg5.spring</groupId>
-        <artifactId>lg5-spring-testcontainers</artifactId>
+        <artifactId>lg5-spring-integration-test</artifactId>
         <scope>test</scope>
     </dependency>
 </dependencies>
