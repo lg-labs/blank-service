@@ -79,7 +79,7 @@ You need to add the following Dependency and Java classes to your integration te
 For more details, read more about [Hexagonal Architecture(Spanish)][1].
 
 Dependencies:   
->   _Lg5 try to simplify for use menus dependencies but the power same._ 👌
+>   _Lg5 tries to simplify dependencies but the power is the same._ 👌
 
 ```xml title="container-module(pom.xml)" linenums="1" hl_lines="3 8"
 <dependency>
@@ -239,10 +239,10 @@ wiremock:
 
 ## 2'DO
 
-#### Add more TestContainer custom
-  * AWS Services(S3, SQS, SNS...)
-  * sftp
-  * third services
+- [ ] **Add more Testcontainers custom:**
+    * AWS Services(S3, SQS, SNS...)
+    * sftp
+    * third services
 
 [1]: https://arc.net/l/quote/jkzommbu
 [2]: https://arc.net/l/quote/ryfweuos
