@@ -1,101 +1,124 @@
 # Container Module
-Part I.
 
-- Main Application
-- Create Beans(e.g: Domain Service)
-- Configurations
-- Properties
+!!! abstract inline end ""
+    - Main Application
+    - Create Beans(e.g.: Domain Service)
+    - Configurations
+    - Properties.
 
-## Dependencies
-```xml title="pom.xml" linenums="1" hl_lines="4 9"
+This module has control over the service and injects different packages before building the app, Good Look!
+It is straightforward and has a single responsibility (S of SOLID) 😎.
+One thing more, You need to create a dependency injection for your domain service;
+this modulo should be to isolate any framework with domain module(D of SOLID).
+
+
+
+## Principal Dependencies
+```xml title="container-module(pom.xml)" linenums="1" hl_lines="4"
+<dependencies>
+    <dependency>
+        <groupId>com.lg5.spring</groupId>
+        <artifactId>lg5-spring-starter</artifactId>
+    </dependency>
+</dependencies>
+``` 
+## Your modules as dependency
+For this case, you have an app with the follows modules, for instance:  
+
+!!! info inline "Modules"
+    - blank-application-service
+    - blank-api
+    - blank-data-access
+    - blank-message-core
+    - blank-external
+
+```xml title="container-module(pom.xml)" linenums="1" hl_lines="4 9"
 <dependencies>
     <dependency>
         <groupId>com.blanksystem</groupId>
         <artifactId>blank-application-service</artifactId>
     </dependency>
-    <!--lg5 dependencies-->
-    <dependency>
-        <groupId>com.lg5.spring</groupId>
-        <artifactId>lg5-spring-api-rest</artifactId>
-    </dependency>
+    <!--add all modules as api, data-access..etc..-->
 </dependencies>
 ```
 
+
 ## Plugins to build docker image 
 
-It has two plugins prepared for build image. Only, you need to add the plugin.
+Using jib plugins prepared for build image. Only, you need to add the plugin.
 
 !!! tip 
 
     The image name is `com.blanksystem/blank-service:1.0.0-alpha`   
     Given from maven **parent module** as `groupId/artifactId:version`  
     Also -> `com.[system]/[domain]-service:[current_version]`
+```xml title="container-module(pom.xml)" linenums="1" hl_lines="2 9"
+    <properties>
+        <docker.from.image.platform.architecture>arm64</docker.from.image.platform.architecture>
+        <docker.from.image.platform.os>linux</docker.from.image.platform.os>
+    </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
+```
 
-=== "Using Jib Plugin"
 
-    ```xml title="pom.xml" linenums="1" hl_lines="2 9"
-        <properties>
-            <docker.from.image.platform.architecture>arm64</docker.from.image.platform.architecture>
-            <docker.from.image.platform.os>linux</docker.from.image.platform.os>
-        </properties>
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>com.google.cloud.tools</groupId>
-                    <artifactId>jib-maven-plugin</artifactId>
-                </plugin>
-            </plugins>
-        </build>
-    ```
+As a final result, you'll have a docker image `com.blanksystem/blank-service:1.0.0-alpha`. By default, for Arch AMD. 
+Also, you can build docker image to **Arch AMD** using make build_to_amd, or **Arch Linux ARM** using `make build_to_arm`.
 
-=== "Using spring-boot-maven-plugin"
-
-    ```xml title="pom.xml" linenums="1" hl_lines="5"
-        <build>
-            <plugins>
-                <plugin>
-                    <groupId>org.springframework.boot</groupId>
-                    <artifactId>spring-boot-maven-plugin</artifactId>
-                </plugin>
-            </plugins>
-        </build>
-    ```
+_----Experimental to AMD----_
 
 ## Integration Test with Lg5Container
 
-You need to add the following Java classes to the test directory.
+You need to add the following Dependency and Java classes to your integration test(IT). _Recommendation(optional)_: Remember to create IT in this module for infrastructure components such as input and output ports.
+For more details, read more about [Hexagonal Architecture(Spanish)][1].
 
-=== "Dependencies"
+Dependencies:   
+>   _Lg5 try to simplify for use menus dependencies but the power same._ 👌
 
-    ```xml title="pom.xml" linenums="1" hl_lines="3 8"
-    <dependency>
-        <groupId>com.lg5.spring</groupId>
-        <artifactId>lg5-spring-integration-test</artifactId>
-        <scope>test</scope>
-    </dependency>
-    ```
-
+```xml title="container-module(pom.xml)" linenums="1" hl_lines="3 8"
+<dependency>
+    <groupId>com.lg5.spring</groupId>
+    <artifactId>lg5-spring-integration-test</artifactId>
+    <scope>test</scope>
+</dependency>
+```
+It is recommended to create the following  `boot/` directory on your test directory.
+```markdown  hl_lines="4"
+ └── test/
+    ├── java/
+    │  └── com.[blanksystem].[blank].service.container
+    │     ├── boot/
+    │     │  └── Bootstrap.java
+    │     │  └── TestContainersLoader.java
+    │     │  └── TestOrderServiceApplication.java
+```
 === "TestContainers Loader"
 
     ```java title="TestContainersLoader.java" linenums="1" hl_lines="6"
-    import com.lg5.spring.testcontainer.container.DataBaseContainerCustomConfig;
-    import com.lg5.spring.testcontainer.container.KafkaContainerCustomConfig;
-    import com.lg5.spring.testcontainer.container.WiremockContainerCustomConfig;
+    import com.lg5.spring.testcontainer.config.KafkaContainerCustomConfig;
+    import com.lg5.spring.testcontainer.config.PostgresContainerCustomConfig;
+    import com.lg5.spring.testcontainer.config.WiremockContainerCustomConfig;
     import org.springframework.context.annotation.Import;
     
     @Import({
-        DataBaseContainerCustomConfig.class,
+        PostgresContainerCustomConfig.class,
         KafkaContainerCustomConfig.class,
-        WiremockContainerCustomConfig.class
+        WiremockContainerCustomConfig.class,
     })
     public final class TestContainersLoader {
     }
     ```
 
 === "Bootstrap"
-    _For create a Bootstrap class has two superclasses:     
-    — If the APP expose any port as `:8080`, so you must extend of `Lg5TestBoot` class            
-    — Else, extend of `Lg5TestBootPortNone` class_
+    >   _For create a Bootstrap class has two superclasses:     
+    >   — If the APP expose any port as `:8080`, so you must extend of `Lg5TestBoot` class            
+    >   — Else, extend of `Lg5TestBootPortNone` class_
 
       ```java title="Bootstrap.java" linenums="1" hl_lines="5"
       import com.lg5.spring.testcontainer.boot.Lg5TestBoot;
@@ -107,8 +130,13 @@ You need to add the following Java classes to the test directory.
       ```
 
 === "TestApplication(Optional)"
+    > Testcontainers during the development time or run the app locally, from Spring Boot `3.1.0` this is possible.
+    > Avoid Docker configuration extras like Dockerfiles and others.    
+    > all in one click on this class, and you are ready to use the application. 
 
-    ```java title="TestApplication.java" linenums="1" hl_lines="10 11"
+    🚨 DO NOT USE FOR PRODUCTION OR LIVING ENVIRONMENTS.
+
+    ```java title="TestApplication.java" linenums="1" hl_lines="6 10 11"
     import org.springframework.boot.SpringApplication;
     import org.springframework.boot.test.context.TestConfiguration;
     import org.springframework.context.annotation.Import;
@@ -125,11 +153,14 @@ You need to add the following Java classes to the test directory.
 
     }
     ```
-The TestContainer CustomConfig already to use:  
+Some TestContainer CustomConfig already to use:  
 
-* DataBaseContainerCustomConfig
+* PostgresContainerCustomConfig
 * KafkaContainerCustomConfig
 * WiremockContainerCustomConfig
+* WireMockGuiContainerCustomConfig
+
+Read more at [Lg5Spring Wiki][2]. 
 
 !!! tip "When do you like to use some TestContainer"
 
@@ -144,7 +175,7 @@ The TestContainer CustomConfig already to use:
             * Specify third system url `${wiremock.config.url}`.        
             * Indicate a port binding to connect: `${wiremock.config.port}`.       
             * Directory where stored the mock req/res http `${wiremock.config.folder}`.     
-For instance at Wiremock Container:
+For instance, in Wiremock Container:
 ```yaml title="application.yaml" hl_lines="1 2 3 12 18"
 third:
   jsonplaceholder:
@@ -182,6 +213,10 @@ wiremock:
  └── test/
     ├── java/
     │  └── com.blanksystem.blank.service.container
+    │     ├── boot/
+    │     │  └── [*] Bootstrap.java
+    │     │  └── [*] TestContainersLoader.java
+    │     │  └── [*] TestOrderServiceApplication.java
     │     ├── api/
     │     │  └── ...
     │     ├── data/
@@ -190,11 +225,8 @@ wiremock:
     │     │  └── ...
     │     ├── repository/
     │     │  └── ...
-    │     ├── support/
-    │     │  └── ...
-    │     ├── [*]TestApplication.java
-    │     ├── [*]Bootstrap.java
-    │     └── [*]TestContainersLoader.java
+    │     └── support/
+    │        └── ...
     └── resources/
        ├── config/
        │  └── application-test.yaml
@@ -208,6 +240,9 @@ wiremock:
 ## 2'DO
 
 #### Add more TestContainer custom
-  * AWS Services(S3)
+  * AWS Services(S3, SQS, SNS...)
   * sftp
-  * more third services.
+  * third services
+
+[1]: https://arc.net/l/quote/jkzommbu
+[2]: https://arc.net/l/quote/ryfweuos
