@@ -1,4 +1,4 @@
-## Define Principal Module
+## Define Principal Module or Parent Module
 
 > Using Lg5 Spring Framework `1.0.0-alpha`, JDK 21  
 > [More details][1]
@@ -41,7 +41,7 @@ _Note: Please check the [latest version][2]_
 ```xml title="pom.xml" linenums="1" hl_lines="3"
 <dependency>
     <groupId>com.lg5.spring</groupId>
-    <artifactId>lg5-spring-atdd</artifactId>
+    <artifactId>lg5-spring-integration-test</artifactId>
 </dependency> 
 ```
 
@@ -92,11 +92,7 @@ _Note: Please check the [latest version][2]_
         <groupId>com.lg5.spring.outbox</groupId>
         <artifactId>lg5-spring-outbox</artifactId>
     </dependency>
-                <groupId>com.lg5.spring.kafka</groupId>
-                <artifactId>lg5-spring-kafka-producer</artifactId>
-            </dependency>
-        ...
-        </dependencies>
+</dependencies>
 ```
 
 ## [Message Module](message-module.md)
@@ -107,6 +103,9 @@ _Note: Please check the [latest version][2]_
         <dependencies>
             <!-- if you need to produce events-->
             <dependency>
+                <groupId>com.lg5.spring.kafka</groupId>
+                <artifactId>lg5-spring-kafka-producer</artifactId>
+            </dependency>
             <!-- if you need to consume events-->
             <dependency>
                 <groupId>com.lg5.spring.kafka</groupId>
@@ -130,13 +129,13 @@ _Note: Please check the [latest version][2]_
 
 ## [External Module](external-module.md)
 ```xml title="pom.xml" linenums="1" hl_lines="4"
-<dependencies>
-    <dependency>
-        <groupId>com.lg5.spring</groupId>
-        <artifactId>lg5-spring-client</artifactId>
-    </dependency>
-    ...
-</dependencies>
+    <dependencies>
+        <dependency>
+            <groupId>com.lg5.spring</groupId>
+            <artifactId>lg5-spring-client</artifactId>
+        </dependency>
+        ...
+    </dependencies>
 ```
 
 ## [API Module](api-module.md)
