@@ -1,4 +1,4 @@
-package com.blanksystem.blankdomain.service.boot;
+package com.blanksystem.blank.service.boot;
 
 import com.lg5.spring.testcontainer.config.KafkaContainerCustomConfig;
 import com.lg5.spring.testcontainer.config.PostgresContainerCustomConfig;

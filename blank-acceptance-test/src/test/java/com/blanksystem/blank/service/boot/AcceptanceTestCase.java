@@ -1,4 +1,4 @@
-package com.blanksystem.blankdomain.service.boot;
+package com.blanksystem.blank.service.boot;
 
 import io.cucumber.junit.platform.engine.Constants;
 import org.junit.jupiter.api.Test;
@@ -16,12 +16,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 @IncludeEngines("cucumber")
 @SelectClasspathResource("features")
 @ConfigurationParameters({
-        @ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME, value = "pretty, json:target/cucumber.json, " +
-                "html:target/cucumber-reports.html"),
-        @ConfigurationParameter(key = Constants.GLUE_PROPERTY_NAME, value = "com.blanksystem.blankdomain.service")
+        @ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME, value = "pretty, json:target/atdd-reports/cucumber.json, " +
+                "html:target/atdd-reports/cucumber-reports.html"),
+        @ConfigurationParameter(key = Constants.GLUE_PROPERTY_NAME, value = "com.blanksystem.blank.service")
 })
 class AcceptanceTestCase {
-
 
     @Test
     void test() {

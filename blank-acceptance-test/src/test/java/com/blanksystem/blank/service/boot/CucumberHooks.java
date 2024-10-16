@@ -1,6 +1,4 @@
-package com.blanksystem.blankdomain.service.boot;
-
-
+package com.blanksystem.blank.service.boot;
 
 import com.lg5.spring.integration.test.boot.Lg5TestBootPortNone;
 import io.cucumber.spring.CucumberContextConfiguration;

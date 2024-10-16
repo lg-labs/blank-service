@@ -1,4 +1,4 @@
-package com.blanksystem.blankdomain.service;
+package com.blanksystem.blank.service;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
