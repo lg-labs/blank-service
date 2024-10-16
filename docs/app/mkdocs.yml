@@ -2,7 +2,6 @@ site_name: Blank Service
 
 site_dir: site
 site_author: Luis Fernando García
-# Copyright
 copyright: Copyright &copy; 2016 - 2024 Luis Fernando García Q.
 
 theme:
@@ -13,28 +12,28 @@ theme:
     - content.action.view
     - content.code.annotate
     - content.code.copy
-    # - content.code.select
-    # - content.footnote.tooltips
-    # - content.tabs.link
+    - content.code.select
+    - content.footnote.tooltips
+    - content.tabs.link
     - content.tooltips
-    # - header.autohide
-    # - navigation.expand
+    - header.autohide
+    - navigation.expand
     - navigation.footer
     - navigation.indexes
-    # - navigation.instant
-    # - navigation.instant.prefetch
-    # - navigation.instant.progress
-    # - navigation.prune
+    - navigation.instant
+    - navigation.instant.prefetch
+    - navigation.instant.progress
+    - navigation.prune
     - navigation.sections
     - navigation.tabs
-    # - navigation.tabs.sticky
+    - navigation.tabs.sticky
     - navigation.top
     - navigation.tracking
     - search.highlight
     - search.share
     - search.suggest
     - toc.follow
-  # - toc.integrate
+    - toc.integrate
   palette:
     - media: "(prefers-color-scheme)"
       toggle:
@@ -61,7 +60,6 @@ theme:
   icon:
     logo: logo
 
-  # Plugins
   plugins:
     - blog
     - search:
@@ -142,11 +140,11 @@ markdown_extensions:
 nav:
   - Home: index.md
   - Getting started: domain-service.md
+  - ATDD Module: atdd-module.md
   - Domain Core Module: domain-core-module.md
   - Domain App Module: domain-app-module.md
+  - Container Module: container-module.md
+  - API Module: api-module.md
   - Data Module: data-module.md
   - Message Module: message-module.md
   - External Module: external-module.md
-  - Container Module: container-module.md
-  - API Module: api-module.md
-  - ATDD Module: atdd-module.md
