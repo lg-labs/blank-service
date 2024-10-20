@@ -75,7 +75,7 @@ _----Experimental to AMD----_
 
 ## Integration Test with Lg5Container
 
-You need to add the following Dependency and Java classes to your integration test(IT). _Recommendation(optional)_: Remember to create IT in this module for infrastructure components such as input and output ports.
+You need to add the following Dependency and Java classes to your integration test (IT). _Recommendation(optional)_: Remember to create IT in this module for infrastructure components such as input and output ports.
 For more details, read more about [Hexagonal Architecture(Spanish)][1].
 
 Dependencies:   
@@ -236,6 +236,22 @@ wiremock:
 ``` 
 
 > **[*]** There are Java classes to the test directory.
+
+## Logger & ELK
+This project is prepared to send log files and process visualization with filebeat.
+You can specify the directory for stored the *.log files. Now, genera two file logs.
+
+> Simple log
+>* `[log.path]/[application_name]-simple.log`
+>
+> Complex log
+>* `    [log.path]/[application_name]-complex.log`
+>
+- Specify the directory with `log.path` property.
+
+**_Simple_**: `Simple details about application logs.`
+**_Complex_**:  `More details about application logs.` 
+
 
 ## 2'DO
 

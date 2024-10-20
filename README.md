@@ -164,7 +164,7 @@ You can specify the directory for stored the *.log files. Now, genera two file l
 
 > 🥒 Run an Acceptance Test
 >```bash
->make run-at-spec TEST_NAME=StartAcceptanceT
+>make run-at-spec TEST_NAME=AcceptanceTestCase
 >```
 >Details: `make run-at-spec TEST_NAME=[TestNameAcceptanceT]`
 

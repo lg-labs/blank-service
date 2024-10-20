@@ -3,6 +3,10 @@
 > Using Lg5 Spring Framework `1.0.0-alpha`, JDK 21  
 > [More details][1]
 
+## Dependencies diagram
+![][ima_1]
+
+## Parent Module
 ```xml title="pom.xml" linenums="1" hl_lines="4 10"
 <project>
     <modelVersion>4.0.0</modelVersion>
@@ -193,3 +197,5 @@ _Note: Please check the [latest version][2]_
 
 [1]: https://lg-labs-pentagon.github.io/lg5-spring/
 [2]: https://github.com/lg-labs-pentagon/lg5-spring/packages/2125499
+
+[ima_1]: img/dependency-graph.png

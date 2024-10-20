@@ -35,6 +35,7 @@
         <dependency>
             <groupId>com.lg5.jvm</groupId>
             <artifactId>lg5-jvm-unit-test</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

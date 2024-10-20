@@ -1,0 +1,28 @@
+version: '3.9'
+services:
+  cmak:
+    image: ghcr.io/eshepelyuk/dckr/cmak-3.0.0.5:latest
+    restart: always
+    ports:
+      - "9090:9000"
+    environment:
+      ZK_HOSTS: "zookeeper:2181"
+    networks:
+      - ${GLOBAL_NETWORK:-kafka}
+
+  kafka-ui:
+    image: provectuslabs/kafka-ui:${KAFKA_UI_VERSION}
+    container_name: kafka-ui
+    ports:
+      - "9080:8080"
+    restart: always
+    environment:
+      - DYNAMIC_CONFIG_ENABLED='true'
+      - KAFKA_CLUSTERS_0_NAME=local
+      - KAFKA_CLUSTERS_0_BOOTSTRAPSERVERS=kafka-broker-1:9092,kafka-broker-2:9092,kafka-broker-3:9092
+      - KAFKA_CLUSTERS_0_METRICS_PORT= 9997
+      - KAFKA_CLUSTERS_0_SCHEMAREGISTRY=http://schema-registry:8081
+      - KAFKA_CLUSTERS_0_AUDIT_TOPICAUDITENABLED=true
+      - KAFKA_CLUSTERS_0_AUDIT_CONSOLEAUDITENABLED=true
+    networks:
+      - ${GLOBAL_NETWORK:-kafka}

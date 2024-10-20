@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.lg5.spring</groupId>
         <artifactId>lg5-spring-parent</artifactId>
-        <version>1.0.0-alpha.d84eeb6</version>
+        <version>1.0.0-alpha.3647772</version>
         <relativePath/>
     </parent>
 
@@ -24,8 +24,8 @@
         <module>blank-external</module>
         <module>blank-message</module>
         <module>blank-acceptance-test</module>
+        <module>blank-report</module>
     </modules>
-
 
     <dependencyManagement>
         <dependencies>
@@ -64,7 +64,11 @@
                 <artifactId>blank-message-model</artifactId>
                 <version>${project.version}</version>
             </dependency>
+            <dependency>
+                <groupId>com.blanksystem</groupId>
+                <artifactId>blank-container</artifactId>
+                <version>${project.version}</version>
+            </dependency>
         </dependencies>
     </dependencyManagement>
-
 </project>

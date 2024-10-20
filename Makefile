@@ -25,7 +25,7 @@ run-integration-test: install-skip-test-jib
 	mvn failsafe:integration-test failsafe:verify -Dit.test="**/*IT.java" -Dfailsafe.failIfNoSpecifiedTests=false
 
 run-acceptance-test: install-skip-test
-	mvn failsafe:integration-test failsafe:verify -Dit.test="**/*AcceptanceT.java" -Dfailsafe.failIfNoSpecifiedTests=false
+	mvn failsafe:integration-test failsafe:verify -Dit.test="**/*AcceptanceT*.java" -Dfailsafe.failIfNoSpecifiedTests=false
 
 run-test-spec-base:
 	mvn failsafe:integration-test failsafe:verify -Dit.test=${TEST_NAME} -Dfailsafe.failIfNoSpecifiedTests=false
@@ -95,6 +95,6 @@ run-avro-model:
 	mvn -pl ${AVRO_MODEL} clean install
 
 APP = blank-container
-INFRA = blank-container/src/test/resources/docker
+INFRA = blank-report/docker
 AVRO_MODEL = blank-message/blank-message-model
 
