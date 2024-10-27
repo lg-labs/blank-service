@@ -24,8 +24,10 @@ run-unit-test: clean
 run-integration-test: install-skip-test-jib
 	mvn failsafe:integration-test failsafe:verify -Dit.test="**/*IT.java" -Dfailsafe.failIfNoSpecifiedTests=false
 
-run-acceptance-test: install-skip-test
+run-acceptance-test-alone:
 	mvn failsafe:integration-test failsafe:verify -Dit.test="**/*AcceptanceT*.java" -Dfailsafe.failIfNoSpecifiedTests=false
+
+run-acceptance-test: install-skip-test run-acceptance-test-alone
 
 run-test-spec-base:
 	mvn failsafe:integration-test failsafe:verify -Dit.test=${TEST_NAME} -Dfailsafe.failIfNoSpecifiedTests=false
@@ -71,6 +73,8 @@ ddbb-up:
 	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/postgres-ddbb.yml up -d
 spec-ui-up:
 	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-ui.yml up -d
+
+# DOCS GENERATOR 
 spec-generator-up:
 	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml up -d
 graph-generator-up:
