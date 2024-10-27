@@ -157,6 +157,13 @@ jobs:
         run: ls -al ./target
       - name: Show docker image
         run: docker image list | grep com.
+      - name: Save Docker image
+        run: docker save -o blank-service-image.tar com.blanksystem/blank-service:1.0.0-alpha
+      - name: Upload Docker image as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docker-image
+          path: blank-service-image.tar
       - name: Upload dependency-graph.png as artifact
         uses: actions/upload-artifact@v4
         with:
@@ -182,6 +189,15 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
+      - name: Download Docker image artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docker-image
+          path: .
+      - name: Load Docker image
+        run: docker load -i my-docker-image.tar
+      - name: Show docker image
+        run: docker image list | grep com.
       - name: Run acceptance tests using Makefile
         run: make run-acceptance-test
       - name: List files in target directory
