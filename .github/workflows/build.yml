@@ -20,6 +20,8 @@ jobs:
         with:
           java-version: 21
           distribution: 'zulu' # Alternative distribution options are available.
+      - name: Install Graphviz
+        run: sudo apt-get update && sudo apt-get install -y graphviz
       - name: Configure Maven settings.xml
         env:
           GITHUB_USERNAME: ${{ github.actor }}
