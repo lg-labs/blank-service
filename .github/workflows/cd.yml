@@ -20,7 +20,11 @@ jobs:
       - name: Download Cucumber Report
         uses: actions/download-artifact@v4
         with:
+          github-token: ${{ secrets.GITHUB_TOKEN }} 
           name: cucumber-report
+          repository: ${{ github.repository }}
+      - name: Display structure of downloaded files
+        run: ls -R
       - name: List files in target directory
         run: ls -al ./
         
