@@ -16,6 +16,28 @@
             <groupId>com.lg5.spring</groupId>
             <artifactId>lg5-spring-starter</artifactId>
         </dependency>
+
+        <!-- if you need to connect a database-->
+        <dependency>
+            <groupId>com.lg5.spring</groupId>
+            <artifactId>lg5-spring-data-jpa</artifactId>
+        </dependency>
+        <!-- if you need to generate models-->
+        <dependency>
+            <groupId>com.lg5.spring.kafka</groupId>
+            <artifactId>lg5-spring-kafka-model</artifactId>
+        </dependency>
+        <!-- if you need to produce events-->
+        <dependency>
+            <groupId>com.lg5.spring.kafka</groupId>
+            <artifactId>lg5-spring-kafka-producer</artifactId>
+        </dependency>
+        <!-- if you need to consume events-->
+        <dependency>
+            <groupId>com.lg5.spring.kafka</groupId>
+            <artifactId>lg5-spring-kafka-consumer</artifactId>
+        </dependency>
+
         <!-- Test-->
         <dependency>
             <groupId>com.lg5.spring</groupId>
@@ -23,4 +45,12 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.avro</groupId>
+                <artifactId>avro-maven-plugin</artifactId>
+            </plugin>
+        </plugins>
+    </build>
 </project>

@@ -7,12 +7,12 @@ these port.
 
 ```mermaid
 flowchart LR
-   subgraph application service
-       output_port
-   end
-   subgraph messaging module
-     secondary_adapter
-   end
+    subgraph application service
+        output_port
+    end
+    subgraph messaging module
+        secondary_adapter
+    end
     output_port --> secondary_adapter
 ```
 

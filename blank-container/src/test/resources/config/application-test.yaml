@@ -65,7 +65,7 @@ kafka-producer-config:
   batch-size-boost-factor: 100
   linger-ms: 5
   request-timeout-ms: 60000
-  retry-count:  5
+  retry-count: 5
 
 kafka-consumer-config:
   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer
@@ -112,5 +112,10 @@ docker:
   container:
     reuse: false
 
+testcontainers:
+  kafka:
+    enabled: true
+  postgres:
+    enabled: true
 role:
   environment: TEST

@@ -6,8 +6,8 @@ import org.springframework.context.annotation.Configuration;
 
 @Data
 @Configuration
-@ConfigurationProperties(prefix = "blanksystem.blank.service")
+@ConfigurationProperties(prefix = "blanksystem.blank.events.journal.blank")
 public class BlankServiceConfigData {
-    private String blankTopicName;
+    private String topic;
 
 }

@@ -3,21 +3,15 @@ package com.blanksystem.blank.service.message.mapper;
 
 import com.blanksystem.blank.service.domain.dto.message.BlankModel;
 import com.blanksystem.blank.service.domain.event.BlankEvent;
-import com.blanksystem.message.model.avro.BlankAvroModel;
-import org.springframework.stereotype.Component;
+import com.blanksystem.blank.service.message.model.avro.BlankAvroModel;
+import org.mapstruct.Mapper;
+import org.mapstruct.Mapping;
 
-@Component
-public class BlankMessagingDataMapper {
+@Mapper(componentModel = "spring")
+public interface BlankMessagingDataMapper {
 
-    public BlankAvroModel customerCreatedEventToCustomerRequestAvroModel(BlankEvent blankEvent) {
-        return BlankAvroModel.newBuilder()
-                .setId(blankEvent.getBlank().getId().getValue().toString())
-                .build();
-    }
+    @Mapping(target = "id", source = "blankEvent.blank.id.value")
+    BlankAvroModel customerCreatedEventToCustomerRequestAvroModel(BlankEvent blankEvent);
 
-    public BlankModel blankAvroModelToBlankModel(BlankAvroModel blankAvroModel) {
-        return BlankModel.builder()
-                .id(blankAvroModel.getId())
-                .build();
-    }
+    BlankModel blankAvroModelToBlankModel(BlankAvroModel blankAvroModel);
 }

@@ -8,12 +8,13 @@ import com.blanksystem.blank.service.domain.ports.output.repository.BlankReposit
 import com.blanksystem.blank.service.domain.valueobject.BlankId;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.orm.jpa.JpaSystemException;
 
 import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 
 class BlankRepositoryIT extends Bootstrap {
@@ -37,7 +38,6 @@ class BlankRepositoryIT extends Bootstrap {
         final var blankReceived = blankRepository.createBlank(blank);
 
         // then
-        assertFalse(false);
         assertNotNull(blankReceived);
         assertEquals(blankReceived, blank);
     }
@@ -45,13 +45,10 @@ class BlankRepositoryIT extends Bootstrap {
     @Test
     void it_should_save_a_blank_into_repository2() {
         //given
-
+        final BlankEntity blank = new BlankEntity(null);
 
         // when
-        BlankEntity blank = new BlankEntity(UUID.randomUUID());
-        final var blankReceived = blankJPARepository.save(blank);
+        assertThrows(JpaSystemException.class, () -> blankJPARepository.save(blank));
 
-        // then
-        assertFalse(false);
     }
 }

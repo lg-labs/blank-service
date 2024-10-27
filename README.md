@@ -1,4 +1,5 @@
 # 🛠️ Blank μ-service with Hex Arch, DDD, SAGA, Outbox&Kafka
+
 [![lg-labs][0]][1]
 [![License][2]][LIC]
 
@@ -21,7 +22,6 @@ For full documentation visit the [Wiki][11].
 
 [More details][12] and [Repository][4].
 
-
 ## 🚀 Build project
 
 Install 1/1: Setup JDK 21.
@@ -35,6 +35,7 @@ Install 1/2: Install the dependencies in your project.
 ```bash
 mvn clean install 
 ```
+
 ## 🚀 Deploy with K8s
 
 Use the infra repository [blank-infra][8] to deploy with **K8s**
@@ -46,21 +47,21 @@ Use the infra repository [blank-infra][8] to deploy with **K8s**
 * [blank-container](blank-container)
 * [blank-data-access](blank-data-access)
 * [blank-domain](blank-domain)
-  * [blank-domain-core](blank-domain%2Fblank-domain-core)
-  * [blank-application-service](blank-domain%2Fblank-application-service)
+    * [blank-domain-core](blank-domain%2Fblank-domain-core)
+    * [blank-application-service](blank-domain%2Fblank-application-service)
 * [blank-external](blank-external)
 * [blank-message](blank-message)
-  * [blank-message-core](blank-message%2Fblank-message-core)
-  * [blank-message-model](blank-message%2Fblank-message-model)
-
-
+    * [blank-message-core](blank-message%2Fblank-message-core)
+    * [blank-message-model](blank-message%2Fblank-message-model)
 
 ## 🚀 Run locally
 
 ### You can ...
+
 Using `makefile`
 
 ### Start with infrastructure
+
 😀 To **start** the Kafka Cluster and Postgres.
 
 ```shell
@@ -68,11 +69,13 @@ make docker-up
 ```
 
 ⛔️ To the Kafka Cluster and Postgres **stop** or **destroy**:
+
 ```shell
 make docker-down
 ```
 
 ### Run APP
+
 😀 To **start** the blank Service.
 
 ```shell
@@ -80,49 +83,59 @@ make run-app
 ```
 
 ### blank API `1.0.0-alpha`
+
 > 👋  **[blank API, Port:8181][5]**
 >
 > Username: `None`  
 > Password: `None`
 
 ### Database UI
+
 > 👋  **[PgAdmin, Port:5013][9]**
 >
 > Username: `blanksystem@db.com`  
 > Password: `blanksystem-db`
 
 ### Kafka UI
+
 > 👋  **[Kafka UI, Port:9080][10]**
 >
 > Username: `None`  
 > Password: `None`
 >
+
 # Contracts
 
 1. [Open API][6]
 2. [Async API][7]
 
 ## AVRO MODELS from Avro Model definition
+
 > If you add a new Avro model, REMEMBER execute avro model again.
+
 ```shell
 make run-avro-model
 ```
+
 ## Logger & ELK
+
 This project is prepared to send log files and process visualization with filebeat.
 You can specify the directory for stored the *.log files. Now, genera two file logs.
 
 > Simple log
 >* [log.path]/[application_name]-simple.log
-> 
+>
 > Complex log
 >* [log.path]/[application_name]-complex.log
 >
+
 - Specify the directory with `log.path` property.
 
 **_Simple_**: `Simple details about application logs.`
 **_Complex_**:  `More details about application logs.`
 
 ## 🧪 Testing Project
+
 ![Sonar Results][img2]
 
 > **✅ Checkstyle 1/4:** configuration that checks the Google coding conventions from Google Java Style.
@@ -131,23 +144,24 @@ You can specify the directory for stored the *.log files. Now, genera two file l
 > make run-checkstyle 
 > ```
 
->**🧪 Running Unit Test 2/4:** Using JUnit 5.
+> **🧪 Running Unit Test 2/4:** Using JUnit 5.
 >
 >```bash
 >make run-unit-test 
 >```
 
->**🌾 Running Integration Test 3/4:** Using Test Containers, JUnit 5 and Rest-Assured.
+> **🌾 Running Integration Test 3/4:** Using Test Containers, JUnit 5 and Rest-Assured.
 >
 >```bash
 >make run-integration-test 
 >```
 
->**🥒Running Acceptance Test 4/4:** Using Cucumber, Test Containers, JUnit 5 and Rest-Assured.
+> **🥒Running Acceptance Test 4/4:** Using Cucumber, Test Containers, JUnit 5 and Rest-Assured.
 >
 >```bash
 >make run-acceptance-test
 >```
+
 ### Interaction with tests one-to-one
 
 > 🧪 Run a Unit Test
@@ -185,21 +199,33 @@ The MIT License (MIT). Please see [License][LIC] for more information.
 
 
 [0]: https://img.shields.io/badge/LgLabs-community-blue?style=flat-square
+
 [1]: https://lufgarciaqu.medium.com
+
 [2]: https://img.shields.io/badge/license-MIT-green?style=flat-square
+
 [4]: https://github.com/lg-labs-pentagon/lg5-spring
 
 [5]: http://localhost:8181
+
 [6]: blank-api/src/main/resources/spec/openapi.yaml
+
 [7]: blank-message/blank-message-model/src/main/resources/spec/asyncapi.yaml
+
 [8]: https://github.com/lg-labs/blank-infra
+
 [9]: http://localhost:5013
+
 [10]: http://localhost:9080
+
 [11]: https://lg-labs.github.io/blank-service
+
 [12]: https://lg-labs-pentagon.github.io/lg5-spring/
+
 [13]: https://lg-labs.github.io/blank-service
 
 [LIC]: LICENSE
 
 [img1]: https://github.com/lg-labs-pentagon/lg-labs-boot-parent/assets/105936384/31c27db8-1e77-478d-a38e-7acf6ba2571c
+
 [img2]: sonar-results.png

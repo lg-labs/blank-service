@@ -21,11 +21,9 @@
             <groupId>com.lg5.spring</groupId>
             <artifactId>lg5-spring-client</artifactId>
         </dependency>
-        <!--Fixme-->
         <dependency>
-            <groupId>org.apache.commons</groupId>
-            <artifactId>commons-lang3</artifactId>
-            <version>3.14.0</version>
+            <groupId>com.lg5.jvm</groupId>
+            <artifactId>lg5-jvm-unit-test</artifactId>
         </dependency>
     </dependencies>
 </project>

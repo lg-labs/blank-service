@@ -4,7 +4,7 @@ package com.blanksystem.blank.service.message.listener.kafka;
 import com.blanksystem.blank.service.domain.exception.BlankApplicationServiceException;
 import com.blanksystem.blank.service.domain.ports.input.message.listener.blank.BlankMessageListener;
 import com.blanksystem.blank.service.message.mapper.BlankMessagingDataMapper;
-import com.blanksystem.message.model.avro.BlankAvroModel;
+import com.blanksystem.blank.service.message.model.avro.BlankAvroModel;
 import com.lg5.spring.kafka.consumer.KafkaConsumer;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.kafka.annotation.KafkaListener;

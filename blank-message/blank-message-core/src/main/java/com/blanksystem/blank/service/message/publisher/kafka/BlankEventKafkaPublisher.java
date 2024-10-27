@@ -7,7 +7,7 @@ import com.blanksystem.blank.service.domain.event.BlankCreatedEvent;
 import com.blanksystem.blank.service.domain.ports.output.message.publisher.BlankMessagePublisher;
 import com.blanksystem.blank.service.domain.valueobject.BlankId;
 import com.blanksystem.blank.service.message.mapper.BlankMessagingDataMapper;
-import com.blanksystem.message.model.avro.BlankAvroModel;
+import com.blanksystem.blank.service.message.model.avro.BlankAvroModel;
 import com.lg5.spring.kafka.producer.KafkaMessageHelper;
 import com.lg5.spring.kafka.producer.service.KafkaProducer;
 import lombok.extern.slf4j.Slf4j;
@@ -43,7 +43,7 @@ public class BlankEventKafkaPublisher implements BlankMessagePublisher {
                     customerMessagingDataMapper.customerCreatedEventToCustomerRequestAvroModel(blankCreatedEvent);
 
             kafkaProducer.send(
-                    customerServiceConfigData.getBlankTopicName(),
+                    customerServiceConfigData.getTopic(),
                     blankAvroModel.getId(),
                     blankAvroModel,
                     kafkaMessageHelper.getCallback(blankAvroModel.getId(), blankAvroModel));

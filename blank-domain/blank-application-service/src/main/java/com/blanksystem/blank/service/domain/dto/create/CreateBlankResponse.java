@@ -1,6 +1,5 @@
 package com.blanksystem.blank.service.domain.dto.create;
 
-
 import jakarta.validation.constraints.NotNull;
 import lombok.Builder;
 

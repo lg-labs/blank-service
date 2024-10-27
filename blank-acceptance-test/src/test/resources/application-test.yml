@@ -1,22 +1,33 @@
+application:
+  server:
+    port: 8080
+  image:
+    name: com.blanksystem/blank-service:1.0.0-alpha
+  traces:
+    enabled: false
+  log:
+    source:
+      path: /logs
+    destination:
+      path: ./target/logs
+
 blanksystem:
   blank:
-    service:
-      image:
-        name: com.blanksystem/blank-service
-        version: 1.0.0-alpha
-
     events:
       journal:
         blank:
           topic: blank.1.0.event.created
           consumer:
-            group: blank-topic-consumer
+            group: blank-topic-consumer-acceptance-test
 spring:
   datasource:
     url: jdbc
-kafka-config:
-  bootstrap-servers: localhost:19092, localhost:29092, localhost:39092
-  schema-registry-url: http://localhost:8081
+
+logging:
+  level:
+    com.blanksystem: INFO
+    io.confluent.kafka: ERROR
+    org.apache: ERROR
 
 third:
   basic:
@@ -29,3 +40,9 @@ third:
       auth:
         username: admin
         password: pass
+
+wiremock:
+  config:
+    folder: "wiremock/third_system/template.json"
+    url: "third.jsonplaceholder.url"
+    port: 7070

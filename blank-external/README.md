@@ -1,6 +1,7 @@
 # External Module
 
-## Calling External System 
+## Calling External System
+
 > gRpc, Rest, GraphQL, IA strategy, ...etc.
 
 First, You must create or have an output port in the application service layer.

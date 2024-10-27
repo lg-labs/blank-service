@@ -1,0 +1,24 @@
+version: '3.9'
+services:
+  asyncapi-gen-html:
+    image: asyncapi/cli
+    command: |
+      generate fromTemplate -o /app/output /app/asyncapi.yml @asyncapi/html-template@3.0.0 --use-new-generator --force-write --param sidebarOrganization=byTags
+    volumes:
+      - ../../blank-message/blank-message-model/src/main/resources/spec/asyncapi.yaml:/app/asyncapi.yml
+      - ../asyncapi:/app/output
+    user: root
+    stdin_open: true
+    tty: true
+    restart: "no"
+    networks:
+      - ${GLOBAL_NETWORK:-swagger}
+
+  openapi-generator-cli:
+    image: openapitools/openapi-generator-cli
+    volumes:
+      - ../../blank-api/src/main/resources/spec:/local
+      - ../openapi:/out/html
+    command: generate -i /local/openapi.yaml -g html2 -o /out/html
+    networks:
+      - ${GLOBAL_NETWORK:-swagger}

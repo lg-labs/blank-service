@@ -22,12 +22,10 @@
         "headers": {
           "Content-Type": "application/json"
         },
-        "jsonBody":
-          {
-            "userId": 110,
-            "id": "988906b1-7230-4095-962f-ad9f92302f55"
-          }
-
+        "jsonBody": {
+          "userId": 110,
+          "id": "988906b1-7230-4095-962f-ad9f92302f55"
+        }
       }
     }
   ]

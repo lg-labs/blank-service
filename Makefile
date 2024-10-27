@@ -30,6 +30,9 @@ run-acceptance-test: install-skip-test
 run-test-spec-base:
 	mvn failsafe:integration-test failsafe:verify -Dit.test=${TEST_NAME} -Dfailsafe.failIfNoSpecifiedTests=false
 
+run-at-by-tag: run-acceptance-test
+	 -Dcucumber.filter.tags=${TAG_NAME}
+
 run-test-spec: install-skip-test run-test-spec-base
 
 run-ut-spec: install-skip-test-jib run-test-spec-base
@@ -48,11 +51,11 @@ kafka-init-down:
 kafka-mngr-down:
 	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/kafka_mngr.yml down --volumes
 ddbb-down:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/postgres-ddbb.yml down --volumes --volumes
+	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/postgres-ddbb.yml down --volumes
 spec-ui-down:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-ui.yml down --volumes --volumes
+	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-ui.yml down --volumes
 spec-generator-down:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml down --volumes --volumes
+	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml down --volumes
 graph-generator-down:
 	docker-compose -f ${INFRA}/graph/docker-compose.yml down --volumes
 
@@ -95,6 +98,6 @@ run-avro-model:
 	mvn -pl ${AVRO_MODEL} clean install
 
 APP = blank-container
-INFRA = blank-report/docker
+INFRA = blank-support/docker
 AVRO_MODEL = blank-message/blank-message-model
 

@@ -56,13 +56,13 @@ components:
           format: uuid
         username:
           type: string
-          examples: [username]
+          examples: [ username ]
         firstName:
           type: string
-          examples: [firstName]
+          examples: [ firstName ]
         lastName:
           type: string
-          examples: [lastName]
+          examples: [ lastName ]
 
   requestBodies:
     Blank:

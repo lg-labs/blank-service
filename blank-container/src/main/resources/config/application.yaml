@@ -8,8 +8,8 @@ info:
 logging:
   level:
     com.blanksystem: INFO
-    io.confluent.kafka: INFO
-    org.apache: INFO
+    io.confluent.kafka: ERROR
+    org.apache: ERROR
     feign: DEBUG
     feign.client: DEBUG
     com.netflix: DEBUG
@@ -19,7 +19,6 @@ logging:
 
     org.apache.http: DEBUG
     org.apache.http.wire: DEBUG
-    org.springframework: WARN
 
 blanksystem:
   blank:
@@ -68,7 +67,7 @@ kafka-producer-config:
   batch-size-boost-factor: 100
   linger-ms: 5
   request-timeout-ms: 60000
-  retry-count:  5
+  retry-count: 5
 
 kafka-consumer-config:
   key-deserializer: org.apache.kafka.common.serialization.StringDeserializer

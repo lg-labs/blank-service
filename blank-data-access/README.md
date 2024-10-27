@@ -8,23 +8,23 @@ Part I.
 
 ```mermaid
 flowchart TB
-   subgraph adapter
-   end
-   subgraph entity
-     
-   end
-   subgraph exception
-     
-   end
-   subgraph mapper
-   end
-   subgraph repository
-   end
+    subgraph adapter
+    end
+    subgraph entity
 
-   repository --> adapter
-   mapper --> adapter
-   entity --> adapter
-   exception --> adapter
+    end
+    subgraph exception
+
+    end
+    subgraph mapper
+    end
+    subgraph repository
+    end
+
+    repository --> adapter
+    mapper --> adapter
+    entity --> adapter
+    exception --> adapter
 ```
 
 ## Recommendations

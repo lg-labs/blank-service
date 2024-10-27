@@ -64,7 +64,7 @@ operations:
     action: receive
     channel:
       $ref: '#/channels/blankChannel'
-    summary:  >-
+    summary: >-
       Inform about the conditions of the blank created of 
       a particular blank.
     traits:
@@ -76,7 +76,7 @@ operations:
     action: send
     channel:
       $ref: '#/channels/blankChannel'
-    summary:  >-
+    summary: >-
       Inform about the conditions of the blank approved of 
       a particular blank.
     traits:

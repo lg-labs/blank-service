@@ -2,7 +2,7 @@
 <configuration>
 
     <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
-    <statusListener class="ch.qos.logback.core.status.NopStatusListener" />
+    <statusListener class="ch.qos.logback.core.status.NopStatusListener"/>
 
 
     <springProperty scope="context" name="application_name" source="info.app.name"/>
@@ -11,19 +11,20 @@
 
     <!-- Define level aliases for some loggers based on Spring Boot 'logging.level' props -->
     <!-- .com.blanksystem must be replaced to project package -->
-    <springProperty scope="context" name="root"         source="logging.level.root"                         defaultValue="warn" />
-    <springProperty scope="context" name="blanksystem"  source="logging.level.com.blanksystem"              defaultValue="warn" />
-    <springProperty scope="context" name="spring"       source="logging.level.org.springframework"          defaultValue="warn" />
-    <springProperty scope="context" name="data"         source="logging.level.org.springframework.data"     defaultValue="warn" />
-    <springProperty scope="context" name="web"          source="logging.level.org.springframework.web"      defaultValue="warn" />
-    <springProperty scope="context" name="security"     source="logging.level.org.springframework.security" defaultValue="warn" />
+    <springProperty scope="context" name="root" source="logging.level.root" defaultValue="warn"/>
+    <springProperty scope="context" name="blanksystem" source="logging.level.com.blanksystem" defaultValue="warn"/>
+    <springProperty scope="context" name="spring" source="logging.level.org.springframework" defaultValue="warn"/>
+    <springProperty scope="context" name="data" source="logging.level.org.springframework.data" defaultValue="warn"/>
+    <springProperty scope="context" name="web" source="logging.level.org.springframework.web" defaultValue="warn"/>
+    <springProperty scope="context" name="security" source="logging.level.org.springframework.security"
+                    defaultValue="warn"/>
 
     <!-- Set up logging level for some loggers -->
-    <logger name="com.blanksystem"              level="${blanksystem}" />
-    <logger name="org.springframework"          level="${spring}" />
-    <logger name="org.springframework.data"     level="${data}" />
-    <logger name="org.springframework.web"      level="${web}" />
-    <logger name="org.springframework.security" level="${security}" />
+    <logger name="com.blanksystem" level="${blanksystem}"/>
+    <logger name="org.springframework" level="${spring}"/>
+    <logger name="org.springframework.data" level="${data}"/>
+    <logger name="org.springframework.web" level="${web}"/>
+    <logger name="org.springframework.security" level="${security}"/>
 
     <property name="LOG_FILE" value="${LOG_PATH:-${java.io.tmpdir:-/tmp}}/${application_name}"/>
     <property name="LOG_FILE_MAX_SIZE" value="${LOG_FILE_MAX_SIZE:-50MB}"/>
@@ -40,7 +41,6 @@
             <level>INFO</level>
         </filter>
         <encoder>
-            <!--<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - %msg %n [trace=%X{traceId}, span=%X{spanId}]</pattern>-->
             <pattern>${CONSOLE_LOG_PATTERN}</pattern>
             <charset>utf8</charset>
         </encoder>
@@ -79,7 +79,8 @@
             <fileNamePattern>${LOG_FILE}-complex.json.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
             <minIndex>1</minIndex>
             <maxIndex>1</maxIndex>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFileNamingAndTriggeringPolicy">
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFileNamingAndTriggeringPolicy">
                 <!--Max Size of file to start Archive -->
                 <maxFileSize>${LOG_FILE_MAX_SIZE}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>
@@ -98,9 +99,9 @@
                 <loggerName/>
                 <threadName/>
                 <context/>
-                <contextName />
+                <contextName/>
                 <tags/>
-                <throwable />
+                <throwable/>
                 <callerData>
                     <classFieldName>class</classFieldName>
                     <methodFieldName>method</methodFieldName>
@@ -140,16 +141,6 @@
                         }
                     </pattern>
                 </pattern>
-                <stackTrace>
-                    <!--        <throwableConverter class="net.logstash.logback.stacktrace.ShortenedThrowableConverter">
-                              <maxDepthPerThrowable>30</maxDepthPerThrowable>
-                              <maxLength>2048</maxLength>
-                              <shortenedClassNameLength>20</shortenedClassNameLength>
-                              <exclude>^sun\.reflect\..*\.invoke</exclude>
-                              <exclude>^net\.sf\.cglib\.proxy\.MethodProxy\.invoke</exclude>
-                              <rootCauseFirst>true</rootCauseFirst>
-                            </throwableConverter>-->
-                </stackTrace>
             </providers>
         </encoder>
     </appender>
@@ -159,7 +150,8 @@
         <file>${LOG_FILE}-simple.log</file>
         <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
             <fileNamePattern>${LOG_FILE}-simple.json.%d{yyyy-MM-dd}.%i.gz</fileNamePattern>
-            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFileNamingAndTriggeringPolicy">
+            <timeBasedFileNamingAndTriggeringPolicy
+                    class="ch.qos.logback.core.rolling.SizeAndTimeBasedFileNamingAndTriggeringPolicy">
                 <!--Max Size of a file to start Archive -->
                 <maxFileSize>${LOG_FILE_MAX_SIZE}</maxFileSize>
             </timeBasedFileNamingAndTriggeringPolicy>

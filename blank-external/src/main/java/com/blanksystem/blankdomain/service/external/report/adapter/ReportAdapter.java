@@ -3,7 +3,7 @@ package com.blanksystem.blankdomain.service.external.report.adapter;
 import com.blanksystem.blank.service.domain.entity.Blank;
 import com.blanksystem.blank.service.domain.ports.output.repository.ReportRepository;
 import com.blanksystem.blankdomain.service.external.report.client.ThirdSystemClient;
-import com.blanksystem.blankdomain.service.external.report.mapper.ReportMapper;
+import com.blanksystem.blankdomain.service.external.report.mapper.ReportDataMapper;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Component;
 
@@ -12,12 +12,12 @@ import org.springframework.stereotype.Component;
 public class ReportAdapter implements ReportRepository {
 
     private final ThirdSystemClient client;
-    private final ReportMapper reportMapper;
+    private final ReportDataMapper reportDataMapper;
 
 
-    public ReportAdapter(ThirdSystemClient client, ReportMapper reportMapper) {
+    public ReportAdapter(ThirdSystemClient client, ReportDataMapper reportDataMapper) {
         this.client = client;
-        this.reportMapper = reportMapper;
+        this.reportDataMapper = reportDataMapper;
 
     }
 
@@ -26,7 +26,7 @@ public class ReportAdapter implements ReportRepository {
 
         log.info("Reporting a blank: {}", blank.getId().getValue());
 
-        final var responseEntity = client.createUser(reportMapper.blankToUser(blank));
+        final var responseEntity = client.createUser(reportDataMapper.blankToUser(blank));
 
         log.info("Reported with status: {}", responseEntity.getStatusCode());
     }

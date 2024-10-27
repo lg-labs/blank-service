@@ -23,7 +23,7 @@
             <artifactId>lg5-common-application-service</artifactId>
         </dependency>
         <!-- if you need SAGA Pattern/Outbox Pattern, else remove dependencies -->
-      <dependency>
+        <dependency>
             <groupId>com.lg5.spring.outbox</groupId>
             <artifactId>lg5-spring-outbox</artifactId>
         </dependency>

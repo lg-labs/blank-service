@@ -10,4 +10,4 @@ services:
     environment:
       GITHUB_USER: ${GITHUB_USER}
       GITHUB_TOKEN: ${GITHUB_TOKEN}
-    command:  sh -c "mvn clean compile && mvn site"
+    command: sh -c "mvn clean compile && mvn site"

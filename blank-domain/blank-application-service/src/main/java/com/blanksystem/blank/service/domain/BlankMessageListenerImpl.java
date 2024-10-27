@@ -38,8 +38,8 @@ public class BlankMessageListenerImpl implements BlankMessageListener {
     public void blankCreated(BlankModel blankModel) {
         otherRepository.search("");
         repository.findbyId(UUID.fromString(blankModel.getId()))
-                .ifPresent(showConfirmation()
-                        .andThen(reportRepository::save));
+                .ifPresentOrElse(showConfirmation().andThen(reportRepository::save),
+                        () -> log.info("Does not exist!!!"));
     }
 
     private Consumer<Blank> showConfirmation() {

@@ -1,0 +1,10 @@
+services:
+  graph-generator:
+    build: .
+    volumes:
+      - ../../../:/app
+      - ~/.m2/settings.xml:/root/.m2/settings.xml
+    environment:
+      GITHUB_USER: ${GITHUB_USER}
+      GITHUB_TOKEN: ${GITHUB_TOKEN}
+    command: sh -c "mvn clean compile && mvn site"
