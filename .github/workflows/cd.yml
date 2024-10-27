@@ -24,7 +24,7 @@ jobs:
           name: cucumber-report
           path: ./blank-acceptance-test/target/atdd-reports
           repository: ${{ github.repository }}
-          run-id: 11542471566
+          run-id: ${{ github.event.workflow_run.id }}
       - name: Display structure of downloaded files
         run: ls -R
       - name: List files in target directory
