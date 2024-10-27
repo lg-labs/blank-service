@@ -195,7 +195,7 @@ jobs:
           name: docker-image
           path: .
       - name: Load Docker image
-        run: docker load -i my-docker-image.tar
+        run: docker load -i blank-service-image.tar
       - name: Show docker image
         run: docker image list | grep com.
       - name: Run acceptance tests using Makefile
@@ -214,6 +214,8 @@ jobs:
     needs: at
     steps:
       - uses: actions/checkout@v4
+      - name: Docker compose
+        run: sudo apt-get update && sudo apt-get install docker-compose-plugin
       - name: Generate docs to OpenAPI as html
         run: make openapi-gen-html-up
       - name: List files in target directory
@@ -224,6 +226,8 @@ jobs:
     needs: at
     steps:
       - uses: actions/checkout@v4
+      - name: Docker compose
+        run: sudo apt-get update && sudo apt-get install docker-compose-plugin
       - name: Generate docs to asyncapi as html
         run: make asyncapi-gen-html-up
       - name: Display structure of downloaded files
