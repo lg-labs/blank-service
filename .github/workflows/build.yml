@@ -102,7 +102,7 @@ jobs:
       - name: Run unit tests using Makefile
         run: make run-unit-test
       - name: List files in target directory
-        run: ls -al ./blank-support/target/
+        run: ls -al ./blank-support/target/site
   it:
     name: Integration Test
     runs-on: ubuntu-latest
@@ -125,7 +125,7 @@ jobs:
       - name: Run integration tests using Makefile
         run: make run-integration-test
       - name: List files in target directory
-        run: ls -al ./blank-support/target/
+        run: ls -al ./blank-support/target/site
 
   build:
     name: Build Project
@@ -171,7 +171,7 @@ jobs:
       - name: Run acceptance tests using Makefile
         run: make run-acceptance-test
       - name: List files in target directory
-        run: ls -al ./blank-acceptance-test/target/
+        run: ls -R ./blank-acceptance-test/target/
   reports:
     name: Upload Test Reports
     runs-on: ubuntu-latest
