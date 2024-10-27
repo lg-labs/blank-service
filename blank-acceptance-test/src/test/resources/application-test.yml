@@ -4,8 +4,12 @@ application:
   image:
     name: com.blanksystem/blank-service:1.0.0-alpha
   traces:
-    enabled: false
+    console:
+      enabled: false
+    file:
+      enabled: false
   log:
+    enabled: false
     source:
       path: /logs
     destination:

@@ -52,6 +52,3 @@ feign:
         url: ${third.jsonplaceholder.url}
       default:
         loggerLevel: FULL
-
-log:
-  path: ./logs
