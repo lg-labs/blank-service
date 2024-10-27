@@ -234,6 +234,11 @@ jobs:
         run: make openapi-gen-html-up
       - name: List files in target directory
         run: ls -al ./blank-support/openapi
+      - name: Upload OpenAPI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: openapi-doc
+          path: ./blank-support/openapi
   asynapi:
     name: AsyncAPI
     runs-on: ubuntu-latest
@@ -248,6 +253,11 @@ jobs:
         run: make asyncapi-gen-html-up
       - name: Display structure of downloaded files
         run: ls -al ./blank-support/asyncapi
+      - name: Upload AsyncAPI artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: asyncapi-doc
+          path: ./blank-support/asyncapi
 #
 #  builds:
 #    name: Build and analyze
