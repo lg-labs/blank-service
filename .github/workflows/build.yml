@@ -87,5 +87,25 @@ jobs:
           key: ${{ runner.os }}-png-cache-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-png-cache-
+
+      - name: Upload dependency-graph.png as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-graph
+          path: ./target/dependency-graph.png
+
+      - name: Archive test reports
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: blank-support/target/site/jacoco-aggregate-all
+
+      - name: Upload Cucumber Report
+        uses: actions/upload-artifact@v4
+        with:
+          name: cucumber-report
+          path: blank-acceptance-test/target/atdd-reports/cucumber-reports.html
+
       - name: Move PNG to destination folder
         run: cp ./target/dependency-graph.png ./blank-support/app/docs/img/
