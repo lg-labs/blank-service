@@ -14,11 +14,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Download dependency-graph artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: dependency-graph
-          path: ./target/
 
       - name: Download Cucumber Report
         uses: actions/download-artifact@v4
