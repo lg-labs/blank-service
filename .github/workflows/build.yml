@@ -214,8 +214,10 @@ jobs:
     needs: at
     steps:
       - uses: actions/checkout@v4
-      - name: Docker compose
-        run: sudo apt-get update && sudo apt-get install docker-compose-plugin
+      - name: Download docker compose
+        run: sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+      - name: Permisions to docker compose
+        run: sudo chmod +x /usr/local/bin/docker-compose
       - name: Generate docs to OpenAPI as html
         run: make openapi-gen-html-up
       - name: List files in target directory
