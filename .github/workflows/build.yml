@@ -98,7 +98,8 @@ jobs:
           key: ${{ runner.os }}-png-cache-${{ github.sha }}
           restore-keys: |
             ${{ runner.os }}-png-cache-
-
+      - name: List files in target directory
+        run: ls -al ./target
       - name: Upload dependency-graph.png as artifact
         uses: actions/upload-artifact@v4
         with:
