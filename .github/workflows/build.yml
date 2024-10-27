@@ -155,6 +155,11 @@ jobs:
         run: make install-skip-test
       - name: List files in target directory
         run: ls -al ./target
+      - name: Upload JAR artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: container-jar
+          path: '**/target/*container*.jar'
       - name: Show docker image
         run: docker image list | grep com.
       - name: Save Docker image
@@ -187,6 +192,13 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Download JAR artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: container-jar
+          path: ./blank-container/target
+      - name: List files in target directory
+        run: ls -R ./blank-container/target/
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
       - name: Download Docker image artifact
@@ -228,8 +240,10 @@ jobs:
     needs: at
     steps:
       - uses: actions/checkout@v4
-      - name: Docker compose
-        run: sudo apt-get update && sudo apt-get install docker-compose-plugin
+      - name: Download docker compose
+        run: sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+      - name: Permisions to docker compose
+        run: sudo chmod +x /usr/local/bin/docker-compose
       - name: Generate docs to asyncapi as html
         run: make asyncapi-gen-html-up
       - name: Display structure of downloaded files
