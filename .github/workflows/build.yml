@@ -21,13 +21,13 @@ jobs:
           java-version: 21
           distribution: 'zulu'
 
-      - name: Set up Docker cache
-        uses: actions/cache@v4
-        with:
-          path: /var/lib/docker
-          key: ${{ runner.os }}-docker-${{ hashFiles('**/pom.xml') }}
-          restore-keys: |
-            ${{ runner.os }}-docker-
+#      - name: Set up Docker cache
+#        uses: actions/cache@v4
+#        with:
+#          path: /var/lib/docker
+#          key: ${{ runner.os }}-docker-${{ hashFiles('**/pom.xml') }}
+#          restore-keys: |
+#            ${{ runner.os }}-docker-
 
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
@@ -68,12 +68,12 @@ jobs:
               </activeProfiles>
           </settings>
           EOF
-      - name: Cache SonarQube packages
-        uses: actions/cache@v4
-        with:
-          path: ~/.sonar/cache
-          key: ${{ runner.os }}-sonar
-          restore-keys: ${{ runner.os }}-sonar
+#      - name: Cache SonarQube packages
+#        uses: actions/cache@v4
+#        with:
+#          path: ~/.sonar/cache
+#          key: ${{ runner.os }}-sonar
+#          restore-keys: ${{ runner.os }}-sonar
 
       - name: Cache Maven packages
         uses: actions/cache@v4
@@ -91,13 +91,13 @@ jobs:
             echo "File not found!"
             exit 1
           fi
-      - name: Cache generated PNG
-        uses: actions/cache@v4.0.2
-        with:
-          path: ./target/dependency-graph.png
-          key: ${{ runner.os }}-png-cache-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-png-cache-
+#      - name: Cache generated PNG
+#        uses: actions/cache@v4.0.2
+#        with:
+#          path: ./target/dependency-graph.png
+#          key: ${{ runner.os }}-png-cache-${{ github.sha }}
+#          restore-keys: |
+#            ${{ runner.os }}-png-cache-
       - name: List files in target directory
         run: ls -al ./target
       - name: Upload dependency-graph.png as artifact
