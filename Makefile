@@ -24,10 +24,11 @@ run-unit-test: clean
 run-integration-test: install-skip-test-jib
 	mvn failsafe:integration-test failsafe:verify -Dit.test="**/*IT.java" -Dfailsafe.failIfNoSpecifiedTests=false
 
-run-acceptance-test-alone:
+run-acceptance-test-alone: install-skip-test-jib
 	mvn failsafe:integration-test failsafe:verify -Dit.test="**/*AcceptanceT*.java" -Dfailsafe.failIfNoSpecifiedTests=false
 
-run-acceptance-test: install-skip-test run-acceptance-test-alone
+run-acceptance-test: install-skip-test
+	mvn failsafe:integration-test failsafe:verify -Dit.test="**/*IT.java" -Dfailsafe.failIfNoSpecifiedTests=false
 
 run-test-spec-base:
 	mvn failsafe:integration-test failsafe:verify -Dit.test=${TEST_NAME} -Dfailsafe.failIfNoSpecifiedTests=false
