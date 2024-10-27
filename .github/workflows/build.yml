@@ -98,17 +98,17 @@ jobs:
           path: ./target/dependency-graph.png
 
       - name: Archive test reports
-        if: failure()
+        #if: failure()
         uses: actions/upload-artifact@v4
         with:
           name: test-reports
-          path: blank-support/target/site/jacoco-aggregate-all
+          path: ./blank-support/target/site/jacoco-aggregate-all
 
       - name: Upload Cucumber Report
         uses: actions/upload-artifact@v4
         with:
           name: cucumber-report
-          path: blank-acceptance-test/target/atdd-reports/cucumber-reports.html
+          path: ./blank-acceptance-test/target/atdd-reports/cucumber-reports.html
 
       - name: Move PNG to destination folder
         run: cp ./target/dependency-graph.png ./blank-support/app/docs/img/
