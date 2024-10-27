@@ -43,7 +43,7 @@ jobs:
                       <repositories>
                           <repository>
                               <id>other-org-packages</id>
-                              <url>https://maven.pkg.github.com/other-org/repository-name</url>
+                              <url>https://maven.pkg.github.com/lg-labs-pentagon/*</url>
                           </repository>
                       </repositories>
                   </profile>
