@@ -196,7 +196,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: container-jar
-          path: ./blank-container/target
+          path: .
       - name: List files in target directory
         run: ls -R ./blank-container/target/
       - name: Install Graphviz
