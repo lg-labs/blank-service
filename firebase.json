@@ -1,0 +1,16 @@
+{
+  "hosting": {
+    "public": "blank-acceptance-test/target/atdd-reports",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites": [
+      {
+        "source": "**",
+        "destination": "/cucumber-reports.html"
+      }
+    ]
+  }
+}
