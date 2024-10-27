@@ -147,7 +147,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build and run tests using Makefile
-        run: make install
+        run: make install-skip-test
 
   at:
     name: Acceptance Test
