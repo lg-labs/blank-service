@@ -16,14 +16,15 @@ jobs:
       - uses: actions/checkout@v4
       - name: Create target directory for artifacts
         run: mkdir -p ./target/
-      - name: List files in target directory
-        run: ls -al ./target
+     
       - name: Download Cucumber Report
         uses: actions/download-artifact@v4
         with:
           name: cucumber-report
-          path: ./blank-acceptance-test/target/atdd-reports/
-
+          path: ./target/
+      - name: List files in target directory
+        run: ls -al ./target
+        
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
