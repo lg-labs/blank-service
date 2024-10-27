@@ -76,6 +76,12 @@ spec-generator-up:
 graph-generator-up:
 	docker-compose -f ${INFRA}/graph/docker-compose.yml up -d
 
+asyncapi-gen-html-up:
+	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml run --rm asyncapi-gen-html
+
+openapi-gen-html-up:
+	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml run --rm  openapi-generator-cli
+
 
 # DOWN ALL
 docker-down: zookeeper-down kafka-cluster-down kafka-init-down kafka-mngr-down ddbb-down spec-ui-down spec-generator-down

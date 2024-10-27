@@ -155,7 +155,7 @@ jobs:
         run: make install-skip-test
       - name: List files in target directory
         run: ls -al ./target
-      - name: Show list
+      - name: Show docker image
         run: docker image list | grep com.
       - name: Upload dependency-graph.png as artifact
         uses: actions/upload-artifact@v4
@@ -193,21 +193,25 @@ jobs:
           path: ./blank-acceptance-test/target/atdd-reports/cucumber-reports.html
 
   openapi:
-    name: Upload Test Reports
+    name: OpenAPI
     runs-on: ubuntu-latest
     needs: at
     steps:
       - uses: actions/checkout@v4
-      - name: Display structure of downloaded files
-        run: ls -R
+      - name: Generate docs to OpenAPI as html
+        run: make openapi-gen-html-up
+      - name: List files in target directory
+        run: ls -al ./blank-support/openapi
   asynapi:
-    name: Upload Test Reports
+    name: AsyncAPI
     runs-on: ubuntu-latest
     needs: at
     steps:
       - uses: actions/checkout@v4
+      - name: Generate docs to asyncapi as html
+        run: make asyncapi-gen-html-up
       - name: Display structure of downloaded files
-        run: ls -R
+        run: ls -al ./blank-support/asyncapi
 #
 #  builds:
 #    name: Build and analyze
