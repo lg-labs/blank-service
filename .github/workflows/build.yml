@@ -15,6 +15,11 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'zulu'
       - name: Configure Maven settings.xml
         env:
           GITHUB_USERNAME: ${{ github.actor }}
@@ -51,7 +56,6 @@ jobs:
               </activeProfiles>
           </settings>
           EOF
-
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
