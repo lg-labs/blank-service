@@ -21,6 +21,14 @@ jobs:
           java-version: 21
           distribution: 'zulu'
 
+      - name: Set up Docker cache
+        uses: actions/cache@v4
+        with:
+          path: /var/lib/docker
+          key: ${{ runner.os }}-docker-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            ${{ runner.os }}-docker-
+
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
 
@@ -110,5 +118,5 @@ jobs:
           name: cucumber-report
           path: ./blank-acceptance-test/target/atdd-reports/cucumber-reports.html
 
-      - name: Move PNG to destination folder
-        run: cp ./target/dependency-graph.png ./blank-support/app/docs/img/
+#      - name: Move PNG to destination folder
+#        run: cp ./target/dependency-graph.png ./blank-support/app/docs/img/
