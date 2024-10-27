@@ -22,6 +22,7 @@ jobs:
         with:
           github-token: ${{ github.token }}
           name: cucumber-report
+          path: ./blank-acceptance-test/target/atdd-reports
           repository: ${{ github.repository }}
           run-id: 11542471566
       - name: Display structure of downloaded files
