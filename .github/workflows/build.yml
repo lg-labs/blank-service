@@ -88,4 +88,4 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-png-cache-
       - name: Move PNG to destination folder
-        run: cp ./target/dependency-graph.png ./blank-report/app/docs/img/
+        run: cp ./target/dependency-graph.png ./blank-support/app/docs/img/
