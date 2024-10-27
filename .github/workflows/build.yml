@@ -42,8 +42,11 @@ jobs:
                       <id>github</id>
                       <repositories>
                           <repository>
-                              <id>other-org-packages</id>
+                              <id>github</id>
                               <url>https://maven.pkg.github.com/lg-labs-pentagon/*</url>
+                              <snapshots>
+                                <enabled>true</enabled>
+                              </snapshots>
                           </repository>
                       </repositories>
                   </profile>
