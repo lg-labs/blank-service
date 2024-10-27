@@ -9,7 +9,7 @@ on:
       - main
 jobs:
   m2:
-    name: Configure Maven
+    name: Configure
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -64,7 +64,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
   checkstyle:
-    name: Checkstyle Analysis
+    name: Checkstyle
     runs-on: ubuntu-latest
     needs: m2
     steps:
@@ -126,9 +126,14 @@ jobs:
         run: make run-integration-test
       - name: List files in target directory
         run: ls -al ./blank-support/target/site
+      - name: Test reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: test-reports
+          path: ./blank-support/target/site/jacoco-aggregate-all
 
   build:
-    name: Build Project
+    name: Build
     runs-on: ubuntu-latest
     needs: [ut, it]
     steps:
@@ -148,6 +153,15 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build and run tests using Makefile
         run: make install-skip-test
+      - name: List files in target directory
+        run: ls -al ./target
+      - name: Show list
+        run: docker image list | grep com.
+      - name: Upload dependency-graph.png as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: dependency-graph
+          path: ./target/dependency-graph.png
 
   at:
     name: Acceptance Test
@@ -172,41 +186,28 @@ jobs:
         run: make run-acceptance-test
       - name: List files in target directory
         run: ls -R ./blank-acceptance-test/target/
-  reports:
-    name: Upload Test Reports
-    runs-on: ubuntu-latest
-    needs: build
-    steps:
-      - uses: actions/checkout@v4
-      - name: Display structure of downloaded files
-        run: ls -R
-      - name: Check if PNG exists
-        run: |
-          if [ ! -f ./target/dependency-graph.png ]; then
-            echo "File not found!"
-            exit 1
-          fi
-
-      - name: List files in target directory
-        run: ls -al ./target
-
-      - name: Upload dependency-graph.png as artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: dependency-graph
-          path: ./target/dependency-graph.png
-
-      - name: Archive test reports
-        uses: actions/upload-artifact@v4
-        with:
-          name: test-reports
-          path: ./blank-support/target/site/jacoco-aggregate-all
-
       - name: Upload Cucumber Report
         uses: actions/upload-artifact@v4
         with:
           name: cucumber-report
           path: ./blank-acceptance-test/target/atdd-reports/cucumber-reports.html
+
+  openapi:
+    name: Upload Test Reports
+    runs-on: ubuntu-latest
+    needs: at
+    steps:
+      - uses: actions/checkout@v4
+      - name: Display structure of downloaded files
+        run: ls -R
+  asynapi:
+    name: Upload Test Reports
+    runs-on: ubuntu-latest
+    needs: at
+    steps:
+      - uses: actions/checkout@v4
+      - name: Display structure of downloaded files
+        run: ls -R
 #
 #  builds:
 #    name: Build and analyze
