@@ -6,7 +6,7 @@ on:
     types:
       - completed
 jobs:
-  build_and_deploy:
+  atdd:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4     
@@ -38,7 +38,7 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLANK_SERVICE_ATDD }}
           channelId: live
           projectId: blank-service-atdd
-          entryPoint: .
+          entryPoint: folder1
 
   asyncapi:
     runs-on: ubuntu-latest
