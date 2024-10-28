@@ -78,34 +78,33 @@ jobs:
 #          projectId: blank-service-atdd
 #          entryPoint: .
 
-#  openapi:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Download OpenAPI artifact
-#        uses: actions/download-artifact@v4
-#        with:
-#          github-token: ${{ github.token }}
-#          name: openapi-doc
-#          path: ./blank-support/openapi
-#          repository: ${{ github.repository }}
-#          run-id: ${{ github.event.workflow_run.id }}
-#
-#      - name: List files in target directory
-#        run: ls -al ./blank-support/
-#
-#      - name: Copy files to public directory
-#        run: |
-#          mkdir -p openapi
-#          cp -R ./blank-support/openapi/* ./openapi/
-#      - name: Display structure of downloaded files
-#        run: ls -R
-#
-#      - uses: FirebaseExtended/action-hosting-deploy@v0
-#        with:
-#          repoToken: ${{ secrets.GITHUB_TOKEN }}
-#          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLANK_SERVICE_ATDD }}
-#          channelId: live
-#          projectId: blank-service-atdd
-#          entryPoint: .
-#          target: openapi
+  openapi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download OpenAPI artifact
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          name: openapi-doc
+          path: ./blank-support/openapi
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+
+      - name: List files in target directory
+        run: ls -al ./blank-support/openapi/
+
+      - name: Copy files to public directory
+        run: |
+          mkdir -p openapi
+          cp -R ./blank-support/openapi/* ./openapi/
+      - name: Display structure of downloaded files
+        run: ls -R
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLANK_SERVICE_ATDD }}
+          channelId: live
+          projectId: blank-service-atdd
+          entryPoint: .
