@@ -6,8 +6,39 @@ on:
     types:
       - completed
 jobs:
-  atdd:
+  page:
+    name: Gh Page
     runs-on: ubuntu-latest
+    steps:
+      - uses: actions/setup-python@v5.1.0
+        with:
+          python-version: 3.x
+      - uses: actions/cache@v4.0.2
+        with:
+          key: ${{ github.ref }}
+          path: .cache
+      - run: pip install mkdocs-material
+      - run: pip install pillow cairosvg
+      - name: Download MkDocs
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+          name: mkdocs
+          path: ./
+      - run: ls -R
+      - run: mkdocs gh-deploy --force
+      - run: ls -R
+      - name: Upload MkDocs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: docs-page
+          path: ./
+  site:
+    name: Web Site
+    runs-on: ubuntu-latest
+    needs: page
     steps:
       - name: Download firebase.json
         uses: actions/download-artifact@v4
@@ -53,6 +84,11 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           name: cucumber-report
           path: ./atdd
+      - name: Download MkDocs artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: docs-page
+          path: ./docs
       - name: Display structure of downloaded files
         run: ls -R
       - uses: FirebaseExtended/action-hosting-deploy@v0
@@ -62,65 +98,3 @@ jobs:
           channelId: live
           projectId: blank-service-atdd
           entryPoint: .
-
-#  asyncapi:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Download AsyncAPI artifact
-#        uses: actions/download-artifact@v4
-#        with:
-#          github-token: ${{ github.token }}
-#          name: asyncapi-doc
-#          path: ./blank-support/asyncapi
-#          repository: ${{ github.repository }}
-#          run-id: ${{ github.event.workflow_run.id }}
-#
-#      - name: List files in target directory
-#        run: ls -al ./blank-support/
-#
-#      - name: Copy files to public directory
-#        run: |
-#          mkdir -p folder2
-#          cp -R ./blank-support/asyncapi/* ./folder2/
-#
-#      - name: Display structure of downloaded files
-#        run: ls -R
-#      - uses: FirebaseExtended/action-hosting-deploy@v0
-#        with:
-#          repoToken: ${{ secrets.GITHUB_TOKEN }}
-#          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLANK_SERVICE_ATDD }}
-#          channelId: live
-#          projectId: blank-service-atdd
-#          entryPoint: .
-
-#  openapi:
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#      - name: Download OpenAPI artifact
-#        uses: actions/download-artifact@v4
-#        with:
-#          github-token: ${{ github.token }}
-#          name: openapi-doc
-#          path: ./blank-support/openapi
-#          repository: ${{ github.repository }}
-#          run-id: ${{ github.event.workflow_run.id }}
-#
-#      - name: List files in target directory
-#        run: ls -al ./blank-support/openapi/
-#
-#      - name: Copy files to public directory
-#        run: |
-#          mkdir -p openapi
-#          cp -R ./blank-support/openapi/* ./openapi/
-#      - name: Display structure of downloaded files
-#        run: ls -R
-#
-#      - uses: FirebaseExtended/action-hosting-deploy@v0
-#        with:
-#          repoToken: ${{ secrets.GITHUB_TOKEN }}
-#          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLANK_SERVICE_ATDD }}
-#          channelId: live
-#          projectId: blank-service-atdd
-#          entryPoint: .
