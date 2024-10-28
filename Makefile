@@ -107,8 +107,11 @@ run-happy-path: docker-down docker-up run-app
 # If add a new Avro model, REMEMBER execute kafka model again.
 run-avro-model:
 	mvn -pl ${AVRO_MODEL} clean install
+run-atdd-module:
+	mvn -pl ${ATDD} clean install
 
 APP = blank-container
 INFRA = blank-support/docker
 AVRO_MODEL = blank-message/blank-message-model
+ATDD = blank-acceptance-test
 
