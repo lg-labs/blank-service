@@ -1,8 +1,8 @@
-name: Continuous Deployment
+name: CD
 
 on:
   workflow_run:
-    workflows: [ "Continuous Integration" ]
+    workflows: [ "CI" ]
     types:
       - completed
 jobs:
