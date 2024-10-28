@@ -211,7 +211,7 @@ jobs:
       - name: Show docker image
         run: docker image list | grep com.
       - name: Run acceptance tests using Makefile
-        run: make run-acceptance-test-alone
+        run: cd blank-acceptance-test && mvn clean install
       - name: List files in target directory
         run: ls -R ./blank-acceptance-test/target/
       - name: Upload Cucumber Report
