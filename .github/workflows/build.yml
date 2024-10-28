@@ -185,23 +185,29 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: List files in target directory
-        run: ls -R ./blank-container/target/
+
+
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
+
       - name: Download Docker image artifact
         uses: actions/download-artifact@v4
         with:
           name: docker-image
           path: .
+
       - name: Load Docker image
         run: docker load -i blank-service-image.tar
+
       - name: Show docker image
         run: docker image list | grep com.
+
       - name: Run acceptance tests
         run: cd blank-acceptance-test && mvn clean install
+
       - name: List files in target directory
         run: ls -R ./blank-acceptance-test/target/
+
       - name: Upload Cucumber Report
         uses: actions/upload-artifact@v4
         with:
@@ -218,10 +224,13 @@ jobs:
         run: sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
       - name: Permisions to docker compose
         run: sudo chmod +x /usr/local/bin/docker-compose
+
       - name: Generate docs to OpenAPI as html
         run: make openapi-gen-html-up
+
       - name: List files in target directory
         run: ls -al ./blank-support/openapi
+
       - name: Upload OpenAPI artifact
         uses: actions/upload-artifact@v4
         with:
@@ -237,112 +246,15 @@ jobs:
         run: sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
       - name: Permisions to docker compose
         run: sudo chmod +x /usr/local/bin/docker-compose
+
       - name: Generate docs to asyncapi as html
         run: make asyncapi-gen-html-up
+
       - name: Display structure of downloaded files
         run: ls -al ./blank-support/asyncapi
+        
       - name: Upload AsyncAPI artifact
         uses: actions/upload-artifact@v4
         with:
           name: asyncapi-doc
           path: ./blank-support/asyncapi
-#
-#  builds:
-#    name: Build and analyze
-#    runs-on: ubuntu-latest
-#    steps:
-#      - uses: actions/checkout@v4
-#        with:
-#          fetch-depth: 0
-#      - name: Set up JDK 21
-#        uses: actions/setup-java@v4
-#        with:
-#          java-version: 21
-#          distribution: 'zulu'
-#
-##      - name: Set up Docker cache
-##        uses: actions/cache@v4
-##        with:
-##          path: /var/lib/docker
-##          key: ${{ runner.os }}-docker-${{ hashFiles('**/pom.xml') }}
-##          restore-keys: |
-##            ${{ runner.os }}-docker-
-#
-#      - name: Install Graphviz
-#        run: sudo apt-get update && sudo apt-get install -y graphviz
-#
-#      - name: Configure Maven settings.xml
-#        env:
-#          GITHUB_USERNAME: ${{ github.actor }}
-#          GITHUB_TOKEN: ${{ secrets.PKG_GITHUB_TOKEN }}
-#        run: |
-#          cat > ~/.m2/settings.xml <<EOF
-#          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-#                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-#                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
-#                    http://maven.apache.org/xsd/settings-1.0.0.xsd">
-#              <servers>
-#                  <server>
-#                      <id>github</id>
-#                      <username>${GITHUB_USERNAME}</username>
-#                      <password>${GITHUB_TOKEN}</password>
-#                  </server>
-#              </servers>
-#              <profiles>
-#                  <profile>
-#                      <id>github</id>
-#                      <repositories>
-#                          <repository>
-#                              <id>github</id>
-#                              <url>https://maven.pkg.github.com/lg-labs-pentagon/*</url>
-#                              <snapshots>
-#                                <enabled>true</enabled>
-#                              </snapshots>
-#                          </repository>
-#                      </repositories>
-#                  </profile>
-#              </profiles>
-#              <activeProfiles>
-#                  <activeProfile>github</activeProfile>
-#              </activeProfiles>
-#          </settings>
-#          EOF
-#
-#      - name: Cache Maven packages
-#        uses: actions/cache@v4
-#        with:
-#          path: ~/.m2
-#          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-#          restore-keys: ${{ runner.os }}-m2
-#
-#      - name: Build and run tests using Makefile
-#        run: make install
-#
-#      - name: Check if PNG exists
-#        run: |
-#          if [ ! -f ./target/dependency-graph.png ]; then
-#            echo "File not found!"
-#            exit 1
-#          fi
-#
-#      - name: List files in target directory
-#        run: ls -al ./target
-#      - name: Upload dependency-graph.png as artifact
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: dependency-graph
-#          path: ./target/dependency-graph.png
-#
-#      - name: Archive test reports
-#        #if: failure()
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: test-reports
-#          path: ./blank-support/target/site/jacoco-aggregate-all
-#
-#      - name: Upload Cucumber Report
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: cucumber-report
-#          path: ./blank-acceptance-test/target/atdd-reports/cucumber-reports.html
-#
