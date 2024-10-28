@@ -38,7 +38,8 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLANK_SERVICE_ATDD }}
           channelId: live
           projectId: blank-service-atdd
-          entryPoint: folder1
+          entryPoint: .
+          deployPath: folder1
 
   asyncapi:
     runs-on: ubuntu-latest
@@ -100,4 +101,5 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLANK_SERVICE_ATDD }}
           channelId: live
           projectId: blank-service-atdd
-          entryPoint: openapi
+          entryPoint: .
+          deployPath: openapi
