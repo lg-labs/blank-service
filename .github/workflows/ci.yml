@@ -230,7 +230,7 @@ jobs:
   openapi:
     name: OpenAPI
     runs-on: ubuntu-latest
-    needs: at
+    needs: test
     steps:
       - uses: actions/checkout@v4
       - name: Download docker compose
@@ -252,7 +252,7 @@ jobs:
   asyncapi:
     name: AsyncAPI
     runs-on: ubuntu-latest
-    needs: at
+    needs: test
     steps:
       - uses: actions/checkout@v4
       - name: Download docker compose
@@ -274,7 +274,7 @@ jobs:
   docs:
     name: Docs
     runs-on: ubuntu-latest
-    needs: at
+    needs: test
     steps:
       - uses: actions/checkout@v4
       - name: Download dependency-graph
