@@ -18,6 +18,18 @@
       {
         "source": "/folder3/**",
         "destination": "/folder3/cucumber-reports.html"
+      },
+      {
+        "source": "/atdd/**",
+        "destination": "/atdd/cucumber-reports.html"
+      },
+      {
+        "source": "/openapi/**",
+        "destination": "/openapi/index.html"
+      },
+      {
+        "source": "/asyncapi/**",
+        "destination": "/asyncapi/index.html"
       }
     ]
   }
