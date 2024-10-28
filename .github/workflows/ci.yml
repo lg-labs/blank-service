@@ -256,6 +256,9 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - run: ls -la .git
       - name: Download dependency-graph
         uses: actions/download-artifact@v4
         with:
@@ -272,3 +275,9 @@ jobs:
         with:
           name: mkdocs
           path: ./blank-support/app
+      - name: Upload Git artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: git
+          include-hidden-files: true
+          path: ./.git/
