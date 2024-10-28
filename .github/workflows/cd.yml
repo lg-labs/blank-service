@@ -34,7 +34,7 @@ jobs:
           repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
           name: git
-          path: ./
+          path: ./.git
       - run: ls -R
       - run: mkdocs gh-deploy --force
       - run: ls -R
