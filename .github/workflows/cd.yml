@@ -100,4 +100,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLANK_SERVICE_ATDD }}
           channelId: live
           projectId: blank-service-atdd
-          entryPoint: .
+          entryPoint: openapi
