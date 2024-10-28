@@ -17,6 +17,8 @@ install-skip-test-jib: clean
 # TESTING
 run-checkstyle:
 	mvn validate
+run-verify: clean
+	mvn verify
 
 run-unit-test: clean
 	mvn test
