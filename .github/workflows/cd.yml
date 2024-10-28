@@ -18,8 +18,7 @@ jobs:
           path: ./blank-acceptance-test/target/atdd-reports
           repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
-      - name: Display structure of downloaded files
-        run: ls -R
+
       - name: List files in target directory
         run: ls -al ./
       
@@ -29,7 +28,10 @@ jobs:
           cp -R ./blank-acceptance-test/target/atdd-reports/* ./folder1/
           cp -R ./blank-acceptance-test/target/atdd-reports/* ./folder2/
           cp -R ./blank-acceptance-test/target/atdd-reports/* ./folder3/
-        
+
+      - name: Display structure of downloaded files
+        run: ls -R
+
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
@@ -59,6 +61,8 @@ jobs:
           mkdir -p folder2
           cp -R ./blank-support/asyncapi/* ./folder2/
 
+      - name: Display structure of downloaded files
+        run: ls -R
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
@@ -87,6 +91,8 @@ jobs:
         run: |
           mkdir -p openapi
           cp -R ./blank-support/openapi/* ./openapi/
+      - name: Display structure of downloaded files
+        run: ls -R
 
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
