@@ -169,6 +169,11 @@ jobs:
         with:
           name: dependency-graph
           path: ./target/dependency-graph.png
+      - name: Upload firebase.json as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: firebase-json
+          path: ./firebase.json
 
   at:
     name: Acceptance Test
@@ -181,8 +186,6 @@ jobs:
         with:
           java-version: 21
           distribution: 'zulu'
-
-
 
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
@@ -262,3 +265,27 @@ jobs:
         with:
           name: asyncapi-doc
           path: ./blank-support/asyncapi
+  documentation:
+    name: Docs
+    runs-on: ubuntu-latest
+    needs: at
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Download dependency-graph
+        uses: actions/download-artifact@v4
+        with:
+          name: dependency-graph
+          path: .
+      - name: Update dependency-graph on MkDocs
+        run: cp dependency-graph.png ./blank-support/app/docs/img
+
+      - name: Display structure of downloaded files
+        run: ls -R ./blank-support/app
+
+      - name: Upload MkDocs artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: mkdocs
+          path: ./blank-support/app
+
