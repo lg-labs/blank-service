@@ -10,6 +10,9 @@ jobs:
     name: Gh Page
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
       - uses: actions/setup-python@v5.1.0
         with:
           python-version: 3.x
@@ -27,14 +30,6 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           name: mkdocs
           path: ./
-      - name: Download Git
-        uses: actions/download-artifact@v4
-        with:
-          github-token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          run-id: ${{ github.event.workflow_run.id }}
-          name: git
-          path: ./.git
       - run: ls -la .git
       - run: mkdocs gh-deploy --force
       - run: ls -R
