@@ -29,15 +29,14 @@ jobs:
           repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
           name: mkdocs
-          path: ./
-      - run: ls -la .git
-      - run: mkdocs gh-deploy --force
-      - run: ls -R
+          path: ./pages
+      - run: ls -la ./pages
+      - run: cd pages && mkdocs gh-deploy --force
       - name: Upload Site artifact
         uses: actions/upload-artifact@v4
         with:
           name: main-site
-          path: ./site
+          path: ./pages/site
   site:
     name: Web Site
     runs-on: ubuntu-latest
