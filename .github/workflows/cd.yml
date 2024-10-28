@@ -9,68 +9,49 @@ jobs:
   atdd:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - name: Download firebase.json
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+          name: firebase-json
+          path: ./
 
       - name: Download OpenAPI artifact
         uses: actions/download-artifact@v4
         with:
           github-token: ${{ github.token }}
-          name: openapi-doc
-          path: ./openapi
           repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
+          name: openapi-doc
+          path: ./openapi
+
       - name: Download AsyncAPI artifact
         uses: actions/download-artifact@v4
         with:
           github-token: ${{ github.token }}
-          name: asyncapi-doc
-          path: ./asyncapi
           repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
+          name: asyncapi-doc
+          path: ./asyncapi
 
       - name: Download Test reports
-        uses: actions/upload-artifact@v4
+        uses: actions/download-artifact@v4
         with:
           name: test-reports
           path: ./reports
+
       - name: Download Cucumber Report
         uses: actions/download-artifact@v4
         with:
           github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
           name: cucumber-report
           path: ./atdd
-          repository: ${{ github.repository }}
-          run-id: ${{ github.event.workflow_run.id }}
-
-      - name: Download Cucumber Report
-        uses: actions/download-artifact@v4
-        with:
-          github-token: ${{ github.token }}
-          name: cucumber-report
-          path: ./blank-acceptance-test/target/atdd-reports
-          repository: ${{ github.repository }}
-          run-id: ${{ github.event.workflow_run.id }}
-      - name: Download AsyncAPI artifact
-        uses: actions/download-artifact@v4
-        with:
-          github-token: ${{ github.token }}
-          name: asyncapi-doc
-          path: ./blank-support/asyncapi
-          repository: ${{ github.repository }}
-          run-id: ${{ github.event.workflow_run.id }}
-
-      - name: List files in target directory
-        run: ls -al ./
-      
-      - name: Copy files to public directory
-        run: |
-          mkdir -p folder1 folder2
-          cp -R ./blank-acceptance-test/target/atdd-reports/* ./folder1/
-          cp -R ./blank-support/asyncapi/* ./folder2/
-
       - name: Display structure of downloaded files
         run: ls -R
-
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
           repoToken: ${{ secrets.GITHUB_TOKEN }}
