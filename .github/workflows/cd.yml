@@ -35,7 +35,7 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           name: git
           path: ./.git
-      - run: ls -R
+      - run: ls -la .git
       - run: mkdocs gh-deploy --force
       - run: ls -R
       - name: Upload Site artifact
