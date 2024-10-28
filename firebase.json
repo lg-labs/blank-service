@@ -1,6 +1,6 @@
 {
   "hosting": {
-    "public": "blank-acceptance-test/target/atdd-reports",
+    "public": ".",
     "ignore": [
       "firebase.json",
       "**/.*",
