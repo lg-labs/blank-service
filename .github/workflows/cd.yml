@@ -39,7 +39,7 @@ jobs:
           channelId: live
           projectId: blank-service-atdd
           entryPoint: .
-          deployPath: folder1
+          target: folder1
 
   asyncapi:
     runs-on: ubuntu-latest
@@ -102,4 +102,4 @@ jobs:
           channelId: live
           projectId: blank-service-atdd
           entryPoint: .
-          deployPath: openapi
+          target: openapi
