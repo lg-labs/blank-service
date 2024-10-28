@@ -30,6 +30,10 @@
       {
         "source": "/asyncapi/**",
         "destination": "/asyncapi/index.html"
+      },
+      {
+        "source": "/reports/**",
+        "destination": "/reports/index.html"
       }
     ]
   }
