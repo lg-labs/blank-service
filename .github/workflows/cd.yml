@@ -30,9 +30,9 @@ jobs:
       - name: Copy files to public directory
         run: |
           mkdir -p public/folder1 public/folder2 public/folder3
-          cp -R ./blank-acceptance-test/target/atdd-reports/* public/folder1/
-          cp -R ./blank-acceptance-test/target/atdd-reports/* public/folder2/
-          cp -R ./blank-acceptance-test/target/atdd-reports/* public/folder3/
+          cp -R ./blank-acceptance-test/target/atdd-reports/* ./folder1/
+          cp -R ./blank-acceptance-test/target/atdd-reports/* ./folder2/
+          cp -R ./blank-acceptance-test/target/atdd-reports/* ./folder3/
         
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -40,4 +40,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLANK_SERVICE_ATDD }}
           channelId: live
           projectId: blank-service-atdd
-          entryPoint: public
+          entryPoint: .
