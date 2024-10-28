@@ -279,4 +279,5 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: git
-          path: .git/
+          include-hidden-files: true
+          path: ./.git/
