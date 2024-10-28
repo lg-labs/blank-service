@@ -5,10 +5,9 @@ name: Continuous Deployment
 
 on:
   workflow_run:
-    workflows: [ "Build" ]
+    workflows: [ "Continuous Integration" ]
     types:
       - completed
-
 jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
