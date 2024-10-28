@@ -272,3 +272,8 @@ jobs:
         with:
           name: mkdocs
           path: ./blank-support/app
+      - name: Upload Git artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: git
+          path: ./.git
