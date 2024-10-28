@@ -153,13 +153,6 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Build and run tests using Makefile
         run: make install-skip-test
-      - name: List files in target directory
-        run: ls -al ./target
-      - name: Upload JAR artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: container-jar
-          path: '**/target/*container*.jar'
       - name: Show docker image
         run: docker image list | grep com.
       - name: Save Docker image
@@ -192,11 +185,6 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
-      - name: Download JAR artifact
-        uses: actions/download-artifact@v4
-        with:
-          name: container-jar
-          path: .
       - name: List files in target directory
         run: ls -R ./blank-container/target/
       - name: Install Graphviz
@@ -210,7 +198,7 @@ jobs:
         run: docker load -i blank-service-image.tar
       - name: Show docker image
         run: docker image list | grep com.
-      - name: Run acceptance tests using Makefile
+      - name: Run acceptance tests
         run: cd blank-acceptance-test && mvn clean install
       - name: List files in target directory
         run: ls -R ./blank-acceptance-test/target/

@@ -8,8 +8,16 @@
     ],
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/cucumber-reports.html"
+        "source": "/folder1/**",
+        "destination": "/folder1/cucumber-reports.html"
+      },
+      {
+        "source": "/folder2/**",
+        "destination": "/folder2/index.html"
+      },
+      {
+        "source": "/folder3/**",
+        "destination": "/folder3/cucumber-reports.html"
       }
     ]
   }

@@ -13,10 +13,7 @@ jobs:
   build_and_deploy:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - name: Create target directory for artifacts
-        run: mkdir -p ./target/
-     
+      - uses: actions/checkout@v4     
       - name: Download Cucumber Report
         uses: actions/download-artifact@v4
         with:
@@ -29,6 +26,13 @@ jobs:
         run: ls -R
       - name: List files in target directory
         run: ls -al ./
+      
+      - name: Copy files to public directory
+        run: |
+          mkdir -p public/folder1 public/folder2 public/folder3
+          cp -R ./blank-acceptance-test/target/atdd-reports/* public/folder1/
+          cp -R ./blank-acceptance-test/target/atdd-reports/* public/folder2/
+          cp -R ./blank-acceptance-test/target/atdd-reports/* public/folder3/
         
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
@@ -36,4 +40,4 @@ jobs:
           firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT_BLANK_SERVICE_ATDD }}
           channelId: live
           projectId: blank-service-atdd
-          entryPoint: .
+          entryPoint: public
