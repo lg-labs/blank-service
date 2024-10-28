@@ -64,7 +64,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
   checkstyle:
-    name: Checkstyle
+    name: Source Control | Checkstyle
     runs-on: ubuntu-latest
     needs: m2
     steps:
@@ -83,7 +83,7 @@ jobs:
       - name: Run Checkstyle
         run: make run-checkstyle
   ut:
-    name: Unit Test
+    name: Source Control | Unit Test
     runs-on: ubuntu-latest
     needs: checkstyle
     steps:
@@ -104,7 +104,7 @@ jobs:
       - name: List files in target directory
         run: ls -al ./blank-support/target/site
   it:
-    name: Integration Test
+    name: Source Control | Integration Test
     runs-on: ubuntu-latest
     needs: checkstyle
     steps:
@@ -131,11 +131,17 @@ jobs:
         with:
           name: test-reports
           path: ./blank-support/target/site/jacoco-aggregate-all
-
+  quality:
+    name: Quality
+    runs-on: ubuntu-latest
+    needs: [  ut, it ]
+    steps:
+      - name: Confirmation
+        run: echo "Sent report to Sonar or Codacy... "
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: [ ut, it ]
+    needs: [ quality ]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 21
@@ -175,7 +181,7 @@ jobs:
           name: firebase-json
           path: ./firebase.json
 
-  at:
+  test:
     name: Acceptance Test
     runs-on: ubuntu-latest
     needs: build
@@ -287,11 +293,3 @@ jobs:
         with:
           name: mkdocs
           path: ./blank-support/app
-
-  end:
-    name: End
-    runs-on: ubuntu-latest
-    needs: [ openapi, asyncapi, docs ]
-    steps:
-      - name: Confirmation
-        run: echo "End continuous integration... "
