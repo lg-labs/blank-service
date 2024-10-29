@@ -37,7 +37,7 @@ jobs:
         with:
           java-version: 21
           distribution: 'zulu'
-
+      - run: ls -la
       - name: Check if pom.xml exists
         run: |
           if [ ! -f "${{ env.MAVEN_DIR }}/pom.xml" ]; then
@@ -55,6 +55,17 @@ jobs:
           GROUP_ID=$(xmllint --xpath 'string(//project/groupId)' ${{ env.MAVEN_DIR }}/pom.xml | tr '.' '/')  # Cambiar puntos a barras para URL
           ARTIFACT_ID=$(xmllint --xpath 'string(//project/artifactId)' ${{ env.MAVEN_DIR }}/pom.xml)
           VERSION=$(xmllint --xpath 'string(//project/version)' ${{ env.MAVEN_DIR }}/pom.xml)
+          
+          
+          echo "Extracted GROUP_ID: $GROUP_ID"
+          echo "Extracted ARTIFACT_ID: $ARTIFACT_ID"
+          echo "Extracted VERSION: $VERSION"
+          
+          if [[ -z "$GROUP_ID" || -z "$ARTIFACT_ID" || -z "$VERSION" ]]; then
+            echo "Error: One or more Maven coordinates (GROUP_ID, ARTIFACT_ID, VERSION) could not be extracted."
+            exit 1
+          fi
+
           echo "group_id=${GROUP_ID}" >> $GITHUB_ENV
           echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_ENV
           echo "version=${VERSION}" >> $GITHUB_ENV
