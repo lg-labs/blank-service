@@ -102,11 +102,9 @@ jobs:
           
           if echo "$RESPONSE" | grep -q "$IMAGE"; then
             echo "Image exists, will delete it."
-            echo "::set-output name=image_exists::true"
             echo "image_exists=true" >> $GITHUB_OUTPUT
           else
             echo "Image does not exist."
-            echo "::set-output name=image_exists::false"
             echo "image_exists=false" >> $GITHUB_OUTPUT
           fi
 
