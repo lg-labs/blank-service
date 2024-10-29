@@ -1,0 +1,99 @@
+name: Continuous Delivery
+
+on:
+  workflow_run:
+    workflows: [ "CI" ]
+    types:
+      - completed
+permissions:
+  contents: write
+env:
+  MAVEN_DIR: ./
+
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Check out the code
+        uses: actions/checkout@v4
+
+      - name: Download Docker image artifact
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+          name: docker-image
+          path: .
+
+      - name: Set up JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'zulu'
+
+      - name: Check if pom.xml exists
+        run: |
+          if [ ! -f "${{ env.MAVEN_DIR }}/pom.xml" ]; then
+            echo "Error: pom.xml not found in the specified directory: ${{ env.MAVEN_DIR }}"
+            exit 1
+          fi
+
+      - name: Extract Maven coordinates from pom.xml
+        id: extract_maven_coordinates
+        run: |
+          GROUP_ID=$(xmllint --xpath 'string(//project/groupId)' ${{ env.MAVEN_DIR }}/pom.xml | tr '.' '/')  # Cambiar puntos a barras para URL
+          ARTIFACT_ID=$(xmllint --xpath 'string(//project/artifactId)' ${{ env.MAVEN_DIR }}/pom.xml)
+          VERSION=$(xmllint --xpath 'string(//project/version)' ${{ env.MAVEN_DIR }}/pom.xml)
+          echo "group_id=${GROUP_ID}" >> $GITHUB_ENV
+          echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_ENV
+          echo "version=${VERSION}" >> $GITHUB_ENV
+          echo "image_name=${GROUP_ID}/${ARTIFACT_ID}:${VERSION}" >> $GITHUB_ENV
+
+      - name: Load Docker image locally
+        run: docker load -i blank-service-image.tar
+
+      - name: Show docker image
+        run: docker image list | grep ${{ env.image_name }}
+
+      - name: Check if Docker image exists locally
+        id: check_local_image
+        run: |
+          if [[ "$(docker images -q ${{ env.image_name }})" == "" ]]; then
+            echo "Error: Local Docker image '${{ env.image_name }}' not found."
+            exit 1  # Salir con un código de error
+          fi
+          echo "Local Docker image '${{ env.image_name }}' exists."
+
+      - name: Log in to GitHub Packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: echo $GITHUB_TOKEN | docker login ghcr.io -u ${{ github.actor }} --password-stdin
+
+      - name: Check if Docker image exists in GitHub Packages
+        id: check_image
+        run: |
+          IMAGE="${{ env.image_name }}"
+          REPO_URL="https://api.github.com/repos/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions"
+          
+          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$REPO_URL")
+          
+          if echo "$RESPONSE" | grep -q "$IMAGE"; then
+            echo "Image exists, will delete it."
+            echo "::set-output name=image_exists::true"
+          else
+            echo "Image does not exist."
+            echo "::set-output name=image_exists::false"
+          fi
+
+      - name: Delete existing Docker image
+        if: steps.check_image.outputs.image_exists == 'true'
+        run: |
+          IMAGE="ghcr.io/${{ github.repository }}/${{ env.group_id }}/${{ env.artifact_id }}:${{ env.version }}"
+          curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions/${{ env.version }}"
+
+      - name: Push Docker Image to GitHub Packages
+        run: |
+          docker push ghcr.io/${{ github.repository }}/${{ env.group_id }}/${{ env.artifact_id }}:${{ env.version }}
