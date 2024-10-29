@@ -96,11 +96,13 @@ jobs:
       - name: Check if Docker image exists in GitHub Packages
         id: check_image
         run: |
-          IMAGE="${{ env.image_name }}"
+          IMAGE="${{ env.group_id_with_slash }}/${{ env.artifact_id }}:${{ env.version }}"
           REPO_URL="https://api.github.com/repos/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions"
-          
+
+          # Get the package versions
           RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$REPO_URL")
-          
+
+          # Check if the image exists
           if echo "$RESPONSE" | grep -q "$IMAGE"; then
             echo "Image exists, will delete it."
             echo "image_exists=true" >> $GITHUB_OUTPUT
@@ -108,6 +110,10 @@ jobs:
             echo "Image does not exist."
             echo "image_exists=false" >> $GITHUB_OUTPUT
           fi
+
+      - name: Debug Response
+        run: |
+          echo "$RESPONSE"
 
       - name: Delete existing Docker image
         if: steps.check_image.outputs.image_exists == 'true'
