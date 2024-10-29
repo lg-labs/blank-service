@@ -105,25 +105,19 @@ jobs:
             echo "Image does not exist."
             echo "image_exists=false" >> $GITHUB_OUTPUT
           fi
+          echo "image_gh_package=${IMAGE}" >> $GITHUB_ENV
 
-      - name: Get Docker image version ID in GitHub Packages
-        id: get_image_version_id
+      - name: Get Docker image version ID locally
+        id: get_local_image_id
         run: |
-          # Construct API URL with encoded slashes
-          IMAGE_NAME_ENCODED="${{ github.repository }}%2F${{ env.group_id }}%2F${{ env.artifact_id }}"
-          REPO_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/$IMAGE_NAME_ENCODED/versions"
-
-          # Make API request
-          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$REPO_URL")
-
-          # Debugging output
-          echo "API Response: $RESPONSE"
-
-          # Parse the ID of the specific version
-          VERSION_ID=$(echo "$RESPONSE" | jq -r '.[] | select(.metadata.container.tags[] | contains("1.0.0-alpha")).id')
-
-          # Set the version ID as an environment variable
-          echo "VERSION_ID=$VERSION_ID" >> $GITHUB_ENV
+           IMAGE_ID=$(docker images ghcr.io//${{image_gh_package}} --format "{{.ID}}")
+          
+          if [ -z "$IMAGE_ID" ]; then
+            echo "Error: Docker image ID not found."
+            exit 1
+          fi
+          echo "Found Docker image ID: $IMAGE_ID"
+          echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
 
       - name: Delete Docker image from GitHub Packages
         if: steps.check_image.outputs.image_exists == 'true'
