@@ -7,6 +7,9 @@ on:
   pull_request:
     branches:
       - main
+permissions:
+  contents: write
+
 jobs:
   setup:
     name: Setup
@@ -120,9 +123,9 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: test-reports
-          path: ./reports
+          path: ./site
       - name: Confirmation
-        run: ls -R /reports
+        run: ls -R
       - name: Download Codacy Coverage Reporter
         run: |
           COV_REPORTER_VERSION=$(curl -s https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | grep tag_name | cut -d '"' -f 4)
@@ -132,12 +135,12 @@ jobs:
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         run: |
-          if [ -f "reports/jacoco.xml" ]; then
+          if [ -f "site/jacoco.xml" ]; then
             ./codacy-coverage-reporter report \
               --language Java \
-              --coverage-reports reports/jacoco.xml
+              --coverage-reports site/jacoco.xml
           else
-            echo "Coverage report not found: reports/jacoco.xml"
+            echo "Coverage report not found: site/jacoco.xml"
             exit 1
           fi
       - name: Confirmation
