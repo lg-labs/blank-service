@@ -5,6 +5,8 @@ on:
     workflows: [ "Continuous Integration" ]
     types:
       - completed
+    conclusions:
+      - success
 permissions:
   contents: write
   packages: write
