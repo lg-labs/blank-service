@@ -226,7 +226,7 @@ jobs:
 
       - name: Save Docker image
         run: |
-          docker save -o blank-service-image.tar "$IMAGE_NAME"
+          docker save -o blank-service-image.tar ${{ env.IMAGE_NAME }}
 
       - name: Upload Docker image as artifact
         uses: actions/upload-artifact@v4
