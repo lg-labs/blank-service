@@ -116,11 +116,13 @@ jobs:
     needs: [ checkstyle, verify ]
     steps:
       - uses: actions/checkout@v4
-      - name: Download dependency-graph
+      - name: Download Test reports
         uses: actions/download-artifact@v4
         with:
           name: test-reports
           path: test-reports
+      - name: Confirmation
+        run: ls -R /test-reports
       - name: Download Codacy Coverage Reporter
         run: |
           COV_REPORTER_VERSION=$(curl -s https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | grep tag_name | cut -d '"' -f 4)
