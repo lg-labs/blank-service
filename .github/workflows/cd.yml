@@ -21,48 +21,17 @@ jobs:
           repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
           name: mkdocs
-          path: ./pages
+          path: ./site
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./pages/site
+          publish_dir: ./site
           publish_branch: gh-pages
-
-  page:
-    name: Gh Page
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5.1.0
-        with:
-          python-version: 3.x
-      - uses: actions/cache@v4.0.2
-        with:
-          key: ${{ github.ref }}
-          path: .cache
-      - run: pip install mkdocs-material
-      - run: pip install pillow cairosvg
-      - name: Download MkDocs
-        uses: actions/download-artifact@v4
-        with:
-          github-token: ${{ github.token }}
-          repository: ${{ github.repository }}
-          run-id: ${{ github.event.workflow_run.id }}
-          name: mkdocs
-          path: ./pages
-      - run: ls -la ./pages
-      - run: cd pages && mkdocs gh-deploy --force
-      - name: Upload Site artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: main-site
-          path: ./pages/site
   site:
     name: Web Site
     runs-on: ubuntu-latest
-    needs: page
     steps:
       - name: Download firebase.json
         uses: actions/download-artifact@v4
@@ -108,10 +77,14 @@ jobs:
           run-id: ${{ github.event.workflow_run.id }}
           name: cucumber-report
           path: ./atdd
+
       - name: Download Site artifact
         uses: actions/download-artifact@v4
         with:
-          name: main-site
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+          name: mkdocs
           path: ./docs
       - name: Display structure of downloaded files
         run: ls -R
