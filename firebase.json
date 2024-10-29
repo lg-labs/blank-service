@@ -26,6 +26,10 @@
       {
         "source": "/reports/**",
         "destination": "/reports/index.html"
+      },
+      {
+        "source": "/",
+        "destination": "/docs/index.html"
       }
     ]
   }
