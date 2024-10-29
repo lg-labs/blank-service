@@ -18,6 +18,18 @@ jobs:
     steps:
       - name: Check out the code
         uses: actions/checkout@v4
+      - name: Download Maven details artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: maven-details
+          path: .
+
+      - name: Load Maven details
+        run: |
+          set -a
+          source maven_details.env
+          set +a
+          echo "Loaded GROUP_ID: $GROUP_ID, ARTIFACT_ID: $ARTIFACT_ID, VERSION: $VERSION, IMAGE_NAME: $IMAGE_NAME"
 
       - name: Install xmllint
         run: |
