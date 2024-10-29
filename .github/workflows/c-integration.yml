@@ -210,7 +210,7 @@ jobs:
       - name: Show docker image
         run: |
           IMAGE_NAME_VERSION="${{ needs.setup.outputs.image_name_version }}"
-          docker image list | grep "$IMAGE_NAME_VERSION"
+          docker image list | grep "${IMAGE_NAME_VERSION}"
 
       - name: Save Docker image
         run: |
