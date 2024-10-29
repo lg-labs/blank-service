@@ -107,19 +107,19 @@ jobs:
           fi
 
       - name: Get Docker image version ID in GitHub Packages
-        id: get_version_id
+        id: get_image_version_id
         run: |
-          IMAGE_NAME="${{ env.group_id }}/${{ env.artifact_id }}"
-          REPO_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${IMAGE_NAME}/versions"
+          REPO_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.artifact_id }}/versions"    
+          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$REPO_URL")
 
-          # Obtener el ID de la última versión de la imagen
-          VERSION_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$REPO_URL" | jq -r ".[] | select(.metadata.container.tags[] | contains(\"${{ env.version }}\")).id")
-          
-          if [ -z "$VERSION_ID" ]; then
-            echo "Error: No version ID found for image ${IMAGE_NAME}:${{ env.version }}."
-            exit 1
-          fi
-          echo "Found version ID: $VERSION_ID"
+          # Debugging output to inspect the JSON structure
+          echo "$RESPONSE"
+
+          # Adjusted jq command
+          VERSION_ID=$(echo "$RESPONSE" | jq -r '.[] | select(.metadata.container.tags[] | contains("${{ env.version }}")).id')
+
+          # Output version ID
+          echo "VERSION_ID: $VERSION_ID"
           echo "version_id=$VERSION_ID" >> $GITHUB_ENV
 
       - name: Delete Docker image from GitHub Packages
