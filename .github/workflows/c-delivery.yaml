@@ -74,7 +74,6 @@ jobs:
           echo "version=${VERSION}" >> $GITHUB_ENV
           echo "image_name=${GROUP_ID}/${ARTIFACT_ID}:${VERSION}" >> $GITHUB_ENV
           echo "group_id_with_slash=${GROUP_ID_WITH_SLASH}" >> $GITHUB_ENV
-          
 
       - name: Load Docker image locally
         run: docker load -i blank-service-image.tar
@@ -107,15 +106,28 @@ jobs:
             echo "image_exists=false" >> $GITHUB_OUTPUT
           fi
 
-      - name: Debug Response
+      - name: Get Docker image version ID in GitHub Packages
+        id: get_version_id
         run: |
-          echo "$RESPONSE"
+          IMAGE_NAME="${{ env.group_id }}/${{ env.artifact_id }}"
+          REPO_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${IMAGE_NAME}/versions"
 
-      - name: Delete existing Docker image
+          # Obtener el ID de la última versión de la imagen
+          VERSION_ID=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$REPO_URL" | jq -r ".[] | select(.metadata.container.tags[] | contains(\"${{ env.version }}\")).id")
+          
+          if [ -z "$VERSION_ID" ]; then
+            echo "Error: No version ID found for image ${IMAGE_NAME}:${{ env.version }}."
+            exit 1
+          fi
+          echo "Found version ID: $VERSION_ID"
+          echo "version_id=$VERSION_ID" >> $GITHUB_ENV
+
+      - name: Delete Docker image from GitHub Packages
         if: steps.check_image.outputs.image_exists == 'true'
         run: |
-          IMAGE="ghcr.io/${{ github.repository }}/${{ env.group_id }}/${{ env.artifact_id }}:${{ env.version }}"
-          curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions/${{ env.version }}"
+          IMAGE_NAME="${{ env.group_id }}/${{ env.artifact_id }}"
+          DELETE_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${IMAGE_NAME}/versions/${{ env.version_id }}"
+          curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$DELETE_URL"
 
       - name: Tag Docker image for GitHub Packages
         run: |
