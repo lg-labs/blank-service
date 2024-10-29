@@ -55,10 +55,12 @@ jobs:
           GROUP_ID=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="groupId"])' ${{ env.MAVEN_DIR }}/pom.xml)
           ARTIFACT_ID=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="artifactId"])' ${{ env.MAVEN_DIR }}/pom.xml)
           VERSION=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="version"])' ${{ env.MAVEN_DIR }}/pom.xml)    
+          GROUP_ID_WITH_SLASH=$(echo "${GROUP_ID_WITH_SLASH}" | tr '.' '/')
           
           echo "Extracted GROUP_ID: $GROUP_ID"
           echo "Extracted ARTIFACT_ID: $ARTIFACT_ID"
           echo "Extracted VERSION: $VERSION"
+          echo "Extracted GROUP_ID_WITH_SLASH: $GROUP_ID_WITH_SLASH"
           
           if [[ -z "$GROUP_ID" || -z "$ARTIFACT_ID" || -z "$VERSION" ]]; then
             echo "Error: One or more Maven coordinates (GROUP_ID, ARTIFACT_ID, VERSION) could not be extracted."
@@ -69,6 +71,8 @@ jobs:
           echo "artifact_id=${ARTIFACT_ID}" >> $GITHUB_ENV
           echo "version=${VERSION}" >> $GITHUB_ENV
           echo "image_name=${GROUP_ID}/${ARTIFACT_ID}:${VERSION}" >> $GITHUB_ENV
+          echo "group_id_with_slash=${GROUP_ID_WITH_SLASH}" >> $GITHUB_ENV
+          
 
       - name: Load Docker image locally
         run: docker load -i blank-service-image.tar
@@ -111,5 +115,4 @@ jobs:
 
       - name: Push Docker Image to GitHub Packages
         run: |
-          GROUP_ID_WITH_SLASH=$(echo "${{ env.group_id }}" | tr '.' '/')
-          docker push ghcr.io/${{ github.repository }}/${GROUP_ID_WITH_SLASH}/${{ env.artifact_id }}:${{ env.version }}
+          docker push ghcr.io/${{ github.repository }}/${{env.group_id_with_slash}}/${{ env.artifact_id }}:${{ env.version }}
