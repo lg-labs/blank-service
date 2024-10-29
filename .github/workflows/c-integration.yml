@@ -214,6 +214,7 @@ jobs:
           set +a
           echo "Loaded GROUP_ID: $GROUP_ID, ARTIFACT_ID: $ARTIFACT_ID, VERSION: $VERSION, IMAGE_NAME: $IMAGE_NAME"
           echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV  # <-- Export IMAGE_NAME to the GitHub environment
+          echo "GROUP_ID=$GROUP_ID" >> $GITHUB_ENV  # <-- Export GROUP_ID to the GitHub environment
 
 
       - name: Build and run tests using Makefile
@@ -221,8 +222,8 @@ jobs:
 
       - name: Show docker image
         run: |
-          echo "${{ env.IMAGE_NAME }}"
-          docker image list | grep ${{ env.IMAGE_NAME }}
+          echo "${{ env.GROUP_ID }}"
+          docker image list | grep ${{ env.GROUP_ID }}
 
       - name: Save Docker image
         run: |
