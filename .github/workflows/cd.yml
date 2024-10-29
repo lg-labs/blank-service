@@ -36,7 +36,7 @@ jobs:
   page:
     name: Gh Page
     runs-on: ubuntu-latest
-    if: env.GITHUB_PAGE_DISABLED == true
+    if: ${{ env.GITHUB_PAGE_DISABLED == 'true' }}
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5.1.0
