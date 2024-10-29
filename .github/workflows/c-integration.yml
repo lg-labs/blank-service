@@ -113,6 +113,16 @@ jobs:
         with:
           name: test-reports
           path: ./blank-support/target/site/jacoco-aggregate-all
+      - name: Verify and Load Docker Images
+        run: |
+          echo "Saving all Docker images to all-images.tar"
+          docker save -o all-images.tar $(docker images -q)
+
+      - name: Upload Docker Images Artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: all-docker-images
+          path: all-images.tar
   quality:
     name: Quality
     runs-on: ubuntu-latest
@@ -207,6 +217,14 @@ jobs:
 
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
+
+      - name: Download Docker images artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: all-docker-images
+          path: ./
+      - name: Load Docker images
+        run: docker load -i all-images.tar
 
       - name: Download Docker image artifact
         uses: actions/download-artifact@v4
