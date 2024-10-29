@@ -203,13 +203,25 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Download Maven details artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: maven-details
+          path: .
+
+      - name: Load Maven details
+        run: |
+          set -a
+          source maven_details.env
+          set +a
+          echo "Loaded GROUP_ID: $GROUP_ID, ARTIFACT_ID: $ARTIFACT_ID, VERSION: $VERSION, IMAGE_NAME: $IMAGE_NAME"
 
       - name: Build and run tests using Makefile
         run: make install-skip-test
 
       - name: Show docker image
         run: |
-          IMAGE_NAME_VERSION="${{ needs.setup.outputs.image_name_version }}"
+          IMAGE_NAME_VERSION="${IMAGE_NAME}"
           docker image list | grep "${IMAGE_NAME_VERSION}"
 
       - name: Save Docker image
