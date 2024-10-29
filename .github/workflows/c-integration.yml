@@ -131,20 +131,6 @@ jobs:
           COV_REPORTER_VERSION=$(curl -s https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | grep tag_name | cut -d '"' -f 4)
           wget -O codacy-coverage-reporter "https://github.com/codacy/codacy-coverage-reporter/releases/download/${COV_REPORTER_VERSION}/codacy-coverage-reporter-linux"
           chmod +x codacy-coverage-reporter
-      - name: Publish coverage report to Codacy
-        env:
-          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
-        run: |
-          if [ -f "site/jacoco.xml" ]; then
-          
-            echo "Coverage report on: site/jacoco.xml"
-#            ./codacy-coverage-reporter report \
-#              --language Java \
-#              --coverage-reports ./site/jacoco.xml
-          else
-            echo "Coverage report not found: site/jacoco.xml"
-            exit 1
-          fi
       - name: Confirmation
         run: echo "Sent report to Sonar or Codacy... "
   build:
