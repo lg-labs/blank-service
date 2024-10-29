@@ -7,10 +7,36 @@ on:
       - completed
 permissions:
   contents: write
+
+env:
+  GITHUB_PAGE_DISABLED: true
+
 jobs:
+  ghpage:
+    name: GitHub Page
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Download MkDocs
+        uses: actions/download-artifact@v4
+        with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
+          name: mkdocs
+          path: ./pages
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./pages/site
+          publish_branch: gh-pages
+
   page:
     name: Gh Page
     runs-on: ubuntu-latest
+    if: env.GITHUB_PAGE_DISABLED == true
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5.1.0
