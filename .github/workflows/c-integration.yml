@@ -136,9 +136,11 @@ jobs:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
         run: |
           if [ -f "site/jacoco.xml" ]; then
-            ./codacy-coverage-reporter report \
-              --language Java \
-              --coverage-reports ./site/jacoco.xml
+          
+            echo "Coverage report on: site/jacoco.xml"
+#            ./codacy-coverage-reporter report \
+#              --language Java \
+#              --coverage-reports ./site/jacoco.xml
           else
             echo "Coverage report not found: site/jacoco.xml"
             exit 1
