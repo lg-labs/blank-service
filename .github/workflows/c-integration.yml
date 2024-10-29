@@ -224,13 +224,11 @@ jobs:
 
       - name: Show docker image
         run: |
-          IMAGE_NAME_VERSION="${IMAGE_NAME}"
-          docker image list | grep "${IMAGE_NAME_VERSION}"
+          docker image list | grep $IMAGE_NAME
 
       - name: Save Docker image
         run: |
-          IMAGE_NAME_VERSION="${{ needs.setup.outputs.image_name_version }}"
-          docker save -o blank-service-image.tar "$IMAGE_NAME_VERSION"
+          docker save -o blank-service-image.tar $IMAGE_NAME
 
       - name: Upload Docker image as artifact
         uses: actions/upload-artifact@v4
