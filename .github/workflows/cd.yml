@@ -22,7 +22,11 @@ jobs:
           path: ./
       - name: Extract .git directory
         run: tar -xzf git-directory.tar.gz
-
+      - name: Set up Git credentials
+        run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "105936384+lglabs@users.noreply.github.com"
+          git remote set-url origin https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }}.git
       - run: ls -la .git
       - uses: actions/setup-python@v5.1.0
         with:
