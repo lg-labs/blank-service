@@ -218,17 +218,19 @@ jobs:
           source maven_details.env
           set +a
           echo "Loaded GROUP_ID: $GROUP_ID, ARTIFACT_ID: $ARTIFACT_ID, VERSION: $VERSION, IMAGE_NAME: $IMAGE_NAME"
+          echo "IMAGE_NAME=$IMAGE_NAME" >> $GITHUB_ENV  # <-- Export IMAGE_NAME to the GitHub environment
+
 
       - name: Build and run tests using Makefile
         run: make install-skip-test
 
       - name: Show docker image
         run: |
-          docker image list | grep $IMAGE_NAME
+          docker image list | grep "$IMAGE_NAME"
 
       - name: Save Docker image
         run: |
-          docker save -o blank-service-image.tar $IMAGE_NAME
+          docker save -o blank-service-image.tar "$IMAGE_NAME"
 
       - name: Upload Docker image as artifact
         uses: actions/upload-artifact@v4
