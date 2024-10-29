@@ -115,12 +115,30 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ checkstyle, verify ]
     steps:
+      - uses: actions/checkout@v4
+      - name: Download dependency-graph
+        uses: actions/download-artifact@v4
+        with:
+          name: test-reports
+          path: test-reports
+      - name: Download Codacy Coverage Reporter
+        run: |
+          COV_REPORTER_VERSION=$(curl -s https://api.github.com/repos/codacy/codacy-coverage-reporter/releases/latest | grep tag_name | cut -d '"' -f 4)
+          wget -O codacy-coverage-reporter "https://github.com/codacy/codacy-coverage-reporter/releases/download/${COV_REPORTER_VERSION}/codacy-coverage-reporter-linux"
+          chmod +x codacy-coverage-reporter
+      - name: Publish coverage report to Codacy
+        env:
+          CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
+        run: |
+          ./codacy-coverage-reporter report \
+            --language Java \
+            --coverage-reports test-reports/jacoco.xml
       - name: Confirmation
         run: echo "Sent report to Sonar or Codacy... "
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs: [ quality ]
+    needs: [ checkstyle, verify ]
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 21
