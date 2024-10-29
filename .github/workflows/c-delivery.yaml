@@ -52,7 +52,7 @@ jobs:
             echo "xmllint could not be found, exiting..."
             exit 1
           fi
-          GROUP_ID=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="groupId"])' ${{ env.MAVEN_DIR }}/pom.xml | tr '.' '/')
+          GROUP_ID=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="groupId"])' ${{ env.MAVEN_DIR }}/pom.xml)
           ARTIFACT_ID=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="artifactId"])' ${{ env.MAVEN_DIR }}/pom.xml)
           VERSION=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="version"])' ${{ env.MAVEN_DIR }}/pom.xml)    
           
