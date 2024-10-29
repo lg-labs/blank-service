@@ -110,7 +110,7 @@ jobs:
       - name: Get Docker image version ID locally
         id: get_local_image_id
         run: |
-           IMAGE_ID=$(docker images ghcr.io//${{image_gh_package}} --format "{{.ID}}")
+           IMAGE_ID=$(docker images ghcr.io//${{env.image_gh_package}} --format "{{.ID}}")
           
           if [ -z "$IMAGE_ID" ]; then
             echo "Error: Docker image ID not found."
