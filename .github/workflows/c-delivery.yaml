@@ -23,6 +23,9 @@ jobs:
       - name: Download Maven details artifact
         uses: actions/download-artifact@v4
         with:
+          github-token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          run-id: ${{ github.event.workflow_run.id }}
           name: maven-details
           path: .
 
