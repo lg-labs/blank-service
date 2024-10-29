@@ -96,14 +96,10 @@ jobs:
       - name: Check if Docker image exists in GitHub Packages
         id: check_image
         run: |
-          IMAGE="${{ env.group_id_with_slash }}/${{ env.artifact_id }}:${{ env.version }}"
-          REPO_URL="https://api.github.com/repos/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions"
+          IMAGE="ghcr.io/${{ github.repository }}/${{ env.group_id }}/${{ env.artifact_id }}:${{ env.version }}"
 
-          # Get the package versions
-          RESPONSE=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$REPO_URL")
-
-          # Check if the image exists
-          if echo "$RESPONSE" | grep -q "$IMAGE"; then
+          # Check if the Docker image exists in GitHub Packages
+          if docker pull "$IMAGE"; then
             echo "Image exists, will delete it."
             echo "image_exists=true" >> $GITHUB_OUTPUT
           else
@@ -120,9 +116,11 @@ jobs:
         run: |
           IMAGE="ghcr.io/${{ github.repository }}/${{ env.group_id }}/${{ env.artifact_id }}:${{ env.version }}"
           curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions/${{ env.version }}"
+
       - name: Tag Docker image for GitHub Packages
         run: |
           docker tag ${{ env.image_name }} ghcr.io/${{ github.repository }}/${{ env.image_name }}
+
       - name: Push Docker Image to GitHub Packages
         run: |
           docker push ghcr.io/${{ github.repository }}/${{ env.image_name }}
