@@ -256,16 +256,15 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5.1.0
         with:
-          fetch-depth: 0
-      - run: ls -la .git
-      - name: Compress .git directory
-        run: tar -czf git-directory.tar.gz .git
-      - name: Upload Git artifact
-        uses: actions/upload-artifact@v4
+          python-version: 3.x
+      - uses: actions/cache@v4.0.2
         with:
-          name: git
-          path: ./git-directory.tar.gz
+          key: ${{ github.ref }}
+          path: .cache
+      - run: pip install mkdocs-material
+      - run: pip install pillow cairosvg
       - name: Download dependency-graph
         uses: actions/download-artifact@v4
         with:
@@ -273,7 +272,7 @@ jobs:
           path: .
       - name: Update dependency-graph on MkDocs
         run: cp -r dependency-graph.png ./blank-support/app/docs/img
-
+      - run: cd ./blank-support/app && mkdocs
       - name: Display structure of downloaded files
         run: ls -R ./blank-support/app
 
@@ -282,9 +281,3 @@ jobs:
         with:
           name: mkdocs
           path: ./blank-support/app
-      - name: Upload Git artifact
-        uses: actions/upload-artifact@v4
-        with:
-          name: git
-          include-hidden-files: true
-          path: ./.git/
