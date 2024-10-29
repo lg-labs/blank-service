@@ -113,7 +113,9 @@ jobs:
         run: |
           IMAGE="ghcr.io/${{ github.repository }}/${{ env.group_id }}/${{ env.artifact_id }}:${{ env.version }}"
           curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions/${{ env.version }}"
-
+      - name: Tag Docker image for GitHub Packages
+        run: |
+          docker tag ${{ env.image_name }} ghcr.io/${{ github.repository }}/${{ env.image_name }}
       - name: Push Docker Image to GitHub Packages
         run: |
           docker push ghcr.io/${{ github.repository }}/${{ env.image_name }}
