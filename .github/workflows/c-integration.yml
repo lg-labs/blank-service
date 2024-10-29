@@ -208,9 +208,15 @@ jobs:
         run: make install-skip-test
 
       - name: Show docker image
-        run: docker image list | grep ${{ needs.setup.outputs.image_name_version }}
+        run: |
+          IMAGE_NAME_VERSION="${{ needs.setup.outputs.image_name_version }}"
+          docker image list | grep "$IMAGE_NAME_VERSION"
+
       - name: Save Docker image
-        run: docker save -o blank-service-image.tar ${{ needs.setup.outputs.image_name_version }}
+        run: |
+          IMAGE_NAME_VERSION="${{ needs.setup.outputs.image_name_version }}"
+          docker save -o blank-service-image.tar "$IMAGE_NAME_VERSION"
+
       - name: Upload Docker image as artifact
         uses: actions/upload-artifact@v4
         with:
