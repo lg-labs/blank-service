@@ -54,8 +54,9 @@ jobs:
           fi
           GROUP_ID=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="groupId"])' ${{ env.MAVEN_DIR }}/pom.xml)
           ARTIFACT_ID=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="artifactId"])' ${{ env.MAVEN_DIR }}/pom.xml)
-          VERSION=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="version"])' ${{ env.MAVEN_DIR }}/pom.xml)    
-          GROUP_ID_WITH_SLASH=$(echo "${GROUP_ID_WITH_SLASH}" | tr '.' '/')
+          VERSION=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="version"])' ${{ env.MAVEN_DIR }}/pom.xml)
+          
+          GROUP_ID_WITH_SLASH=$(echo "$GROUP_ID" | tr '.' '/')
           
           echo "Extracted GROUP_ID: $GROUP_ID"
           echo "Extracted ARTIFACT_ID: $ARTIFACT_ID"
