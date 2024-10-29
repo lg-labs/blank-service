@@ -222,6 +222,8 @@ jobs:
 
       - name: List files in target directory
         run: ls -R ./blank-acceptance-test/target/
+      - name: List files in parent target directory
+        run: ls -R ./target/
 
       - name: Upload Cucumber Report
         uses: actions/upload-artifact@v4
