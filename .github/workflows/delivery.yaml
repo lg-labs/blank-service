@@ -64,9 +64,6 @@ jobs:
       - name: Load Docker image locally
         run: docker load -i blank-service-image.tar
 
-      - name: Show docker image
-        run: docker image list | grep ${{ env.image_name }}
-
       - name: Check if Docker image exists locally
         id: check_local_image
         run: |
