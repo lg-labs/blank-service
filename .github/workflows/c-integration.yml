@@ -148,7 +148,7 @@ jobs:
           if [ -f "site/jacoco.xml" ]; then
             ./codacy-coverage-reporter report \
               --language Java \
-              --coverage-reports site/jacoco.xml
+              --coverage-reports ./site/jacoco.xml
           else
             echo "Coverage report not found: site/jacoco.xml"
             exit 1
