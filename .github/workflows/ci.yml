@@ -272,7 +272,9 @@ jobs:
           path: .
       - name: Update dependency-graph on MkDocs
         run: cp -r dependency-graph.png ./blank-support/app/docs/img
-      - run: cd ./blank-support/app && mkdocs
+
+      - run: cd ./blank-support/app && mkdocs build
+
       - name: Display structure of downloaded files
         run: ls -R ./blank-support/app
 
