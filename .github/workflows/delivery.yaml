@@ -52,6 +52,10 @@ jobs:
             echo "xmllint could not be found, exiting..."
             exit 1
           fi
+          GROUP_ID=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="groupId"])' ${{ env.MAVEN_DIR }}/pom.xml | tr '.' '/')
+          ARTIFACT_ID=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="artifactId"])' ${{ env.MAVEN_DIR }}/pom.xml)
+          VERSION=$(xmllint --xpath 'string(//*[local-name()="project"]/*[local-name()="version"])' ${{ env.MAVEN_DIR }}/pom.xml)
+          
           GROUP_ID=$(xmllint --xpath 'string(//project/groupId)' ${{ env.MAVEN_DIR }}/pom.xml | tr '.' '/')  # Cambiar puntos a barras para URL
           ARTIFACT_ID=$(xmllint --xpath 'string(//project/artifactId)' ${{ env.MAVEN_DIR }}/pom.xml)
           VERSION=$(xmllint --xpath 'string(//project/version)' ${{ env.MAVEN_DIR }}/pom.xml)
