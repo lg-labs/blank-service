@@ -182,6 +182,11 @@ jobs:
     name: Acceptance Test
     runs-on: ubuntu-latest
     needs: build
+    env:
+      APPLICATION_TRACES_FILE_ENABLED: "false"
+      APPLICATION_LOG_ENABLED: "false"
+      APPLICATION_LOG_SOURCE_PATH: "/logs"
+      APPLICATION_LOG_DESTINATION_PATH: "./target/logs"
     steps:
       - uses: actions/checkout@v4
       - name: Set up JDK 21
