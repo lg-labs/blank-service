@@ -106,9 +106,10 @@ jobs:
       - name: Delete Docker image from GitHub Packages
         if: steps.check_image.outputs.image_exists == 'true'
         run: |
-          IMAGE_NAME="${{ env.group_id }}/${{ env.artifact_id }}"
-          DELETE_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${IMAGE_NAME}/versions/${{ env.version_id }}"
-          curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$DELETE_URL"
+          
+          DELETE_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.artifact_id }}/versions/${{ env.IMAGE_ID }}"
+          
+          curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$DELETE_URL"  
 
       - name: Tag Docker image for GitHub Packages
         run: |
