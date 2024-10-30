@@ -90,7 +90,8 @@ jobs:
             echo "image_exists=false" >> $GITHUB_OUTPUT
           fi
           echo "image_gh_package=${IMAGE}" >> $GITHUB_ENV
-
+      - name: Set up jq
+        run: sudo apt-get install -y jq
       - name: Get Docker image version ID locally
         id: get_local_image_id
         run: |
@@ -102,6 +103,23 @@ jobs:
           fi
           echo "Found Docker image ID: $IMAGE_ID"
           echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
+          
+             # Llamar a la API para obtener las versiones del paquete
+          
+          RESPONSE=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
+            -H "Accept: application/vnd.github.v3+json" \
+            "https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.artifact_id }}/versions")
+          
+          VERSION_ID=$(echo "$RESPONSE" | jq -r ".[] | select(.metadata.container.tags[] == \"${{ env.version }}\") | .id")
+
+          if [ -z "$VERSION_ID" ]; then
+            echo "Error: Version ID for image tag '${{ env.version }}' not found."
+            exit 1
+          fi
+          
+          echo "Found Version ID: $VERSION_ID"
+          echo "VERSION_ID=$VERSION_ID" >> $GITHUB_ENV
+          
 
       - name: Delete Docker image from GitHub Packages
         if: steps.check_image.outputs.image_exists == 'true'
