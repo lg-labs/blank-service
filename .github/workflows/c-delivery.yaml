@@ -96,7 +96,7 @@ jobs:
         run: |
           curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.artifact_id }}/versions" \
+          "https://api.github.com/orgs/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions" \
           | tee response.json
 
 
@@ -116,7 +116,7 @@ jobs:
           
           RESPONSE=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.artifact_id }}/versions")
+            "https://api.github.com/orgs/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions")
           
           VERSION_ID=$(echo "$RESPONSE" | jq -r ".[] | select(.metadata.container.tags[] == \"${{ env.version }}\") | .id")
 
