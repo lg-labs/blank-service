@@ -92,6 +92,14 @@ jobs:
           echo "image_gh_package=${IMAGE}" >> $GITHUB_ENV
       - name: Set up jq
         run: sudo apt-get install -y jq
+      - name: Debug API Response
+        run: |
+          curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.artifact_id }}/versions" \
+          | tee response.json
+
+
       - name: Get Docker image version ID locally
         id: get_local_image_id
         run: |
