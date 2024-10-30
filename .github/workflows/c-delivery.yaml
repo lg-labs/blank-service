@@ -93,6 +93,8 @@ jobs:
       - name: Set up jq
         run: sudo apt-get install -y jq
       - name: Debug API Response
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
           -H "Accept: application/vnd.github.v3+json" \
@@ -102,6 +104,8 @@ jobs:
 
       - name: Get Docker image version ID locally
         id: get_local_image_id
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           IMAGE_ID=$(docker images ${{ env.image_gh_package }} --format "{{.ID}}")
           
