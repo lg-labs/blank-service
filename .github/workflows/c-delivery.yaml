@@ -95,7 +95,11 @@ jobs:
 
       - name: Convert path to URL encoding
         run: |
-          ENCODED_PATH=$(echo "${{ github.workspace }}/${{ env.group_id }}/${{ env.artifact_id }}" | sed 's/\//%2F/g')
+          REPO_NAME=$(echo "${{ github.repository }}" | cut -d'/' -f2)
+          echo "Repository Name: $REPO_NAME"
+          echo "REPO_NAME=$REPO_NAME" >> $GITHUB_ENV
+          
+          ENCODED_PATH=$(echo "${{ env.REPO_NAME }}/${{ env.group_id }}/${{ env.artifact_id }}" | sed 's/\//%2F/g')
           echo "Encoded path: $ENCODED_PATH"
           echo "ENCODED_PATH=$ENCODED_PATH" >> $GITHUB_ENV
 
