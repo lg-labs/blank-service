@@ -87,7 +87,7 @@ jobs:
           repository: ${{ github.repository }}
           run-id: ${{ github.event.workflow_run.id }}
           name: mkdocs
-          path: ./docs
+          path: ./
       - name: Display structure of downloaded files
         run: ls -R
       - uses: FirebaseExtended/action-hosting-deploy@v0
