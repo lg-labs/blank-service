@@ -9,7 +9,6 @@ application:
     file:
       enabled: false
   log:
-    enabled: false
     source:
       path: /logs
     destination:
