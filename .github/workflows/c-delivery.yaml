@@ -92,20 +92,21 @@ jobs:
           echo "image_gh_package=${IMAGE}" >> $GITHUB_ENV
       - name: Set up jq
         run: sudo apt-get install -y jq
-      - name: Debug API Response
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/orgs/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions" \
-          | tee response.json
 
       - name: Convert path to URL encoding
         run: |
           ENCODED_PATH=$(echo "${{ github.repository }}/${{ env.group_id }}/${{ env.artifact_id }}" | sed 's/\//%2F/g')
           echo "Encoded path: $ENCODED_PATH"
           echo "ENCODED_PATH=$ENCODED_PATH" >> $GITHUB_ENV
+
+      - name: Debug API Response
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
+          -H "Accept: application/vnd.github.v3+json" \
+          "https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.ENCODED_PATH }}/versions" \
+          | tee response.json
 
       - name: Get Docker image version ID locally
         id: get_local_image_id
