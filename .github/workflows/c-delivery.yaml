@@ -140,8 +140,7 @@ jobs:
         if: steps.check_image.outputs.image_exists == 'true'
         run: |
           
-          DELETE_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.ENCODED_PATH }}/versions/${{ env.IMAGE_ID }}"
-          
+          DELETE_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.ENCODED_PATH }}/versions/${{ env.VERSION_ID }}"
           curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$DELETE_URL"  
 
       - name: Tag Docker image for GitHub Packages
