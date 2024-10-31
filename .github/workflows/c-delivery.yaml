@@ -117,14 +117,6 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          IMAGE_ID=$(docker images ${{ env.image_gh_package }} --format "{{.ID}}")
-          
-          if [ -z "$IMAGE_ID" ]; then
-            echo "Error: Docker image ID not found."
-            exit 1
-          fi
-          echo "Found Docker image ID: $IMAGE_ID"
-          echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
           
           RESPONSE=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
