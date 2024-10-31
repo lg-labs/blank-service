@@ -105,16 +105,6 @@ jobs:
           fi
           echo "image_gh_package=${IMAGE}" >> $GITHUB_ENV
 
-
-      - name: Debug API Response
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          curl -s -H "Authorization: Bearer ${{ secrets.GITHUB_TOKEN }}" \
-          -H "Accept: application/vnd.github.v3+json" \
-          "https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.ENCODED_PATH }}/versions" \
-          | tee response.json
-
       - name: Get Docker image ID from Github Packages
         id: get_local_image_id
         env:
@@ -134,14 +124,6 @@ jobs:
           
           echo "Found Version ID: $VERSION_ID"
           echo "VERSION_ID=$VERSION_ID" >> $GITHUB_ENV
-          
-
-      - name: Delete Docker image from GitHub Packages
-        if: steps.check_image.outputs.image_exists == 'true'
-        run: |
-          
-          DELETE_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.ENCODED_PATH }}/versions/${{ env.VERSION_ID }}"
-          curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$DELETE_URL"  
 
       - name: Tag Docker image for GitHub Packages
         run: |
@@ -150,3 +132,9 @@ jobs:
       - name: Push Docker Image to GitHub Packages
         run: |
           docker push ghcr.io/${{ github.repository }}/${{ env.image_name }}
+
+      - name: Delete OLD Docker image from GitHub Packages
+        if: steps.check_image.outputs.image_exists == 'true'
+        run: |
+          DELETE_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.ENCODED_PATH }}/versions/${{ env.VERSION_ID }}"
+          curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$DELETE_URL"  
