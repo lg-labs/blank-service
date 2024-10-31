@@ -101,6 +101,11 @@ jobs:
           "https://api.github.com/orgs/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions" \
           | tee response.json
 
+      - name: Convert path to URL encoding
+        run: |
+          ENCODED_PATH=$(echo "${{ github.repository }}/${{ env.group_id }}/${{ env.artifact_id }}" | sed 's/\//%2F/g')
+          echo "Encoded path: $ENCODED_PATH"
+          echo "ENCODED_PATH=$ENCODED_PATH" >> $GITHUB_ENV
 
       - name: Get Docker image version ID locally
         id: get_local_image_id
@@ -116,11 +121,9 @@ jobs:
           echo "Found Docker image ID: $IMAGE_ID"
           echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
           
-             # Llamar a la API para obtener las versiones del paquete
-          
           RESPONSE=$(curl -s -H "Authorization: Bearer $GITHUB_TOKEN" \
             -H "Accept: application/vnd.github.v3+json" \
-            "https://api.github.com/orgs/${{ github.repository }}/packages/container/${{ env.artifact_id }}/versions")
+            "https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.ENCODED_PATH }}/versions")
           
           VERSION_ID=$(echo "$RESPONSE" | jq -r ".[] | select(.metadata.container.tags[] == \"${{ env.version }}\") | .id")
 
