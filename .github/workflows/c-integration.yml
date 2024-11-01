@@ -361,14 +361,12 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: dependency-graph
-          path: .
+          path: ./blank-support/app/docs/img
       - name: Download Gource
         uses: actions/download-artifact@v4
         with:
           name: gource
           path: ./blank-support/app/docs/video
-      - name: Update dependency-graph on MkDocs
-        run: cp -r dependency-graph.png ./blank-support/app/docs/img
 
       - run: cd ./blank-support/app && mkdocs build
 
