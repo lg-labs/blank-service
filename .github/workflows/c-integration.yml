@@ -285,7 +285,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
 
       - name: Run acceptance tests using Makefile
-        run: make run-atdd-module FILE_LOG=true
+        run: make run-atdd-module
 
       - name: List files in target directory
         run: ls -R ./blank-acceptance-test/target/
@@ -297,11 +297,6 @@ jobs:
         with:
           name: cucumber-report
           path: ./blank-acceptance-test/target/atdd-reports/cucumber-reports.html
-      - name: Upload Cucumber Report
-        uses: actions/upload-artifact@v4
-        with:
-          name: logs
-          path: ./blank-acceptance-test/target/logs/*.log
 
   openapi:
     name: OpenAPI
