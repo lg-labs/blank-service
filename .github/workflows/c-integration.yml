@@ -390,6 +390,12 @@ jobs:
           fetch-depth: 0
       - name: Gource-Action
         uses: NBprojekt/gource-action@v1.2.1
+        with:
+          gource_title: ${{ github.repository }}
+          gource_resolution: '2160p'
+          gource_fps: 60
+          gource_font_size: 14
+          gource_background_color: 555555
       - uses: actions/upload-artifact@v4
         with:
           name: gource
