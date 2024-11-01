@@ -381,7 +381,7 @@ jobs:
   visualisation:
     name: History
     runs-on: ubuntu-latest
-    needs: quality
+    needs: setup
     steps:
       - uses: actions/checkout@v4.2.2
         with:
@@ -391,8 +391,8 @@ jobs:
         with:
           gource_title: ${{ github.repository }}
           gource_resolution: '2160p'
-          gource_fps: 60
-          gource_font_size: 14
+          gource_fps: 30
+          gource_font_size: 12
           gource_background_color: 555555
       - uses: actions/upload-artifact@v4
         with:
