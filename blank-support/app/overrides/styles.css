@@ -1,0 +1,28 @@
+/* Estilo del contenedor de video como un banner */
+.video-banner {
+    position: relative;
+    width: 100%;
+    max-width: 100%;
+    overflow: hidden;
+    border-radius: 8px; /* Ajuste de bordes redondeados para apariencia de banner */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Sombra para un efecto de profundidad */
+}
+
+.video-banner video {
+    width: 100%;
+    height: auto;
+    object-fit: cover; /* Asegura que el video cubra completamente el contenedor */
+}
+
+.video-overlay-text {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 1.5em;
+    background: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+    padding: 10px 20px;
+    border-radius: 5px;
+    text-align: center;
+}

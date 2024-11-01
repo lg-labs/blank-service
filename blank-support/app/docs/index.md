@@ -9,6 +9,13 @@ For full code visit [Repository][11].
 [More details][4]
 
 
+<div class="video-banner">
+  <video width="100%" controls autoplay muted loop>
+    <source src="./video/gource.mp4" type="video/mp4">
+  </video>
+</div>
+
+
 ## 🚀 Build project
 
 Install 1/1: Setup JDK 21.
