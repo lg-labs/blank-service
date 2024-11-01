@@ -90,21 +90,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: echo $GITHUB_TOKEN | docker login ghcr.io -u ${{ github.actor }} --password-stdin
 
-#      - name: Pull Docker image, if exists in GitHub Packages
-#        id: check_image
-#        run: |
-#          IMAGE="ghcr.io/${{ github.repository }}/${{ env.group_id }}/${{ env.artifact_id }}:${{ env.version }}"
-#
-#          # Check if the Docker image exists in GitHub Packages
-#          if docker pull "$IMAGE"; then
-#            echo "Image exists, will delete it."
-#            echo "image_exists=true" >> $GITHUB_OUTPUT
-#          else
-#            echo "Image does not exist."
-#            echo "image_exists=false" >> $GITHUB_OUTPUT
-#          fi
-#          echo "image_gh_package=${IMAGE}" >> $GITHUB_ENV
-
       - name: Get Docker image ID from Github Packages
         id: get_local_image_id
         env:
@@ -135,7 +120,7 @@ jobs:
           docker push ghcr.io/${{ github.repository }}/${{ env.image_name }}
 
       - name: Delete OLD Docker image from GitHub Packages
-        if: steps.check_image.outputs.image_exists == 'true'
+        if: steps.get_local_image_id.outputs.image_exists == 'true'
         run: |
           DELETE_URL="https://api.github.com/orgs/${{ github.repository_owner }}/packages/container/${{ env.ENCODED_PATH }}/versions/${{ env.VERSION_ID }}"
           curl -X DELETE -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "$DELETE_URL"  
