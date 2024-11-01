@@ -345,7 +345,7 @@ jobs:
   docs:
     name: Docs
     runs-on: ubuntu-latest
-    needs: test
+    needs: [ test, visualisation ]
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5.1.0
@@ -362,6 +362,11 @@ jobs:
         with:
           name: dependency-graph
           path: .
+      - name: Download Gource
+        uses: actions/download-artifact@v4
+        with:
+          name: gource
+          path: ./blank-support/app/docs/video
       - name: Update dependency-graph on MkDocs
         run: cp -r dependency-graph.png ./blank-support/app/docs/img
 
@@ -375,10 +380,10 @@ jobs:
         with:
           name: mkdocs
           path: ./blank-support/app/site
-  vizualization:
+  visualisation:
     name: History
     runs-on: ubuntu-latest
-    needs: test
+    needs: quality
     steps:
       - uses: actions/checkout@v4.2.2
         with:
