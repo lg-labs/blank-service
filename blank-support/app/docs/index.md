@@ -184,15 +184,15 @@ The MIT License (MIT). Please see [License][LIC] for more information.
 [4]: https://github.com/lg-labs-pentagon/lg5-spring
 
 [5]: http://localhost:8181
-[6]: blank-api/src/main/resources/spec/openapi.yaml
-[7]: blank-message/blank-message-model/src/main/resources/spec/asyncapi.yaml
+[6]: https://blank-service-atdd.web.app/openapi
+[7]: https://blank-service-atdd.web.app/asyncapi
 [8]: https://github.com/lg-labs/blank-infra
 [9]: http://localhost:5013
 [10]: http://localhost:9080
 [11]: https://github.com/lg-labs/blank-service
 [13]: https://blank-service-atdd.web.app/atdd/
 
-[LIC]: LICENSE
+[LIC]: https://github.com/lg-labs/blank-service/blob/main/LICENSE
 
 [img1]: https://github.com/lg-labs-pentagon/lg-labs-boot-parent/assets/105936384/31c27db8-1e77-478d-a38e-7acf6ba2571c
-[img2]: sonar-results.png
+[img2]: img/quality-results.png
