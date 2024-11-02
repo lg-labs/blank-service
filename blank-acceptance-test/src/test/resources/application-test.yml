@@ -25,6 +25,8 @@ blanksystem:
 spring:
   datasource:
     url: jdbc
+  liquibase:
+    enabled: false
 
 logging:
   level:

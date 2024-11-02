@@ -50,14 +50,15 @@ For more details, read more about [Hexagonal Architecture(Spanish)][2].
 Dependencies:
 >   _Lg5 tries to simplify dependencies but the power is the same._ 👌
 
-```xml title="acceptance-test-module(pom.xml)" linenums="1" hl_lines="3"
+```xml title="acceptance-test-module(pom.xml)" linenums="1" hl_lines="4"
+<!-- Test-->
 <dependency>
     <groupId>com.lg5.spring</groupId>
-    <artifactId>lg5-spring-integration-test</artifactId>
+    <artifactId>lg5-spring-acceptance-test</artifactId>
     <scope>test</scope>
 </dependency>
 ```
-It is recommended to create the following  `boot/` directory on your test directory.
+It is recommended to create the following  `boot/` directory on your `test` directory as `com.[blanksystem].[blank].service/boot`.
 ```markdown  hl_lines="4"
  └── test/
     ├── java/
@@ -73,63 +74,108 @@ To get started, you need to add the following classes:
 === "TestContainers Loader"
     > Important the image name and use the correct version. For instance: `com.blanksystem/blank-service` with version `1.0.0-alpha`.
 
-    ```java title="TestContainersLoader.java" linenums="1" hl_lines="32"
+    ```java title="TestContainersLoader.java" linenums="1" hl_lines="38"
+    import com.lg5.spring.kafka.config.data.KafkaConfigData;
+    import com.lg5.spring.testcontainer.config.AppContainerCustomConfig;
+    import com.lg5.spring.testcontainer.config.ContainerConfig;
     import com.lg5.spring.testcontainer.config.KafkaContainerCustomConfig;
     import com.lg5.spring.testcontainer.config.PostgresContainerCustomConfig;
-    import com.lg5.spring.testcontainer.config.WireMockGuiContainerCustomConfig;
     import com.lg5.spring.testcontainer.config.WiremockContainerCustomConfig;
     import com.lg5.spring.testcontainer.container.AppCustomContainer;
     import org.springframework.context.annotation.Bean;
     import org.springframework.context.annotation.Import;
-    import org.testcontainers.containers.BindMode;
+    import org.testcontainers.containers.GenericContainer;
     import org.testcontainers.containers.KafkaContainer;
     import org.testcontainers.containers.PostgreSQLContainer;
     import org.wiremock.integrations.testcontainers.WireMockContainer;
     
+    import java.util.HashMap;
+    import java.util.List;
     import java.util.Map;
-    
-    import static com.lg5.spring.testcontainer.config.DataBaseContainerCustomConfig.JDBC_URL_CUSTOM;
-    import static com.lg5.spring.testcontainer.config.KafkaContainerCustomConfig.BOOTSTRAP_SERVERS_CUSTOM;
-    import static com.lg5.spring.testcontainer.util.Constant.APP_PORT_DEFAULT;
+    import java.util.function.Consumer;
     
     @Import({
     PostgresContainerCustomConfig.class,
     KafkaContainerCustomConfig.class,
     WiremockContainerCustomConfig.class,
-    WireMockGuiContainerCustomConfig.class
+    AppContainerCustomConfig.class
     })
-    public class TestContainersLoader {
+    public final class TestContainersLoader {
+    
+        private final KafkaConfigData kafkaConfigData;
+    
+        private final List<ContainerConfig> containerConfigs;
+    
+        public TestContainersLoader(KafkaConfigData kafkaConfigData, List<ContainerConfig> containerConfigs) {
+            this.kafkaConfigData = kafkaConfigData;
+            this.containerConfigs = containerConfigs;
+        }
     
         @Bean
-        public AppCustomContainer apiContainer(PostgreSQLContainer<?> postgresContainer,
+        public AppCustomContainer apiContainer(AppCustomContainer appCustomContainer,
+                                               PostgreSQLContainer<?> postgresContainer,
                                                KafkaContainer kafkaContainer,
-                                               WireMockContainer wireMockContainer) {
+                                               WireMockContainer wireMockContainer,
+                                               GenericContainer<?> schemaRegistryContainer) {
     
-            AppCustomContainer appCustomContainer = new AppCustomContainer("com.blanksystem/blank-service:1.0.0-alpha");
-            appCustomContainer.withFileSystemBind("./target/logs", "/logs", BindMode.READ_WRITE);
-            appCustomContainer.withAppEnvVars(appWithEnvBuilder(postgresContainer, kafkaContainer, wireMockContainer));
+            appWithEnvBuilder(appCustomContainer.getEnvMap(), postgresContainer, kafkaContainer,
+                    wireMockContainer, schemaRegistryContainer);
+    
             appCustomContainer.start();
             appCustomContainer.initRequestSpecification();
+            updateKafkaConfigData(kafkaContainer);
+    
             return appCustomContainer;
         }
     
-        private Map<String, String> appWithEnvBuilder(PostgreSQLContainer<?> postgreSQLContainer,
-                                                      KafkaContainer kafkaContainer,
-                                                      WireMockContainer wireMockContainer) {
-    
-    
-            return Map.of(
-                    "SERVER_PORT", String.valueOf(APP_PORT_DEFAULT),
-                    "SPRING_DATASOURCE_URL", postgreSQLContainer.getEnvMap().get(JDBC_URL_CUSTOM),
-                    "SPRING_DATASOURCE_USERNAME", postgreSQLContainer.getUsername(),
-                    "SPRING_DATASOURCE_PASSWORD", postgreSQLContainer.getPassword(),
-                    "KAFKA-CONFIG_BOOTSTRAP-SERVERS", kafkaContainer.getEnvMap().get(BOOTSTRAP_SERVERS_CUSTOM),
-                    "THIRD_JSONPLACEHOLDER_URL", wireMockContainer.getBaseUrl(),
-                    "log.path", "/logs"
-            );
+        private void updateKafkaConfigData(KafkaContainer kafkaContainer) {
+            kafkaConfigData.setBootstrapServers(kafkaContainer.getBootstrapServers());
         }
     
-    }
+        private void appWithEnvBuilder(Map<String, String> envMap, PostgreSQLContainer<?> postgreSQLContainer,
+                                       KafkaContainer kafkaContainer,
+                                       WireMockContainer wireMockContainer,
+                                       GenericContainer<?> schemaRegistryContainer) {
+    
+            final Map<Class<?>, Consumer<Map<String, String>>> configActions = new HashMap<>();
+    
+    
+            addPostgresConfig(postgreSQLContainer, configActions);
+    
+    
+            addWiremockConfig(wireMockContainer, configActions);
+    
+            addKafkaConfig(kafkaContainer, schemaRegistryContainer, configActions);
+    
+            configActions.forEach((configClass, action) -> action.accept(envMap));
+    
+    
+        }
+    
+        private void addKafkaConfig(KafkaContainer kafkaContainer, GenericContainer<?> schemaRegistryContainer, Map<Class<?>, Consumer<Map<String, String>>> configActions) {
+            configActions.put(KafkaContainerCustomConfig.class,
+                    map -> containerConfigs.stream()
+                            .filter(KafkaContainerCustomConfig.class::isInstance)
+                            .findFirst()
+                            .ifPresent(config -> map.putAll(((KafkaContainerCustomConfig) config)
+                                    .initializeEnvVariables(kafkaContainer, schemaRegistryContainer))));
+        }
+    
+        private void addWiremockConfig(WireMockContainer wireMockContainer, Map<Class<?>, Consumer<Map<String, String>>> configActions) {
+            configActions.put(WiremockContainerCustomConfig.class,
+                    map -> containerConfigs.stream()
+                            .filter(WiremockContainerCustomConfig.class::isInstance)
+                            .findFirst()
+                            .ifPresent(config -> map.putAll(config.initializeEnvVariables(wireMockContainer))));
+        }
+    
+        private void addPostgresConfig(PostgreSQLContainer<?> postgreSQLContainer, Map<Class<?>, Consumer<Map<String, String>>> configActions) {
+            configActions.put(PostgresContainerCustomConfig.class,
+                    map -> containerConfigs.stream()
+                            .filter(PostgresContainerCustomConfig.class::isInstance)
+                            .findFirst()
+                            .ifPresent(config -> map.putAll(config.initializeEnvVariables(postgreSQLContainer))));
+        }
 
     ```
 
@@ -142,11 +188,12 @@ To get started, you need to add the following classes:
     import io.cucumber.spring.CucumberContextConfiguration;
     import org.springframework.context.annotation.Import;
     
-    @CucumberContextConfiguration
     @Import(TestContainersLoader.class)
+    @CucumberContextConfiguration
     public class CucumberHooks extends Lg5TestBootPortNone {
     
     }
+
     ```
 
 
@@ -174,34 +221,200 @@ To get started, you need to add the following classes:
     @IncludeEngines("cucumber")
     @SelectClasspathResource("features")
     @ConfigurationParameters({
-        @ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME, value = "pretty, json:target/atdd-reports/cucumber.json, " +
-                "html:target/atdd-reports/cucumber-reports.html"),
-        @ConfigurationParameter(key = Constants.GLUE_PROPERTY_NAME, value = "com.blanksystem.blank.service")
+    @ConfigurationParameter(key = Constants.PLUGIN_PROPERTY_NAME, value = "pretty, json:target/atdd-reports/cucumber.json, " +
+    "html:target/atdd-reports/cucumber-reports.html"),
+    @ConfigurationParameter(key = Constants.GLUE_PROPERTY_NAME, value = "com.blanksystem.blank.service")
     })
     class AcceptanceTestCase {
-
+    
         @Test
         void test() {
             File feature = new File("src/test/resources/features");
             assertTrue(feature.exists());
         }
     }
+    ```
 
+=== "Features"
+
+    > 1. Create a directory called`src/test/resources/features`
+    > 2. Create the feature file in `example.feature`
+    > 3. Create new step definition file
+
+    ```gherkin title="example.feature" linenums="1" hl_lines="2 5"
+    Feature:
+        I as a customer want to create a blank using the repository template
+    
+    Scenario: the blank should be CREATED when use the repository template
+        Given a repository template
+        When blank is created
+        Then the blank will be created using the repository template
+    
+    ```
+
+
+    ```java title="MyStepdefs.java" linenums="1" hl_lines="2 6 10"
+    public class MyStepdefs {
+        @Given("a repository template")
+        public void aRepositoryTemplate() {
+        }
+    
+        @When("blank is created")
+        public void blankIsCreated() {
+        }
+    
+        @Then("the blank will be created using the repository template")
+        public void theBlankWillBeCreatedUsingTheRepositoryTemplate() {
+        }
+    }
+    ```
+
+=== "Application Test Properties"
+
+    With `destination.path: ./target/logs` where stored logs file from blank-service aftet that tests finished.     
+    Replace some name by your system and domain name: `blanksystem` and `blank`.
+
+    > `application.image.name: your-docker.images:version
+
+    ⚠️ Please attention to highlighted lines!!!         
+    ⚠️ Disabled liquibase migrations, only test(NOT PRODUCTION).
+
+    ```yaml title="application-test.yml" linenums="1" hl_lines="5 10 15 22 43 41 53 54"
+    application:
+      server:
+        port: 8080
+      image:
+        name: com.blanksystem/blank-service:1.0.0-alpha
+      traces:
+        console:
+          enabled: false
+        file:
+          enabled: true
+      log:
+        source:
+          path: /logs
+        destination:
+          path: ./target/logs
+
+    blanksystem:
+      blank:
+        events:
+          journal:
+            blank:
+              topic: blank.1.0.event.created
+              consumer:
+                group: blank-topic-consumer-acceptance-test
+    spring:
+      datasource:
+        url: jdbc
+      liquibase:
+        enabled: false
+
+    logging:
+      level:
+        com.blanksystem: INFO
+        io.confluent.kafka: ERROR
+        org.apache: ERROR
+
+    third:
+      basic:
+        auth:
+          username: admin
+          password: pass
+      jsonplaceholder:
+        url: https://jsonplaceholder.typicode.com
+        basic:
+          auth:
+            username: admin
+            password: pass
+
+    wiremock:
+      config:
+        folder: "wiremock/third_system/template.json"
+        url: "third.jsonplaceholder.url"
+        port: 7070
     ```
 
 !!! tip "When do you like to use some TestContainer"
 
     if you use some TestContainer CustomConfig enabled, you would added the following properties for each one: 
 
-        * Postgres Container            
+        * Postgres Container
+            * Add liquibase files with migrations. 
         * Kafka Container       
             * `${kafka-config.bootstrap-servers}`       
         * SchemaRegistry Container      
-            * `${kafka-config.schema-registry-url}`     
+            * `${kafka-config.schema-registry-url}`
+        * KAFKA MODELS
+            * If you must have kafka models, So, CREATE AVRO DIRECTORY  For instance: `src/test/resources/avro/example.avsc`
         * Wiremock Container        
             * Specify third system url `${wiremock.config.url}`.        
             * Indicate a port binding to connect: `${wiremock.config.port}`.       
             * Directory where stored the mock req/res http `${wiremock.config.folder}`.
+            * CREATE WIREMOCK DIRECTORY and a TEMPLATE base, For instance: `src/test/resources/wiremock/third_system/template.json`.
+
+## Needs the Spring Context
+
+Add a classic application main with Spring Boot:
+
+> Stay alert with the `scanBasePackages` for your tests, in this case principal package the current system and extras as kafka. 
+
+```java title="Application.java" linenums="1" hl_lines="6"
+package com.blanksystem.blank.service;
+
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+
+@SpringBootApplication(scanBasePackages = {"com.blanksystem", "com.lg5.spring.kafka"})
+public class Application {
+
+    public static void main(String[] args) {
+
+        SpringApplication.run(Application.class, args);
+    }
+}
+```
+
+### More dependencies
+If you must have Kafka(avro plugin), database, etc. Please include more dependencies.
+```xml linenums="1" hl_lines="5 10 15 22 41 49 50 51"
+<dependencies>
+    ...
+    <!-- if you need to connect a database-->
+    <dependency>
+        <groupId>com.lg5.spring</groupId>
+        <artifactId>lg5-spring-data-jpa</artifactId>
+    </dependency>
+    <!-- if you need to generate models-->
+    <dependency>
+        <groupId>com.lg5.spring.kafka</groupId>
+        <artifactId>lg5-spring-kafka-model</artifactId>
+    </dependency>
+    <!-- if you need to produce events-->
+    <dependency>
+        <groupId>com.lg5.spring.kafka</groupId>
+        <artifactId>lg5-spring-kafka-producer</artifactId>
+    </dependency>
+    <!-- if you need to consume events-->
+    <dependency>
+        <groupId>com.lg5.spring.kafka</groupId>
+        <artifactId>lg5-spring-kafka-consumer</artifactId>
+    </dependency>
+    ...
+</dependencies>
+...
+<build>
+    <plugins>
+        <!-- if you need to generate models-->
+        <plugin>
+            <groupId>org.apache.avro</groupId>
+            <artifactId>avro-maven-plugin</artifactId>
+        </plugin>
+    </plugins>
+</build>
+```
+
+     
 Read more at [Lg5Spring Wiki][2].
 
 ## Project structure
@@ -223,10 +436,12 @@ Read more at [Lg5Spring Wiki][2].
 │     │        ├── CucumberHooks.java
 │     │        └── TestContainersLoader.java
 │     └── resources/
+|        └── application-test.yml
 │        ├── features/
 │        │  └── blank-service.feature
 │        └── wiremock/
 │           └── placeholder/
+│        
 └── target(autogenerate)/
    └── atdd-reports/
       ├── cucumber-reports.html

@@ -1,3 +1,0 @@
-databaseChangeLog:
-  - include:
-      file: db/changelog/ddl-v.0.0.1.yaml
