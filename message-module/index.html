@@ -741,6 +741,7 @@
 <h2 id="publisher">Publisher<a class="headerlink" href="#publisher" title="Permanent link">&para;</a></h2>
 <p>First, You must create or have an output port in the application service layer. So, You create an adapter for implement
 these ports.</p>
+<p><a href="https://blank-service-atdd.web.app/asyncapi/">Example a spec with AsyncAPI</a>
 <pre class="mermaid"><code>flowchart LR
    subgraph application service
        output_port
@@ -748,7 +749,7 @@ these ports.</p>
    subgraph messaging module
      secondary_adapter
    end
-    output_port --&gt; secondary_adapter</code></pre>
+    output_port --&gt; secondary_adapter</code></pre></p>
 <p>Part I.</p>
 <ul>
 <li>Models from Event Specification(e.g: Avro Models)</li>
