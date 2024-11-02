@@ -1,9 +1,9 @@
 ## 🛠️ Blank μ-service with Hex Arch, DDD, SAGA, Outbox&Kafka
 
-For full code visit [Repository][11].
+For full code, visit this [Repository][11].
 
 
-> <h1> ⚠️ Replace _blank_ with the Domain Name ⚠️</h1>  
+> <h1> ⚠️ Replace [blank] word with your Domain Name ⚠️</h1>  
 # Using Lg5 Spring `1.0.0-alpha`, JDK 21
 
 [More details][4]
@@ -190,7 +190,7 @@ The MIT License (MIT). Please see [License][LIC] for more information.
 [9]: http://localhost:5013
 [10]: http://localhost:9080
 [11]: https://github.com/lg-labs/blank-service
-[13]: https://lg-labs.github.io/blank-service
+[13]: https://blank-service-atdd.web.app/atdd/
 
 [LIC]: LICENSE
 

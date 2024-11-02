@@ -78,6 +78,8 @@ _----Experimental to AMD----_
 You need to add the following Dependency and Java classes to your integration test (IT). _Recommendation(optional)_: Remember to create IT in this module for infrastructure components such as input and output ports.
 For more details, read more about [Hexagonal Architecture(Spanish)][1].
 
+[Example a Coverage Test Report with Jacoco][3]
+
 Dependencies:   
 >   _Lg5 tries to simplify dependencies but the power is the same._ 👌
 
@@ -262,3 +264,4 @@ You can specify the directory for stored the *.log files. Now, genera two file l
 
 [1]: https://arc.net/l/quote/jkzommbu
 [2]: https://arc.net/l/quote/ryfweuos
+[3]: https://blank-service-atdd.web.app/reports/

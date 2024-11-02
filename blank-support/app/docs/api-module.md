@@ -2,6 +2,8 @@
 
 Implement input port from a primary adapter. For instance, Spring Rest Controller.
 
+[Example a spec with OpenAPI][2]
+
 
 ## Dependencies
 ```xml title="pom.xml" linenums="1" hl_lines="9"
@@ -84,3 +86,4 @@ _Read more about [openapi guidelines][1]_
 * Command Line Interactive or others.
 
 [1]: https://lufgarciaqu.medium.com
+[2]: https://blank-service-atdd.web.app/openapi/

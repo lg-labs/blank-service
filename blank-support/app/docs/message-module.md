@@ -5,6 +5,7 @@
 First, You must create or have an output port in the application service layer. So, You create an adapter for implement
 these ports.
 
+[Example a spec with AsyncAPI][2]
 ```mermaid
 flowchart LR
    subgraph application service
@@ -128,3 +129,4 @@ _Read more about [openapi guidelines][1]_
 - [ ] Support for asyncapi definition and a process to avro files automatically generation.
 
 [1]: https://lufgarciaqu.medium.com
+[2]: https://blank-service-atdd.web.app/asyncapi/
