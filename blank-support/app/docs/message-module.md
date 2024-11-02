@@ -5,7 +5,7 @@
 First, You must create or have an output port in the application service layer. So, You create an adapter for implement
 these ports.
 
-[Example a spec with AsyncAPI][2]
+[Example: a spec with AsyncAPI][2]
 ```mermaid
 flowchart LR
    subgraph application service

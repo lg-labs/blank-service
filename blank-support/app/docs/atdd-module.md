@@ -4,7 +4,7 @@
     Finally, Lg5 supports Cucumber integration with Spring Boot 3, Testcontainers, and reuses many configurations for testing. This way, you can create acceptance tests for your domain services quickly.
     >  lg5-spring-acceptance-test
 
-[Example a Acceptance Test Report with Cucumber][3]
+[Example an Acceptance Test Report with Cucumber][3]
 
 ## Principal Dependencies
 

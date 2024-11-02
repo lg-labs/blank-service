@@ -2,7 +2,7 @@
 
 Implement input port from a primary adapter. For instance, Spring Rest Controller.
 
-[Example a spec with OpenAPI][2]
+[Example: a spec with OpenAPI][2]
 
 
 ## Dependencies
