@@ -1,7 +1,7 @@
 site_name: Blank Service 1.0.0-alpha
 
 site_dir: site
-site_author: Luis Fernando García
+site_author: Luis Fernando García Quiroga.
 copyright: Copyright &copy; 2016 - 2024 Luis Fernando García Q.
 
 theme:
@@ -77,13 +77,11 @@ extra:
     property: !ENV GOOGLE_ANALYTICS_KEY
   social:
     - icon: fontawesome/brands/github
-      link: https://github.com/lg-labs
-    - icon: fontawesome/brands/docker
-      link: https://hub.docker.com/r/squidfunk/mkdocs-material/
-    - icon: fontawesome/brands/python
-      link: https://pypi.org/project/mkdocs-material/
+      link: https://github.com/lg-labs/blank-service
+    - icon: fontawesome/brands/linkedin
+      link: https://www.linkedin.com/in/lufgarciaqu/
     - icon: fontawesome/brands/mastodon
-      link: https://fosstodon.org/@squidfunk
+      link: https://mastodon.world/@lglabx
     - icon: fontawesome/brands/twitter
       link: https://twitter.com/lufgarciaqu
 
