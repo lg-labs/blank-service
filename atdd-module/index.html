@@ -566,6 +566,30 @@
 </li>
       
         <li class="md-nav__item">
+  <a href="#needs-the-spring-context" class="md-nav__link">
+    <span class="md-ellipsis">
+      Needs the Spring Context
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Needs the Spring Context">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#more-dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      More dependencies
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
   <a href="#project-structure" class="md-nav__link">
     <span class="md-ellipsis">
       Project structure
@@ -802,13 +826,15 @@ For more details, read more about <a href="https://arc.net/l/quote/hilekvaw">Hex
 <span class="normal"><a href="#__codelineno-2-2">2</a></span>
 <span class="normal"><a href="#__codelineno-2-3">3</a></span>
 <span class="normal"><a href="#__codelineno-2-4">4</a></span>
-<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="nt">&lt;dependency&gt;</span>
-</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>com.lg5.spring<span class="nt">&lt;/groupId&gt;</span>
-</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="hll"><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>lg5-spring-integration-test<span class="nt">&lt;/artifactId&gt;</span>
-</span></span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="w">    </span><span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
-</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="nt">&lt;/dependency&gt;</span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span>
+<span class="normal"><a href="#__codelineno-2-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="cm">&lt;!-- Test--&gt;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>com.lg5.spring<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="hll"><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>lg5-spring-acceptance-test<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="w">    </span><span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+</span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a><span class="nt">&lt;/dependency&gt;</span>
 </span></code></pre></div></td></tr></table></div>
-It is recommended to create the following  <code>boot/</code> directory on your test directory.
+It is recommended to create the following  <code>boot/</code> directory on your <code>test</code> directory as <code>com.[blanksystem].[blank].service/boot</code>.
 <div class="language-markdown highlight"><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1" href="#__codelineno-3-1"></a> └── test/
 </span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2" href="#__codelineno-3-2"></a>    ├── java/
 </span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3" href="#__codelineno-3-3"></a>    │  └── com.[blanksystem].[blank].service
@@ -818,123 +844,213 @@ It is recommended to create the following  <code>boot/</code> directory on your 
 </span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7" href="#__codelineno-3-7"></a>    │     │  └── TestOrderServiceApplication.java
 </span></code></pre></div></p>
 <p>To get started, you need to add the following classes:</p>
-<div class="tabbed-set tabbed-alternate" data-tabs="1:3"><input checked="checked" id="acceptance-test-drive-development-testcontainers-loader" name="__tabbed_1" type="radio" /><input id="acceptance-test-drive-development-cucumberhooks" name="__tabbed_1" type="radio" /><input id="acceptance-test-drive-development-acceptancetestcase" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="acceptance-test-drive-development-testcontainers-loader">TestContainers Loader</label><label for="acceptance-test-drive-development-cucumberhooks">CucumberHooks</label><label for="acceptance-test-drive-development-acceptancetestcase">AcceptanceTestCase</label></div>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:5"><input checked="checked" id="acceptance-test-drive-development-testcontainers-loader" name="__tabbed_1" type="radio" /><input id="acceptance-test-drive-development-cucumberhooks" name="__tabbed_1" type="radio" /><input id="acceptance-test-drive-development-acceptancetestcase" name="__tabbed_1" type="radio" /><input id="acceptance-test-drive-development-features" name="__tabbed_1" type="radio" /><input id="acceptance-test-drive-development-application-test-properties" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="acceptance-test-drive-development-testcontainers-loader">TestContainers Loader</label><label for="acceptance-test-drive-development-cucumberhooks">CucumberHooks</label><label for="acceptance-test-drive-development-acceptancetestcase">AcceptanceTestCase</label><label for="acceptance-test-drive-development-features">Features</label><label for="acceptance-test-drive-development-application-test-properties">Application Test Properties</label></div>
 <div class="tabbed-content">
 <div class="tabbed-block">
 <blockquote>
 <p>Important the image name and use the correct version. For instance: <code>com.blanksystem/blank-service</code> with version <code>1.0.0-alpha</code>.</p>
 </blockquote>
-<div class="language-java highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">TestContainersLoader.java</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-4-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-4-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-4-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-4-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-4-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-4-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-4-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-4-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-4-10">10</a></span>
-<span class="normal"><a href="#__codelineno-4-11">11</a></span>
-<span class="normal"><a href="#__codelineno-4-12">12</a></span>
-<span class="normal"><a href="#__codelineno-4-13">13</a></span>
-<span class="normal"><a href="#__codelineno-4-14">14</a></span>
-<span class="normal"><a href="#__codelineno-4-15">15</a></span>
-<span class="normal"><a href="#__codelineno-4-16">16</a></span>
-<span class="normal"><a href="#__codelineno-4-17">17</a></span>
-<span class="normal"><a href="#__codelineno-4-18">18</a></span>
-<span class="normal"><a href="#__codelineno-4-19">19</a></span>
-<span class="normal"><a href="#__codelineno-4-20">20</a></span>
-<span class="normal"><a href="#__codelineno-4-21">21</a></span>
-<span class="normal"><a href="#__codelineno-4-22">22</a></span>
-<span class="normal"><a href="#__codelineno-4-23">23</a></span>
-<span class="normal"><a href="#__codelineno-4-24">24</a></span>
-<span class="normal"><a href="#__codelineno-4-25">25</a></span>
-<span class="normal"><a href="#__codelineno-4-26">26</a></span>
-<span class="normal"><a href="#__codelineno-4-27">27</a></span>
-<span class="normal"><a href="#__codelineno-4-28">28</a></span>
-<span class="normal"><a href="#__codelineno-4-29">29</a></span>
-<span class="normal"><a href="#__codelineno-4-30">30</a></span>
-<span class="normal"><a href="#__codelineno-4-31">31</a></span>
-<span class="normal"><a href="#__codelineno-4-32">32</a></span>
-<span class="normal"><a href="#__codelineno-4-33">33</a></span>
-<span class="normal"><a href="#__codelineno-4-34">34</a></span>
-<span class="normal"><a href="#__codelineno-4-35">35</a></span>
-<span class="normal"><a href="#__codelineno-4-36">36</a></span>
-<span class="normal"><a href="#__codelineno-4-37">37</a></span>
-<span class="normal"><a href="#__codelineno-4-38">38</a></span>
-<span class="normal"><a href="#__codelineno-4-39">39</a></span>
-<span class="normal"><a href="#__codelineno-4-40">40</a></span>
-<span class="normal"><a href="#__codelineno-4-41">41</a></span>
-<span class="normal"><a href="#__codelineno-4-42">42</a></span>
-<span class="normal"><a href="#__codelineno-4-43">43</a></span>
-<span class="normal"><a href="#__codelineno-4-44">44</a></span>
-<span class="normal"><a href="#__codelineno-4-45">45</a></span>
-<span class="normal"><a href="#__codelineno-4-46">46</a></span>
-<span class="normal"><a href="#__codelineno-4-47">47</a></span>
-<span class="normal"><a href="#__codelineno-4-48">48</a></span>
-<span class="normal"><a href="#__codelineno-4-49">49</a></span>
-<span class="normal"><a href="#__codelineno-4-50">50</a></span>
-<span class="normal"><a href="#__codelineno-4-51">51</a></span>
-<span class="normal"><a href="#__codelineno-4-52">52</a></span>
-<span class="normal"><a href="#__codelineno-4-53">53</a></span>
-<span class="normal"><a href="#__codelineno-4-54">54</a></span>
-<span class="normal"><a href="#__codelineno-4-55">55</a></span>
-<span class="normal"><a href="#__codelineno-4-56">56</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.KafkaContainerCustomConfig</span><span class="p">;</span>
-</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.PostgresContainerCustomConfig</span><span class="p">;</span>
-</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.WireMockGuiContainerCustomConfig</span><span class="p">;</span>
-</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.WiremockContainerCustomConfig</span><span class="p">;</span>
-</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.container.AppCustomContainer</span><span class="p">;</span>
-</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.context.annotation.Bean</span><span class="p">;</span>
-</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.context.annotation.Import</span><span class="p">;</span>
-</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.testcontainers.containers.BindMode</span><span class="p">;</span>
-</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.testcontainers.containers.KafkaContainer</span><span class="p">;</span>
-</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.testcontainers.containers.PostgreSQLContainer</span><span class="p">;</span>
-</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.wiremock.integrations.testcontainers.WireMockContainer</span><span class="p">;</span>
-</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a>
-</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Map</span><span class="p">;</span>
+<div class="language-java highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">TestContainersLoader.java</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">  1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">  2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">  3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">  4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">  5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">  6</a></span>
+<span class="normal"><a href="#__codelineno-4-7">  7</a></span>
+<span class="normal"><a href="#__codelineno-4-8">  8</a></span>
+<span class="normal"><a href="#__codelineno-4-9">  9</a></span>
+<span class="normal"><a href="#__codelineno-4-10"> 10</a></span>
+<span class="normal"><a href="#__codelineno-4-11"> 11</a></span>
+<span class="normal"><a href="#__codelineno-4-12"> 12</a></span>
+<span class="normal"><a href="#__codelineno-4-13"> 13</a></span>
+<span class="normal"><a href="#__codelineno-4-14"> 14</a></span>
+<span class="normal"><a href="#__codelineno-4-15"> 15</a></span>
+<span class="normal"><a href="#__codelineno-4-16"> 16</a></span>
+<span class="normal"><a href="#__codelineno-4-17"> 17</a></span>
+<span class="normal"><a href="#__codelineno-4-18"> 18</a></span>
+<span class="normal"><a href="#__codelineno-4-19"> 19</a></span>
+<span class="normal"><a href="#__codelineno-4-20"> 20</a></span>
+<span class="normal"><a href="#__codelineno-4-21"> 21</a></span>
+<span class="normal"><a href="#__codelineno-4-22"> 22</a></span>
+<span class="normal"><a href="#__codelineno-4-23"> 23</a></span>
+<span class="normal"><a href="#__codelineno-4-24"> 24</a></span>
+<span class="normal"><a href="#__codelineno-4-25"> 25</a></span>
+<span class="normal"><a href="#__codelineno-4-26"> 26</a></span>
+<span class="normal"><a href="#__codelineno-4-27"> 27</a></span>
+<span class="normal"><a href="#__codelineno-4-28"> 28</a></span>
+<span class="normal"><a href="#__codelineno-4-29"> 29</a></span>
+<span class="normal"><a href="#__codelineno-4-30"> 30</a></span>
+<span class="normal"><a href="#__codelineno-4-31"> 31</a></span>
+<span class="normal"><a href="#__codelineno-4-32"> 32</a></span>
+<span class="normal"><a href="#__codelineno-4-33"> 33</a></span>
+<span class="normal"><a href="#__codelineno-4-34"> 34</a></span>
+<span class="normal"><a href="#__codelineno-4-35"> 35</a></span>
+<span class="normal"><a href="#__codelineno-4-36"> 36</a></span>
+<span class="normal"><a href="#__codelineno-4-37"> 37</a></span>
+<span class="normal"><a href="#__codelineno-4-38"> 38</a></span>
+<span class="normal"><a href="#__codelineno-4-39"> 39</a></span>
+<span class="normal"><a href="#__codelineno-4-40"> 40</a></span>
+<span class="normal"><a href="#__codelineno-4-41"> 41</a></span>
+<span class="normal"><a href="#__codelineno-4-42"> 42</a></span>
+<span class="normal"><a href="#__codelineno-4-43"> 43</a></span>
+<span class="normal"><a href="#__codelineno-4-44"> 44</a></span>
+<span class="normal"><a href="#__codelineno-4-45"> 45</a></span>
+<span class="normal"><a href="#__codelineno-4-46"> 46</a></span>
+<span class="normal"><a href="#__codelineno-4-47"> 47</a></span>
+<span class="normal"><a href="#__codelineno-4-48"> 48</a></span>
+<span class="normal"><a href="#__codelineno-4-49"> 49</a></span>
+<span class="normal"><a href="#__codelineno-4-50"> 50</a></span>
+<span class="normal"><a href="#__codelineno-4-51"> 51</a></span>
+<span class="normal"><a href="#__codelineno-4-52"> 52</a></span>
+<span class="normal"><a href="#__codelineno-4-53"> 53</a></span>
+<span class="normal"><a href="#__codelineno-4-54"> 54</a></span>
+<span class="normal"><a href="#__codelineno-4-55"> 55</a></span>
+<span class="normal"><a href="#__codelineno-4-56"> 56</a></span>
+<span class="normal"><a href="#__codelineno-4-57"> 57</a></span>
+<span class="normal"><a href="#__codelineno-4-58"> 58</a></span>
+<span class="normal"><a href="#__codelineno-4-59"> 59</a></span>
+<span class="normal"><a href="#__codelineno-4-60"> 60</a></span>
+<span class="normal"><a href="#__codelineno-4-61"> 61</a></span>
+<span class="normal"><a href="#__codelineno-4-62"> 62</a></span>
+<span class="normal"><a href="#__codelineno-4-63"> 63</a></span>
+<span class="normal"><a href="#__codelineno-4-64"> 64</a></span>
+<span class="normal"><a href="#__codelineno-4-65"> 65</a></span>
+<span class="normal"><a href="#__codelineno-4-66"> 66</a></span>
+<span class="normal"><a href="#__codelineno-4-67"> 67</a></span>
+<span class="normal"><a href="#__codelineno-4-68"> 68</a></span>
+<span class="normal"><a href="#__codelineno-4-69"> 69</a></span>
+<span class="normal"><a href="#__codelineno-4-70"> 70</a></span>
+<span class="normal"><a href="#__codelineno-4-71"> 71</a></span>
+<span class="normal"><a href="#__codelineno-4-72"> 72</a></span>
+<span class="normal"><a href="#__codelineno-4-73"> 73</a></span>
+<span class="normal"><a href="#__codelineno-4-74"> 74</a></span>
+<span class="normal"><a href="#__codelineno-4-75"> 75</a></span>
+<span class="normal"><a href="#__codelineno-4-76"> 76</a></span>
+<span class="normal"><a href="#__codelineno-4-77"> 77</a></span>
+<span class="normal"><a href="#__codelineno-4-78"> 78</a></span>
+<span class="normal"><a href="#__codelineno-4-79"> 79</a></span>
+<span class="normal"><a href="#__codelineno-4-80"> 80</a></span>
+<span class="normal"><a href="#__codelineno-4-81"> 81</a></span>
+<span class="normal"><a href="#__codelineno-4-82"> 82</a></span>
+<span class="normal"><a href="#__codelineno-4-83"> 83</a></span>
+<span class="normal"><a href="#__codelineno-4-84"> 84</a></span>
+<span class="normal"><a href="#__codelineno-4-85"> 85</a></span>
+<span class="normal"><a href="#__codelineno-4-86"> 86</a></span>
+<span class="normal"><a href="#__codelineno-4-87"> 87</a></span>
+<span class="normal"><a href="#__codelineno-4-88"> 88</a></span>
+<span class="normal"><a href="#__codelineno-4-89"> 89</a></span>
+<span class="normal"><a href="#__codelineno-4-90"> 90</a></span>
+<span class="normal"><a href="#__codelineno-4-91"> 91</a></span>
+<span class="normal"><a href="#__codelineno-4-92"> 92</a></span>
+<span class="normal"><a href="#__codelineno-4-93"> 93</a></span>
+<span class="normal"><a href="#__codelineno-4-94"> 94</a></span>
+<span class="normal"><a href="#__codelineno-4-95"> 95</a></span>
+<span class="normal"><a href="#__codelineno-4-96"> 96</a></span>
+<span class="normal"><a href="#__codelineno-4-97"> 97</a></span>
+<span class="normal"><a href="#__codelineno-4-98"> 98</a></span>
+<span class="normal"><a href="#__codelineno-4-99"> 99</a></span>
+<span class="normal"><a href="#__codelineno-4-100">100</a></span>
+<span class="normal"><a href="#__codelineno-4-101">101</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.kafka.config.data.KafkaConfigData</span><span class="p">;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.AppContainerCustomConfig</span><span class="p">;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.ContainerConfig</span><span class="p">;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.KafkaContainerCustomConfig</span><span class="p">;</span>
+</span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.PostgresContainerCustomConfig</span><span class="p">;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.WiremockContainerCustomConfig</span><span class="p">;</span>
+</span><span id="__span-4-7"><a id="__codelineno-4-7" name="__codelineno-4-7"></a><span class="kn">import</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.container.AppCustomContainer</span><span class="p">;</span>
+</span><span id="__span-4-8"><a id="__codelineno-4-8" name="__codelineno-4-8"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.context.annotation.Bean</span><span class="p">;</span>
+</span><span id="__span-4-9"><a id="__codelineno-4-9" name="__codelineno-4-9"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.context.annotation.Import</span><span class="p">;</span>
+</span><span id="__span-4-10"><a id="__codelineno-4-10" name="__codelineno-4-10"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.testcontainers.containers.GenericContainer</span><span class="p">;</span>
+</span><span id="__span-4-11"><a id="__codelineno-4-11" name="__codelineno-4-11"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.testcontainers.containers.KafkaContainer</span><span class="p">;</span>
+</span><span id="__span-4-12"><a id="__codelineno-4-12" name="__codelineno-4-12"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.testcontainers.containers.PostgreSQLContainer</span><span class="p">;</span>
+</span><span id="__span-4-13"><a id="__codelineno-4-13" name="__codelineno-4-13"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.wiremock.integrations.testcontainers.WireMockContainer</span><span class="p">;</span>
 </span><span id="__span-4-14"><a id="__codelineno-4-14" name="__codelineno-4-14"></a>
-</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="kn">import static</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.DataBaseContainerCustomConfig.JDBC_URL_CUSTOM</span><span class="p">;</span>
-</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="kn">import static</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.config.KafkaContainerCustomConfig.BOOTSTRAP_SERVERS_CUSTOM</span><span class="p">;</span>
-</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="kn">import static</span><span class="w"> </span><span class="nn">com.lg5.spring.testcontainer.util.Constant.APP_PORT_DEFAULT</span><span class="p">;</span>
-</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a>
-</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a><span class="nd">@Import</span><span class="p">({</span>
-</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="n">PostgresContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
-</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="n">KafkaContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
-</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="n">WiremockContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
-</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="n">WireMockGuiContainerCustomConfig</span><span class="p">.</span><span class="na">class</span>
-</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="p">})</span>
-</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TestContainersLoader</span><span class="w"> </span><span class="p">{</span>
-</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26"></a>
-</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27"></a><span class="w">    </span><span class="nd">@Bean</span>
-</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">AppCustomContainer</span><span class="w"> </span><span class="nf">apiContainer</span><span class="p">(</span><span class="n">PostgreSQLContainer</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">postgresContainer</span><span class="p">,</span>
-</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29"></a><span class="w">                                           </span><span class="n">KafkaContainer</span><span class="w"> </span><span class="n">kafkaContainer</span><span class="p">,</span>
-</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="w">                                           </span><span class="n">WireMockContainer</span><span class="w"> </span><span class="n">wireMockContainer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-15"><a id="__codelineno-4-15" name="__codelineno-4-15"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.HashMap</span><span class="p">;</span>
+</span><span id="__span-4-16"><a id="__codelineno-4-16" name="__codelineno-4-16"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.List</span><span class="p">;</span>
+</span><span id="__span-4-17"><a id="__codelineno-4-17" name="__codelineno-4-17"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.Map</span><span class="p">;</span>
+</span><span id="__span-4-18"><a id="__codelineno-4-18" name="__codelineno-4-18"></a><span class="kn">import</span><span class="w"> </span><span class="nn">java.util.function.Consumer</span><span class="p">;</span>
+</span><span id="__span-4-19"><a id="__codelineno-4-19" name="__codelineno-4-19"></a>
+</span><span id="__span-4-20"><a id="__codelineno-4-20" name="__codelineno-4-20"></a><span class="nd">@Import</span><span class="p">({</span>
+</span><span id="__span-4-21"><a id="__codelineno-4-21" name="__codelineno-4-21"></a><span class="n">PostgresContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+</span><span id="__span-4-22"><a id="__codelineno-4-22" name="__codelineno-4-22"></a><span class="n">KafkaContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+</span><span id="__span-4-23"><a id="__codelineno-4-23" name="__codelineno-4-23"></a><span class="n">WiremockContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+</span><span id="__span-4-24"><a id="__codelineno-4-24" name="__codelineno-4-24"></a><span class="n">AppContainerCustomConfig</span><span class="p">.</span><span class="na">class</span>
+</span><span id="__span-4-25"><a id="__codelineno-4-25" name="__codelineno-4-25"></a><span class="p">})</span>
+</span><span id="__span-4-26"><a id="__codelineno-4-26" name="__codelineno-4-26"></a><span class="kd">public</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="kd">class</span> <span class="nc">TestContainersLoader</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-27"><a id="__codelineno-4-27" name="__codelineno-4-27"></a>
+</span><span id="__span-4-28"><a id="__codelineno-4-28" name="__codelineno-4-28"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">KafkaConfigData</span><span class="w"> </span><span class="n">kafkaConfigData</span><span class="p">;</span>
+</span><span id="__span-4-29"><a id="__codelineno-4-29" name="__codelineno-4-29"></a>
+</span><span id="__span-4-30"><a id="__codelineno-4-30" name="__codelineno-4-30"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kd">final</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">ContainerConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">containerConfigs</span><span class="p">;</span>
 </span><span id="__span-4-31"><a id="__codelineno-4-31" name="__codelineno-4-31"></a>
-</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32"></a><span class="hll"><span class="w">        </span><span class="n">AppCustomContainer</span><span class="w"> </span><span class="n">appCustomContainer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">AppCustomContainer</span><span class="p">(</span><span class="s">&quot;com.blanksystem/blank-service:1.0.0-alpha&quot;</span><span class="p">);</span>
-</span></span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33"></a><span class="w">        </span><span class="n">appCustomContainer</span><span class="p">.</span><span class="na">withFileSystemBind</span><span class="p">(</span><span class="s">&quot;./target/logs&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/logs&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">BindMode</span><span class="p">.</span><span class="na">READ_WRITE</span><span class="p">);</span>
-</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34"></a><span class="w">        </span><span class="n">appCustomContainer</span><span class="p">.</span><span class="na">withAppEnvVars</span><span class="p">(</span><span class="n">appWithEnvBuilder</span><span class="p">(</span><span class="n">postgresContainer</span><span class="p">,</span><span class="w"> </span><span class="n">kafkaContainer</span><span class="p">,</span><span class="w"> </span><span class="n">wireMockContainer</span><span class="p">));</span>
-</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35"></a><span class="w">        </span><span class="n">appCustomContainer</span><span class="p">.</span><span class="na">start</span><span class="p">();</span>
-</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36"></a><span class="w">        </span><span class="n">appCustomContainer</span><span class="p">.</span><span class="na">initRequestSpecification</span><span class="p">();</span>
-</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">appCustomContainer</span><span class="p">;</span>
-</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39"></a>
-</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="nf">appWithEnvBuilder</span><span class="p">(</span><span class="n">PostgreSQLContainer</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">postgreSQLContainer</span><span class="p">,</span>
-</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41"></a><span class="w">                                                  </span><span class="n">KafkaContainer</span><span class="w"> </span><span class="n">kafkaContainer</span><span class="p">,</span>
-</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42"></a><span class="w">                                                  </span><span class="n">WireMockContainer</span><span class="w"> </span><span class="n">wireMockContainer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-32"><a id="__codelineno-4-32" name="__codelineno-4-32"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="nf">TestContainersLoader</span><span class="p">(</span><span class="n">KafkaConfigData</span><span class="w"> </span><span class="n">kafkaConfigData</span><span class="p">,</span><span class="w"> </span><span class="n">List</span><span class="o">&lt;</span><span class="n">ContainerConfig</span><span class="o">&gt;</span><span class="w"> </span><span class="n">containerConfigs</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-33"><a id="__codelineno-4-33" name="__codelineno-4-33"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">kafkaConfigData</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">kafkaConfigData</span><span class="p">;</span>
+</span><span id="__span-4-34"><a id="__codelineno-4-34" name="__codelineno-4-34"></a><span class="w">        </span><span class="k">this</span><span class="p">.</span><span class="na">containerConfigs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">containerConfigs</span><span class="p">;</span>
+</span><span id="__span-4-35"><a id="__codelineno-4-35" name="__codelineno-4-35"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-36"><a id="__codelineno-4-36" name="__codelineno-4-36"></a>
+</span><span id="__span-4-37"><a id="__codelineno-4-37" name="__codelineno-4-37"></a><span class="w">    </span><span class="nd">@Bean</span>
+</span><span id="__span-4-38"><a id="__codelineno-4-38" name="__codelineno-4-38"></a><span class="hll"><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="n">AppCustomContainer</span><span class="w"> </span><span class="nf">apiContainer</span><span class="p">(</span><span class="n">AppCustomContainer</span><span class="w"> </span><span class="n">appCustomContainer</span><span class="p">,</span>
+</span></span><span id="__span-4-39"><a id="__codelineno-4-39" name="__codelineno-4-39"></a><span class="w">                                           </span><span class="n">PostgreSQLContainer</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">postgresContainer</span><span class="p">,</span>
+</span><span id="__span-4-40"><a id="__codelineno-4-40" name="__codelineno-4-40"></a><span class="w">                                           </span><span class="n">KafkaContainer</span><span class="w"> </span><span class="n">kafkaContainer</span><span class="p">,</span>
+</span><span id="__span-4-41"><a id="__codelineno-4-41" name="__codelineno-4-41"></a><span class="w">                                           </span><span class="n">WireMockContainer</span><span class="w"> </span><span class="n">wireMockContainer</span><span class="p">,</span>
+</span><span id="__span-4-42"><a id="__codelineno-4-42" name="__codelineno-4-42"></a><span class="w">                                           </span><span class="n">GenericContainer</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">schemaRegistryContainer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-4-43"><a id="__codelineno-4-43" name="__codelineno-4-43"></a>
-</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44"></a>
-</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">Map</span><span class="p">.</span><span class="na">of</span><span class="p">(</span>
-</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46"></a><span class="w">                </span><span class="s">&quot;SERVER_PORT&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="p">.</span><span class="na">valueOf</span><span class="p">(</span><span class="n">APP_PORT_DEFAULT</span><span class="p">),</span>
-</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47"></a><span class="w">                </span><span class="s">&quot;SPRING_DATASOURCE_URL&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">postgreSQLContainer</span><span class="p">.</span><span class="na">getEnvMap</span><span class="p">().</span><span class="na">get</span><span class="p">(</span><span class="n">JDBC_URL_CUSTOM</span><span class="p">),</span>
-</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48"></a><span class="w">                </span><span class="s">&quot;SPRING_DATASOURCE_USERNAME&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">postgreSQLContainer</span><span class="p">.</span><span class="na">getUsername</span><span class="p">(),</span>
-</span><span id="__span-4-49"><a id="__codelineno-4-49" name="__codelineno-4-49"></a><span class="w">                </span><span class="s">&quot;SPRING_DATASOURCE_PASSWORD&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">postgreSQLContainer</span><span class="p">.</span><span class="na">getPassword</span><span class="p">(),</span>
-</span><span id="__span-4-50"><a id="__codelineno-4-50" name="__codelineno-4-50"></a><span class="w">                </span><span class="s">&quot;KAFKA-CONFIG_BOOTSTRAP-SERVERS&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">kafkaContainer</span><span class="p">.</span><span class="na">getEnvMap</span><span class="p">().</span><span class="na">get</span><span class="p">(</span><span class="n">BOOTSTRAP_SERVERS_CUSTOM</span><span class="p">),</span>
-</span><span id="__span-4-51"><a id="__codelineno-4-51" name="__codelineno-4-51"></a><span class="w">                </span><span class="s">&quot;THIRD_JSONPLACEHOLDER_URL&quot;</span><span class="p">,</span><span class="w"> </span><span class="n">wireMockContainer</span><span class="p">.</span><span class="na">getBaseUrl</span><span class="p">(),</span>
-</span><span id="__span-4-52"><a id="__codelineno-4-52" name="__codelineno-4-52"></a><span class="w">                </span><span class="s">&quot;log.path&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;/logs&quot;</span>
-</span><span id="__span-4-53"><a id="__codelineno-4-53" name="__codelineno-4-53"></a><span class="w">        </span><span class="p">);</span>
-</span><span id="__span-4-54"><a id="__codelineno-4-54" name="__codelineno-4-54"></a><span class="w">    </span><span class="p">}</span>
-</span><span id="__span-4-55"><a id="__codelineno-4-55" name="__codelineno-4-55"></a>
-</span><span id="__span-4-56"><a id="__codelineno-4-56" name="__codelineno-4-56"></a><span class="p">}</span>
+</span><span id="__span-4-44"><a id="__codelineno-4-44" name="__codelineno-4-44"></a><span class="w">        </span><span class="n">appWithEnvBuilder</span><span class="p">(</span><span class="n">appCustomContainer</span><span class="p">.</span><span class="na">getEnvMap</span><span class="p">(),</span><span class="w"> </span><span class="n">postgresContainer</span><span class="p">,</span><span class="w"> </span><span class="n">kafkaContainer</span><span class="p">,</span>
+</span><span id="__span-4-45"><a id="__codelineno-4-45" name="__codelineno-4-45"></a><span class="w">                </span><span class="n">wireMockContainer</span><span class="p">,</span><span class="w"> </span><span class="n">schemaRegistryContainer</span><span class="p">);</span>
+</span><span id="__span-4-46"><a id="__codelineno-4-46" name="__codelineno-4-46"></a>
+</span><span id="__span-4-47"><a id="__codelineno-4-47" name="__codelineno-4-47"></a><span class="w">        </span><span class="n">appCustomContainer</span><span class="p">.</span><span class="na">start</span><span class="p">();</span>
+</span><span id="__span-4-48"><a id="__codelineno-4-48" name="__codelineno-4-48"></a><span class="w">        </span><span class="n">appCustomContainer</span><span class="p">.</span><span class="na">initRequestSpecification</span><span class="p">();</span>
+</span><span id="__span-4-49"><a id="__codelineno-4-49" name="__codelineno-4-49"></a><span class="w">        </span><span class="n">updateKafkaConfigData</span><span class="p">(</span><span class="n">kafkaContainer</span><span class="p">);</span>
+</span><span id="__span-4-50"><a id="__codelineno-4-50" name="__codelineno-4-50"></a>
+</span><span id="__span-4-51"><a id="__codelineno-4-51" name="__codelineno-4-51"></a><span class="w">        </span><span class="k">return</span><span class="w"> </span><span class="n">appCustomContainer</span><span class="p">;</span>
+</span><span id="__span-4-52"><a id="__codelineno-4-52" name="__codelineno-4-52"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-53"><a id="__codelineno-4-53" name="__codelineno-4-53"></a>
+</span><span id="__span-4-54"><a id="__codelineno-4-54" name="__codelineno-4-54"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">updateKafkaConfigData</span><span class="p">(</span><span class="n">KafkaContainer</span><span class="w"> </span><span class="n">kafkaContainer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-55"><a id="__codelineno-4-55" name="__codelineno-4-55"></a><span class="w">        </span><span class="n">kafkaConfigData</span><span class="p">.</span><span class="na">setBootstrapServers</span><span class="p">(</span><span class="n">kafkaContainer</span><span class="p">.</span><span class="na">getBootstrapServers</span><span class="p">());</span>
+</span><span id="__span-4-56"><a id="__codelineno-4-56" name="__codelineno-4-56"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-57"><a id="__codelineno-4-57" name="__codelineno-4-57"></a>
+</span><span id="__span-4-58"><a id="__codelineno-4-58" name="__codelineno-4-58"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">appWithEnvBuilder</span><span class="p">(</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;</span><span class="w"> </span><span class="n">envMap</span><span class="p">,</span><span class="w"> </span><span class="n">PostgreSQLContainer</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">postgreSQLContainer</span><span class="p">,</span>
+</span><span id="__span-4-59"><a id="__codelineno-4-59" name="__codelineno-4-59"></a><span class="w">                                   </span><span class="n">KafkaContainer</span><span class="w"> </span><span class="n">kafkaContainer</span><span class="p">,</span>
+</span><span id="__span-4-60"><a id="__codelineno-4-60" name="__codelineno-4-60"></a><span class="w">                                   </span><span class="n">WireMockContainer</span><span class="w"> </span><span class="n">wireMockContainer</span><span class="p">,</span>
+</span><span id="__span-4-61"><a id="__codelineno-4-61" name="__codelineno-4-61"></a><span class="w">                                   </span><span class="n">GenericContainer</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">schemaRegistryContainer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-62"><a id="__codelineno-4-62" name="__codelineno-4-62"></a>
+</span><span id="__span-4-63"><a id="__codelineno-4-63" name="__codelineno-4-63"></a><span class="w">        </span><span class="kd">final</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">configActions</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">HashMap</span><span class="o">&lt;&gt;</span><span class="p">();</span>
+</span><span id="__span-4-64"><a id="__codelineno-4-64" name="__codelineno-4-64"></a>
+</span><span id="__span-4-65"><a id="__codelineno-4-65" name="__codelineno-4-65"></a>
+</span><span id="__span-4-66"><a id="__codelineno-4-66" name="__codelineno-4-66"></a><span class="w">        </span><span class="n">addPostgresConfig</span><span class="p">(</span><span class="n">postgreSQLContainer</span><span class="p">,</span><span class="w"> </span><span class="n">configActions</span><span class="p">);</span>
+</span><span id="__span-4-67"><a id="__codelineno-4-67" name="__codelineno-4-67"></a>
+</span><span id="__span-4-68"><a id="__codelineno-4-68" name="__codelineno-4-68"></a>
+</span><span id="__span-4-69"><a id="__codelineno-4-69" name="__codelineno-4-69"></a><span class="w">        </span><span class="n">addWiremockConfig</span><span class="p">(</span><span class="n">wireMockContainer</span><span class="p">,</span><span class="w"> </span><span class="n">configActions</span><span class="p">);</span>
+</span><span id="__span-4-70"><a id="__codelineno-4-70" name="__codelineno-4-70"></a>
+</span><span id="__span-4-71"><a id="__codelineno-4-71" name="__codelineno-4-71"></a><span class="w">        </span><span class="n">addKafkaConfig</span><span class="p">(</span><span class="n">kafkaContainer</span><span class="p">,</span><span class="w"> </span><span class="n">schemaRegistryContainer</span><span class="p">,</span><span class="w"> </span><span class="n">configActions</span><span class="p">);</span>
+</span><span id="__span-4-72"><a id="__codelineno-4-72" name="__codelineno-4-72"></a>
+</span><span id="__span-4-73"><a id="__codelineno-4-73" name="__codelineno-4-73"></a><span class="w">        </span><span class="n">configActions</span><span class="p">.</span><span class="na">forEach</span><span class="p">((</span><span class="n">configClass</span><span class="p">,</span><span class="w"> </span><span class="n">action</span><span class="p">)</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">action</span><span class="p">.</span><span class="na">accept</span><span class="p">(</span><span class="n">envMap</span><span class="p">));</span>
+</span><span id="__span-4-74"><a id="__codelineno-4-74" name="__codelineno-4-74"></a>
+</span><span id="__span-4-75"><a id="__codelineno-4-75" name="__codelineno-4-75"></a>
+</span><span id="__span-4-76"><a id="__codelineno-4-76" name="__codelineno-4-76"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-77"><a id="__codelineno-4-77" name="__codelineno-4-77"></a>
+</span><span id="__span-4-78"><a id="__codelineno-4-78" name="__codelineno-4-78"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addKafkaConfig</span><span class="p">(</span><span class="n">KafkaContainer</span><span class="w"> </span><span class="n">kafkaContainer</span><span class="p">,</span><span class="w"> </span><span class="n">GenericContainer</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">schemaRegistryContainer</span><span class="p">,</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">configActions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-79"><a id="__codelineno-4-79" name="__codelineno-4-79"></a><span class="w">        </span><span class="n">configActions</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">KafkaContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+</span><span id="__span-4-80"><a id="__codelineno-4-80" name="__codelineno-4-80"></a><span class="w">                </span><span class="n">map</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">containerConfigs</span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
+</span><span id="__span-4-81"><a id="__codelineno-4-81" name="__codelineno-4-81"></a><span class="w">                        </span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">KafkaContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">::</span><span class="n">isInstance</span><span class="p">)</span>
+</span><span id="__span-4-82"><a id="__codelineno-4-82" name="__codelineno-4-82"></a><span class="w">                        </span><span class="p">.</span><span class="na">findFirst</span><span class="p">()</span>
+</span><span id="__span-4-83"><a id="__codelineno-4-83" name="__codelineno-4-83"></a><span class="w">                        </span><span class="p">.</span><span class="na">ifPresent</span><span class="p">(</span><span class="n">config</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">map</span><span class="p">.</span><span class="na">putAll</span><span class="p">(((</span><span class="n">KafkaContainerCustomConfig</span><span class="p">)</span><span class="w"> </span><span class="n">config</span><span class="p">)</span>
+</span><span id="__span-4-84"><a id="__codelineno-4-84" name="__codelineno-4-84"></a><span class="w">                                </span><span class="p">.</span><span class="na">initializeEnvVariables</span><span class="p">(</span><span class="n">kafkaContainer</span><span class="p">,</span><span class="w"> </span><span class="n">schemaRegistryContainer</span><span class="p">))));</span>
+</span><span id="__span-4-85"><a id="__codelineno-4-85" name="__codelineno-4-85"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-86"><a id="__codelineno-4-86" name="__codelineno-4-86"></a>
+</span><span id="__span-4-87"><a id="__codelineno-4-87" name="__codelineno-4-87"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addWiremockConfig</span><span class="p">(</span><span class="n">WireMockContainer</span><span class="w"> </span><span class="n">wireMockContainer</span><span class="p">,</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">configActions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-88"><a id="__codelineno-4-88" name="__codelineno-4-88"></a><span class="w">        </span><span class="n">configActions</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">WiremockContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+</span><span id="__span-4-89"><a id="__codelineno-4-89" name="__codelineno-4-89"></a><span class="w">                </span><span class="n">map</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">containerConfigs</span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
+</span><span id="__span-4-90"><a id="__codelineno-4-90" name="__codelineno-4-90"></a><span class="w">                        </span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">WiremockContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">::</span><span class="n">isInstance</span><span class="p">)</span>
+</span><span id="__span-4-91"><a id="__codelineno-4-91" name="__codelineno-4-91"></a><span class="w">                        </span><span class="p">.</span><span class="na">findFirst</span><span class="p">()</span>
+</span><span id="__span-4-92"><a id="__codelineno-4-92" name="__codelineno-4-92"></a><span class="w">                        </span><span class="p">.</span><span class="na">ifPresent</span><span class="p">(</span><span class="n">config</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">map</span><span class="p">.</span><span class="na">putAll</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">initializeEnvVariables</span><span class="p">(</span><span class="n">wireMockContainer</span><span class="p">))));</span>
+</span><span id="__span-4-93"><a id="__codelineno-4-93" name="__codelineno-4-93"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-4-94"><a id="__codelineno-4-94" name="__codelineno-4-94"></a>
+</span><span id="__span-4-95"><a id="__codelineno-4-95" name="__codelineno-4-95"></a><span class="w">    </span><span class="kd">private</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">addPostgresConfig</span><span class="p">(</span><span class="n">PostgreSQLContainer</span><span class="o">&lt;?&gt;</span><span class="w"> </span><span class="n">postgreSQLContainer</span><span class="p">,</span><span class="w"> </span><span class="n">Map</span><span class="o">&lt;</span><span class="n">Class</span><span class="o">&lt;?&gt;</span><span class="p">,</span><span class="w"> </span><span class="n">Consumer</span><span class="o">&lt;</span><span class="n">Map</span><span class="o">&lt;</span><span class="n">String</span><span class="p">,</span><span class="w"> </span><span class="n">String</span><span class="o">&gt;&gt;&gt;</span><span class="w"> </span><span class="n">configActions</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-4-96"><a id="__codelineno-4-96" name="__codelineno-4-96"></a><span class="w">        </span><span class="n">configActions</span><span class="p">.</span><span class="na">put</span><span class="p">(</span><span class="n">PostgresContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">,</span>
+</span><span id="__span-4-97"><a id="__codelineno-4-97" name="__codelineno-4-97"></a><span class="w">                </span><span class="n">map</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">containerConfigs</span><span class="p">.</span><span class="na">stream</span><span class="p">()</span>
+</span><span id="__span-4-98"><a id="__codelineno-4-98" name="__codelineno-4-98"></a><span class="w">                        </span><span class="p">.</span><span class="na">filter</span><span class="p">(</span><span class="n">PostgresContainerCustomConfig</span><span class="p">.</span><span class="na">class</span><span class="p">::</span><span class="n">isInstance</span><span class="p">)</span>
+</span><span id="__span-4-99"><a id="__codelineno-4-99" name="__codelineno-4-99"></a><span class="w">                        </span><span class="p">.</span><span class="na">findFirst</span><span class="p">()</span>
+</span><span id="__span-4-100"><a id="__codelineno-4-100" name="__codelineno-4-100"></a><span class="w">                        </span><span class="p">.</span><span class="na">ifPresent</span><span class="p">(</span><span class="n">config</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">map</span><span class="p">.</span><span class="na">putAll</span><span class="p">(</span><span class="n">config</span><span class="p">.</span><span class="na">initializeEnvVariables</span><span class="p">(</span><span class="n">postgreSQLContainer</span><span class="p">))));</span>
+</span><span id="__span-4-101"><a id="__codelineno-4-101" name="__codelineno-4-101"></a><span class="w">    </span><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
 <div class="tabbed-block">
@@ -953,8 +1069,8 @@ It is recommended to create the following  <code>boot/</code> directory on your 
 </span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a><span class="kn">import</span><span class="w"> </span><span class="nn">io.cucumber.spring.CucumberContextConfiguration</span><span class="p">;</span>
 </span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.context.annotation.Import</span><span class="p">;</span>
 </span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>
-</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="hll"><span class="nd">@CucumberContextConfiguration</span>
-</span></span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="nd">@Import</span><span class="p">(</span><span class="n">TestContainersLoader</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a><span class="hll"><span class="nd">@Import</span><span class="p">(</span><span class="n">TestContainersLoader</span><span class="p">.</span><span class="na">class</span><span class="p">)</span>
+</span></span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="nd">@CucumberContextConfiguration</span>
 </span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a><span class="hll"><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">CucumberHooks</span><span class="w"> </span><span class="kd">extends</span><span class="w"> </span><span class="n">Lg5TestBootPortNone</span><span class="w"> </span><span class="p">{</span>
 </span></span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a>
 </span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a><span class="p">}</span>
@@ -1011,9 +1127,9 @@ all in one click on this class, and you are ready to use the application.</li>
 </span><span id="__span-6-14"><a id="__codelineno-6-14" name="__codelineno-6-14"></a><span class="nd">@IncludeEngines</span><span class="p">(</span><span class="s">&quot;cucumber&quot;</span><span class="p">)</span>
 </span><span id="__span-6-15"><a id="__codelineno-6-15" name="__codelineno-6-15"></a><span class="nd">@SelectClasspathResource</span><span class="p">(</span><span class="s">&quot;features&quot;</span><span class="p">)</span>
 </span><span id="__span-6-16"><a id="__codelineno-6-16" name="__codelineno-6-16"></a><span class="nd">@ConfigurationParameters</span><span class="p">({</span>
-</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="w">    </span><span class="nd">@ConfigurationParameter</span><span class="p">(</span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">PLUGIN_PROPERTY_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pretty, json:target/atdd-reports/cucumber.json, &quot;</span><span class="w"> </span><span class="o">+</span>
-</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="hll"><span class="w">            </span><span class="s">&quot;html:target/atdd-reports/cucumber-reports.html&quot;</span><span class="p">),</span>
-</span></span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="w">    </span><span class="nd">@ConfigurationParameter</span><span class="p">(</span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">GLUE_PROPERTY_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.blanksystem.blank.service&quot;</span><span class="p">)</span>
+</span><span id="__span-6-17"><a id="__codelineno-6-17" name="__codelineno-6-17"></a><span class="nd">@ConfigurationParameter</span><span class="p">(</span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">PLUGIN_PROPERTY_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;pretty, json:target/atdd-reports/cucumber.json, &quot;</span><span class="w"> </span><span class="o">+</span>
+</span><span id="__span-6-18"><a id="__codelineno-6-18" name="__codelineno-6-18"></a><span class="hll"><span class="s">&quot;html:target/atdd-reports/cucumber-reports.html&quot;</span><span class="p">),</span>
+</span></span><span id="__span-6-19"><a id="__codelineno-6-19" name="__codelineno-6-19"></a><span class="nd">@ConfigurationParameter</span><span class="p">(</span><span class="n">key</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">Constants</span><span class="p">.</span><span class="na">GLUE_PROPERTY_NAME</span><span class="p">,</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;com.blanksystem.blank.service&quot;</span><span class="p">)</span>
 </span><span id="__span-6-20"><a id="__codelineno-6-20" name="__codelineno-6-20"></a><span class="p">})</span>
 </span><span id="__span-6-21"><a id="__codelineno-6-21" name="__codelineno-6-21"></a><span class="kd">class</span> <span class="nc">AcceptanceTestCase</span><span class="w"> </span><span class="p">{</span>
 </span><span id="__span-6-22"><a id="__codelineno-6-22" name="__codelineno-6-22"></a>
@@ -1025,73 +1141,346 @@ all in one click on this class, and you are ready to use the application.</li>
 </span><span id="__span-6-28"><a id="__codelineno-6-28" name="__codelineno-6-28"></a><span class="p">}</span>
 </span></code></pre></div></td></tr></table></div>
 </div>
+<div class="tabbed-block">
+<blockquote>
+<ol>
+<li>Create a directory called<code>src/test/resources/features</code></li>
+<li>Create the feature file in <code>example.feature</code></li>
+<li>Create new step definition file</li>
+</ol>
+</blockquote>
+<div class="language-gherkin highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">example.feature</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1">1</a></span>
+<span class="normal"><a href="#__codelineno-7-2">2</a></span>
+<span class="normal"><a href="#__codelineno-7-3">3</a></span>
+<span class="normal"><a href="#__codelineno-7-4">4</a></span>
+<span class="normal"><a href="#__codelineno-7-5">5</a></span>
+<span class="normal"><a href="#__codelineno-7-6">6</a></span>
+<span class="normal"><a href="#__codelineno-7-7">7</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a><span class="k">Feature:</span>
+</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a><span class="hll"><span class="nf">    I as a customer want to create a blank using the repository template</span>
+</span></span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>
+</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a><span class="k">Scenario:</span><span class="nf"> the blank should be CREATED when use the repository template</span>
+</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a><span class="hll"><span class="k">    Given </span><span class="nf">a repository template</span>
+</span></span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a><span class="nf">    </span><span class="k">When </span><span class="nf">blank is created</span>
+</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="nf">    </span><span class="k">Then </span><span class="nf">the blank will be created using the repository template</span>
+</span></code></pre></div></td></tr></table></div>
+<div class="language-java highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">MyStepdefs.java</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-8-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-8-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-8-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-8-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-8-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-8-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-8-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-8-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-8-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-8-10">10</a></span>
+<span class="normal"><a href="#__codelineno-8-11">11</a></span>
+<span class="normal"><a href="#__codelineno-8-12">12</a></span>
+<span class="normal"><a href="#__codelineno-8-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-8-1"><a id="__codelineno-8-1" name="__codelineno-8-1"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">MyStepdefs</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-2"><a id="__codelineno-8-2" name="__codelineno-8-2"></a><span class="hll"><span class="w">    </span><span class="nd">@Given</span><span class="p">(</span><span class="s">&quot;a repository template&quot;</span><span class="p">)</span>
+</span></span><span id="__span-8-3"><a id="__codelineno-8-3" name="__codelineno-8-3"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">aRepositoryTemplate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-4"><a id="__codelineno-8-4" name="__codelineno-8-4"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-5"><a id="__codelineno-8-5" name="__codelineno-8-5"></a>
+</span><span id="__span-8-6"><a id="__codelineno-8-6" name="__codelineno-8-6"></a><span class="hll"><span class="w">    </span><span class="nd">@When</span><span class="p">(</span><span class="s">&quot;blank is created&quot;</span><span class="p">)</span>
+</span></span><span id="__span-8-7"><a id="__codelineno-8-7" name="__codelineno-8-7"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">blankIsCreated</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-8"><a id="__codelineno-8-8" name="__codelineno-8-8"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-9"><a id="__codelineno-8-9" name="__codelineno-8-9"></a>
+</span><span id="__span-8-10"><a id="__codelineno-8-10" name="__codelineno-8-10"></a><span class="hll"><span class="w">    </span><span class="nd">@Then</span><span class="p">(</span><span class="s">&quot;the blank will be created using the repository template&quot;</span><span class="p">)</span>
+</span></span><span id="__span-8-11"><a id="__codelineno-8-11" name="__codelineno-8-11"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">theBlankWillBeCreatedUsingTheRepositoryTemplate</span><span class="p">()</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-8-12"><a id="__codelineno-8-12" name="__codelineno-8-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-8-13"><a id="__codelineno-8-13" name="__codelineno-8-13"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<p>With <code>destination.path: ./target/logs</code> where stored logs file from blank-service aftet that tests finished.   <br />
+Replace some name by your system and domain name: <code>blanksystem</code> and <code>blank</code>.</p>
+<blockquote>
+<p>`application.image.name: your-docker.images:version</p>
+</blockquote>
+<p>⚠️ Please attention to highlighted lines!!!       <br />
+⚠️ Disabled liquibase migrations, only test(NOT PRODUCTION).</p>
+<div class="language-yaml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">application-test.yml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-9-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-9-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-9-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-9-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-9-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-9-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-9-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-9-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-9-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-9-10">10</a></span>
+<span class="normal"><a href="#__codelineno-9-11">11</a></span>
+<span class="normal"><a href="#__codelineno-9-12">12</a></span>
+<span class="normal"><a href="#__codelineno-9-13">13</a></span>
+<span class="normal"><a href="#__codelineno-9-14">14</a></span>
+<span class="normal"><a href="#__codelineno-9-15">15</a></span>
+<span class="normal"><a href="#__codelineno-9-16">16</a></span>
+<span class="normal"><a href="#__codelineno-9-17">17</a></span>
+<span class="normal"><a href="#__codelineno-9-18">18</a></span>
+<span class="normal"><a href="#__codelineno-9-19">19</a></span>
+<span class="normal"><a href="#__codelineno-9-20">20</a></span>
+<span class="normal"><a href="#__codelineno-9-21">21</a></span>
+<span class="normal"><a href="#__codelineno-9-22">22</a></span>
+<span class="normal"><a href="#__codelineno-9-23">23</a></span>
+<span class="normal"><a href="#__codelineno-9-24">24</a></span>
+<span class="normal"><a href="#__codelineno-9-25">25</a></span>
+<span class="normal"><a href="#__codelineno-9-26">26</a></span>
+<span class="normal"><a href="#__codelineno-9-27">27</a></span>
+<span class="normal"><a href="#__codelineno-9-28">28</a></span>
+<span class="normal"><a href="#__codelineno-9-29">29</a></span>
+<span class="normal"><a href="#__codelineno-9-30">30</a></span>
+<span class="normal"><a href="#__codelineno-9-31">31</a></span>
+<span class="normal"><a href="#__codelineno-9-32">32</a></span>
+<span class="normal"><a href="#__codelineno-9-33">33</a></span>
+<span class="normal"><a href="#__codelineno-9-34">34</a></span>
+<span class="normal"><a href="#__codelineno-9-35">35</a></span>
+<span class="normal"><a href="#__codelineno-9-36">36</a></span>
+<span class="normal"><a href="#__codelineno-9-37">37</a></span>
+<span class="normal"><a href="#__codelineno-9-38">38</a></span>
+<span class="normal"><a href="#__codelineno-9-39">39</a></span>
+<span class="normal"><a href="#__codelineno-9-40">40</a></span>
+<span class="normal"><a href="#__codelineno-9-41">41</a></span>
+<span class="normal"><a href="#__codelineno-9-42">42</a></span>
+<span class="normal"><a href="#__codelineno-9-43">43</a></span>
+<span class="normal"><a href="#__codelineno-9-44">44</a></span>
+<span class="normal"><a href="#__codelineno-9-45">45</a></span>
+<span class="normal"><a href="#__codelineno-9-46">46</a></span>
+<span class="normal"><a href="#__codelineno-9-47">47</a></span>
+<span class="normal"><a href="#__codelineno-9-48">48</a></span>
+<span class="normal"><a href="#__codelineno-9-49">49</a></span>
+<span class="normal"><a href="#__codelineno-9-50">50</a></span>
+<span class="normal"><a href="#__codelineno-9-51">51</a></span>
+<span class="normal"><a href="#__codelineno-9-52">52</a></span>
+<span class="normal"><a href="#__codelineno-9-53">53</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-9-1"><a id="__codelineno-9-1" name="__codelineno-9-1"></a><span class="nt">application</span><span class="p">:</span>
+</span><span id="__span-9-2"><a id="__codelineno-9-2" name="__codelineno-9-2"></a><span class="w">  </span><span class="nt">server</span><span class="p">:</span>
+</span><span id="__span-9-3"><a id="__codelineno-9-3" name="__codelineno-9-3"></a><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">8080</span>
+</span><span id="__span-9-4"><a id="__codelineno-9-4" name="__codelineno-9-4"></a><span class="w">  </span><span class="nt">image</span><span class="p">:</span>
+</span><span id="__span-9-5"><a id="__codelineno-9-5" name="__codelineno-9-5"></a><span class="hll"><span class="w">    </span><span class="nt">name</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">com.blanksystem/blank-service:1.0.0-alpha</span>
+</span></span><span id="__span-9-6"><a id="__codelineno-9-6" name="__codelineno-9-6"></a><span class="w">  </span><span class="nt">traces</span><span class="p">:</span>
+</span><span id="__span-9-7"><a id="__codelineno-9-7" name="__codelineno-9-7"></a><span class="w">    </span><span class="nt">console</span><span class="p">:</span>
+</span><span id="__span-9-8"><a id="__codelineno-9-8" name="__codelineno-9-8"></a><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-9-9"><a id="__codelineno-9-9" name="__codelineno-9-9"></a><span class="w">    </span><span class="nt">file</span><span class="p">:</span>
+</span><span id="__span-9-10"><a id="__codelineno-9-10" name="__codelineno-9-10"></a><span class="hll"><span class="w">      </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">true</span>
+</span></span><span id="__span-9-11"><a id="__codelineno-9-11" name="__codelineno-9-11"></a><span class="w">  </span><span class="nt">log</span><span class="p">:</span>
+</span><span id="__span-9-12"><a id="__codelineno-9-12" name="__codelineno-9-12"></a><span class="w">    </span><span class="nt">source</span><span class="p">:</span>
+</span><span id="__span-9-13"><a id="__codelineno-9-13" name="__codelineno-9-13"></a><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">/logs</span>
+</span><span id="__span-9-14"><a id="__codelineno-9-14" name="__codelineno-9-14"></a><span class="w">    </span><span class="nt">destination</span><span class="p">:</span>
+</span><span id="__span-9-15"><a id="__codelineno-9-15" name="__codelineno-9-15"></a><span class="hll"><span class="w">      </span><span class="nt">path</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">./target/logs</span>
+</span></span><span id="__span-9-16"><a id="__codelineno-9-16" name="__codelineno-9-16"></a>
+</span><span id="__span-9-17"><a id="__codelineno-9-17" name="__codelineno-9-17"></a><span class="nt">blanksystem</span><span class="p">:</span>
+</span><span id="__span-9-18"><a id="__codelineno-9-18" name="__codelineno-9-18"></a><span class="w">  </span><span class="nt">blank</span><span class="p">:</span>
+</span><span id="__span-9-19"><a id="__codelineno-9-19" name="__codelineno-9-19"></a><span class="w">    </span><span class="nt">events</span><span class="p">:</span>
+</span><span id="__span-9-20"><a id="__codelineno-9-20" name="__codelineno-9-20"></a><span class="w">      </span><span class="nt">journal</span><span class="p">:</span>
+</span><span id="__span-9-21"><a id="__codelineno-9-21" name="__codelineno-9-21"></a><span class="w">        </span><span class="nt">blank</span><span class="p">:</span>
+</span><span id="__span-9-22"><a id="__codelineno-9-22" name="__codelineno-9-22"></a><span class="hll"><span class="w">          </span><span class="nt">topic</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blank.1.0.event.created</span>
+</span></span><span id="__span-9-23"><a id="__codelineno-9-23" name="__codelineno-9-23"></a><span class="w">          </span><span class="nt">consumer</span><span class="p">:</span>
+</span><span id="__span-9-24"><a id="__codelineno-9-24" name="__codelineno-9-24"></a><span class="w">            </span><span class="nt">group</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">blank-topic-consumer-acceptance-test</span>
+</span><span id="__span-9-25"><a id="__codelineno-9-25" name="__codelineno-9-25"></a><span class="nt">spring</span><span class="p">:</span>
+</span><span id="__span-9-26"><a id="__codelineno-9-26" name="__codelineno-9-26"></a><span class="w">  </span><span class="nt">datasource</span><span class="p">:</span>
+</span><span id="__span-9-27"><a id="__codelineno-9-27" name="__codelineno-9-27"></a><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">jdbc</span>
+</span><span id="__span-9-28"><a id="__codelineno-9-28" name="__codelineno-9-28"></a><span class="w">  </span><span class="nt">liquibase</span><span class="p">:</span>
+</span><span id="__span-9-29"><a id="__codelineno-9-29" name="__codelineno-9-29"></a><span class="w">    </span><span class="nt">enabled</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">false</span>
+</span><span id="__span-9-30"><a id="__codelineno-9-30" name="__codelineno-9-30"></a>
+</span><span id="__span-9-31"><a id="__codelineno-9-31" name="__codelineno-9-31"></a><span class="nt">logging</span><span class="p">:</span>
+</span><span id="__span-9-32"><a id="__codelineno-9-32" name="__codelineno-9-32"></a><span class="w">  </span><span class="nt">level</span><span class="p">:</span>
+</span><span id="__span-9-33"><a id="__codelineno-9-33" name="__codelineno-9-33"></a><span class="w">    </span><span class="nt">com.blanksystem</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">INFO</span>
+</span><span id="__span-9-34"><a id="__codelineno-9-34" name="__codelineno-9-34"></a><span class="w">    </span><span class="nt">io.confluent.kafka</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ERROR</span>
+</span><span id="__span-9-35"><a id="__codelineno-9-35" name="__codelineno-9-35"></a><span class="w">    </span><span class="nt">org.apache</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">ERROR</span>
+</span><span id="__span-9-36"><a id="__codelineno-9-36" name="__codelineno-9-36"></a>
+</span><span id="__span-9-37"><a id="__codelineno-9-37" name="__codelineno-9-37"></a><span class="nt">third</span><span class="p">:</span>
+</span><span id="__span-9-38"><a id="__codelineno-9-38" name="__codelineno-9-38"></a><span class="w">  </span><span class="nt">basic</span><span class="p">:</span>
+</span><span id="__span-9-39"><a id="__codelineno-9-39" name="__codelineno-9-39"></a><span class="w">    </span><span class="nt">auth</span><span class="p">:</span>
+</span><span id="__span-9-40"><a id="__codelineno-9-40" name="__codelineno-9-40"></a><span class="w">      </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+</span><span id="__span-9-41"><a id="__codelineno-9-41" name="__codelineno-9-41"></a><span class="hll"><span class="w">      </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
+</span></span><span id="__span-9-42"><a id="__codelineno-9-42" name="__codelineno-9-42"></a><span class="w">  </span><span class="nt">jsonplaceholder</span><span class="p">:</span>
+</span><span id="__span-9-43"><a id="__codelineno-9-43" name="__codelineno-9-43"></a><span class="hll"><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">https://jsonplaceholder.typicode.com</span>
+</span></span><span id="__span-9-44"><a id="__codelineno-9-44" name="__codelineno-9-44"></a><span class="w">    </span><span class="nt">basic</span><span class="p">:</span>
+</span><span id="__span-9-45"><a id="__codelineno-9-45" name="__codelineno-9-45"></a><span class="w">      </span><span class="nt">auth</span><span class="p">:</span>
+</span><span id="__span-9-46"><a id="__codelineno-9-46" name="__codelineno-9-46"></a><span class="w">        </span><span class="nt">username</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">admin</span>
+</span><span id="__span-9-47"><a id="__codelineno-9-47" name="__codelineno-9-47"></a><span class="w">        </span><span class="nt">password</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">pass</span>
+</span><span id="__span-9-48"><a id="__codelineno-9-48" name="__codelineno-9-48"></a>
+</span><span id="__span-9-49"><a id="__codelineno-9-49" name="__codelineno-9-49"></a><span class="nt">wiremock</span><span class="p">:</span>
+</span><span id="__span-9-50"><a id="__codelineno-9-50" name="__codelineno-9-50"></a><span class="w">  </span><span class="nt">config</span><span class="p">:</span>
+</span><span id="__span-9-51"><a id="__codelineno-9-51" name="__codelineno-9-51"></a><span class="w">    </span><span class="nt">folder</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;wiremock/third_system/template.json&quot;</span>
+</span><span id="__span-9-52"><a id="__codelineno-9-52" name="__codelineno-9-52"></a><span class="w">    </span><span class="nt">url</span><span class="p">:</span><span class="w"> </span><span class="s">&quot;third.jsonplaceholder.url&quot;</span>
+</span><span id="__span-9-53"><a id="__codelineno-9-53" name="__codelineno-9-53"></a><span class="hll"><span class="w">    </span><span class="nt">port</span><span class="p">:</span><span class="w"> </span><span class="l l-Scalar l-Scalar-Plain">7070</span>
+</span></span></code></pre></div></td></tr></table></div>
+</div>
 </div>
 </div>
 <div class="admonition tip">
 <p class="admonition-title">When do you like to use some TestContainer</p>
 <p>if you use some TestContainer CustomConfig enabled, you would added the following properties for each one: </p>
-<div class="language-text highlight"><pre><span></span><code>* Postgres Container            
+<div class="language-text highlight"><pre><span></span><code>* Postgres Container
+    * Add liquibase files with migrations. 
 * Kafka Container       
     * `${kafka-config.bootstrap-servers}`       
 * SchemaRegistry Container      
-    * `${kafka-config.schema-registry-url}`     
+    * `${kafka-config.schema-registry-url}`
+* KAFKA MODELS
+    * If you must have kafka models, So, CREATE AVRO DIRECTORY  For instance: `src/test/resources/avro/example.avsc`
 * Wiremock Container        
     * Specify third system url `${wiremock.config.url}`.        
     * Indicate a port binding to connect: `${wiremock.config.port}`.       
     * Directory where stored the mock req/res http `${wiremock.config.folder}`.
+    * CREATE WIREMOCK DIRECTORY and a TEMPLATE base, For instance: `src/test/resources/wiremock/third_system/template.json`.
 </code></pre></div>
 </div>
+<h2 id="needs-the-spring-context">Needs the Spring Context<a class="headerlink" href="#needs-the-spring-context" title="Permanent link">&para;</a></h2>
+<p>Add a classic application main with Spring Boot:</p>
+<blockquote>
+<p>Stay alert with the <code>scanBasePackages</code> for your tests, in this case principal package the current system and extras as kafka. </p>
+</blockquote>
+<div class="language-java highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">Application.java</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-10-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-10-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-10-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-10-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-10-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-10-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-10-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-10-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-10-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-10-10">10</a></span>
+<span class="normal"><a href="#__codelineno-10-11">11</a></span>
+<span class="normal"><a href="#__codelineno-10-12">12</a></span>
+<span class="normal"><a href="#__codelineno-10-13">13</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-10-1"><a id="__codelineno-10-1" name="__codelineno-10-1"></a><span class="kn">package</span><span class="w"> </span><span class="nn">com.blanksystem.blank.service</span><span class="p">;</span>
+</span><span id="__span-10-2"><a id="__codelineno-10-2" name="__codelineno-10-2"></a>
+</span><span id="__span-10-3"><a id="__codelineno-10-3" name="__codelineno-10-3"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.boot.SpringApplication</span><span class="p">;</span>
+</span><span id="__span-10-4"><a id="__codelineno-10-4" name="__codelineno-10-4"></a><span class="kn">import</span><span class="w"> </span><span class="nn">org.springframework.boot.autoconfigure.SpringBootApplication</span><span class="p">;</span>
+</span><span id="__span-10-5"><a id="__codelineno-10-5" name="__codelineno-10-5"></a>
+</span><span id="__span-10-6"><a id="__codelineno-10-6" name="__codelineno-10-6"></a><span class="hll"><span class="nd">@SpringBootApplication</span><span class="p">(</span><span class="n">scanBasePackages</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="s">&quot;com.blanksystem&quot;</span><span class="p">,</span><span class="w"> </span><span class="s">&quot;com.lg5.spring.kafka&quot;</span><span class="p">})</span>
+</span></span><span id="__span-10-7"><a id="__codelineno-10-7" name="__codelineno-10-7"></a><span class="kd">public</span><span class="w"> </span><span class="kd">class</span> <span class="nc">Application</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-8"><a id="__codelineno-10-8" name="__codelineno-10-8"></a>
+</span><span id="__span-10-9"><a id="__codelineno-10-9" name="__codelineno-10-9"></a><span class="w">    </span><span class="kd">public</span><span class="w"> </span><span class="kd">static</span><span class="w"> </span><span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(</span><span class="n">String</span><span class="o">[]</span><span class="w"> </span><span class="n">args</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+</span><span id="__span-10-10"><a id="__codelineno-10-10" name="__codelineno-10-10"></a>
+</span><span id="__span-10-11"><a id="__codelineno-10-11" name="__codelineno-10-11"></a><span class="w">        </span><span class="n">SpringApplication</span><span class="p">.</span><span class="na">run</span><span class="p">(</span><span class="n">Application</span><span class="p">.</span><span class="na">class</span><span class="p">,</span><span class="w"> </span><span class="n">args</span><span class="p">);</span>
+</span><span id="__span-10-12"><a id="__codelineno-10-12" name="__codelineno-10-12"></a><span class="w">    </span><span class="p">}</span>
+</span><span id="__span-10-13"><a id="__codelineno-10-13" name="__codelineno-10-13"></a><span class="p">}</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="more-dependencies">More dependencies<a class="headerlink" href="#more-dependencies" title="Permanent link">&para;</a></h3>
+<p>If you must have Kafka(avro plugin), database, etc. Please include more dependencies.
+<div class="language-xml highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-11-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-11-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-11-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-11-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-11-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-11-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-11-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-11-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-11-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-11-10">10</a></span>
+<span class="normal"><a href="#__codelineno-11-11">11</a></span>
+<span class="normal"><a href="#__codelineno-11-12">12</a></span>
+<span class="normal"><a href="#__codelineno-11-13">13</a></span>
+<span class="normal"><a href="#__codelineno-11-14">14</a></span>
+<span class="normal"><a href="#__codelineno-11-15">15</a></span>
+<span class="normal"><a href="#__codelineno-11-16">16</a></span>
+<span class="normal"><a href="#__codelineno-11-17">17</a></span>
+<span class="normal"><a href="#__codelineno-11-18">18</a></span>
+<span class="normal"><a href="#__codelineno-11-19">19</a></span>
+<span class="normal"><a href="#__codelineno-11-20">20</a></span>
+<span class="normal"><a href="#__codelineno-11-21">21</a></span>
+<span class="normal"><a href="#__codelineno-11-22">22</a></span>
+<span class="normal"><a href="#__codelineno-11-23">23</a></span>
+<span class="normal"><a href="#__codelineno-11-24">24</a></span>
+<span class="normal"><a href="#__codelineno-11-25">25</a></span>
+<span class="normal"><a href="#__codelineno-11-26">26</a></span>
+<span class="normal"><a href="#__codelineno-11-27">27</a></span>
+<span class="normal"><a href="#__codelineno-11-28">28</a></span>
+<span class="normal"><a href="#__codelineno-11-29">29</a></span>
+<span class="normal"><a href="#__codelineno-11-30">30</a></span>
+<span class="normal"><a href="#__codelineno-11-31">31</a></span>
+<span class="normal"><a href="#__codelineno-11-32">32</a></span>
+<span class="normal"><a href="#__codelineno-11-33">33</a></span>
+<span class="normal"><a href="#__codelineno-11-34">34</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-11-1"><a id="__codelineno-11-1" name="__codelineno-11-1"></a><span class="nt">&lt;dependencies&gt;</span>
+</span><span id="__span-11-2"><a id="__codelineno-11-2" name="__codelineno-11-2"></a><span class="w">    </span>...
+</span><span id="__span-11-3"><a id="__codelineno-11-3" name="__codelineno-11-3"></a><span class="w">    </span><span class="cm">&lt;!-- if you need to connect a database--&gt;</span>
+</span><span id="__span-11-4"><a id="__codelineno-11-4" name="__codelineno-11-4"></a><span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-11-5"><a id="__codelineno-11-5" name="__codelineno-11-5"></a><span class="hll"><span class="w">        </span><span class="nt">&lt;groupId&gt;</span>com.lg5.spring<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span id="__span-11-6"><a id="__codelineno-11-6" name="__codelineno-11-6"></a><span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>lg5-spring-data-jpa<span class="nt">&lt;/artifactId&gt;</span>
+</span><span id="__span-11-7"><a id="__codelineno-11-7" name="__codelineno-11-7"></a><span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
+</span><span id="__span-11-8"><a id="__codelineno-11-8" name="__codelineno-11-8"></a><span class="w">    </span><span class="cm">&lt;!-- if you need to generate models--&gt;</span>
+</span><span id="__span-11-9"><a id="__codelineno-11-9" name="__codelineno-11-9"></a><span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-11-10"><a id="__codelineno-11-10" name="__codelineno-11-10"></a><span class="hll"><span class="w">        </span><span class="nt">&lt;groupId&gt;</span>com.lg5.spring.kafka<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span id="__span-11-11"><a id="__codelineno-11-11" name="__codelineno-11-11"></a><span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>lg5-spring-kafka-model<span class="nt">&lt;/artifactId&gt;</span>
+</span><span id="__span-11-12"><a id="__codelineno-11-12" name="__codelineno-11-12"></a><span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
+</span><span id="__span-11-13"><a id="__codelineno-11-13" name="__codelineno-11-13"></a><span class="w">    </span><span class="cm">&lt;!-- if you need to produce events--&gt;</span>
+</span><span id="__span-11-14"><a id="__codelineno-11-14" name="__codelineno-11-14"></a><span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-11-15"><a id="__codelineno-11-15" name="__codelineno-11-15"></a><span class="hll"><span class="w">        </span><span class="nt">&lt;groupId&gt;</span>com.lg5.spring.kafka<span class="nt">&lt;/groupId&gt;</span>
+</span></span><span id="__span-11-16"><a id="__codelineno-11-16" name="__codelineno-11-16"></a><span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>lg5-spring-kafka-producer<span class="nt">&lt;/artifactId&gt;</span>
+</span><span id="__span-11-17"><a id="__codelineno-11-17" name="__codelineno-11-17"></a><span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
+</span><span id="__span-11-18"><a id="__codelineno-11-18" name="__codelineno-11-18"></a><span class="w">    </span><span class="cm">&lt;!-- if you need to consume events--&gt;</span>
+</span><span id="__span-11-19"><a id="__codelineno-11-19" name="__codelineno-11-19"></a><span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-11-20"><a id="__codelineno-11-20" name="__codelineno-11-20"></a><span class="w">        </span><span class="nt">&lt;groupId&gt;</span>com.lg5.spring.kafka<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-11-21"><a id="__codelineno-11-21" name="__codelineno-11-21"></a><span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>lg5-spring-kafka-consumer<span class="nt">&lt;/artifactId&gt;</span>
+</span><span id="__span-11-22"><a id="__codelineno-11-22" name="__codelineno-11-22"></a><span class="hll"><span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
+</span></span><span id="__span-11-23"><a id="__codelineno-11-23" name="__codelineno-11-23"></a><span class="w">    </span>...
+</span><span id="__span-11-24"><a id="__codelineno-11-24" name="__codelineno-11-24"></a><span class="nt">&lt;/dependencies&gt;</span>
+</span><span id="__span-11-25"><a id="__codelineno-11-25" name="__codelineno-11-25"></a>...
+</span><span id="__span-11-26"><a id="__codelineno-11-26" name="__codelineno-11-26"></a><span class="nt">&lt;build&gt;</span>
+</span><span id="__span-11-27"><a id="__codelineno-11-27" name="__codelineno-11-27"></a><span class="w">    </span><span class="nt">&lt;plugins&gt;</span>
+</span><span id="__span-11-28"><a id="__codelineno-11-28" name="__codelineno-11-28"></a><span class="w">        </span><span class="cm">&lt;!-- if you need to generate models--&gt;</span>
+</span><span id="__span-11-29"><a id="__codelineno-11-29" name="__codelineno-11-29"></a><span class="w">        </span><span class="nt">&lt;plugin&gt;</span>
+</span><span id="__span-11-30"><a id="__codelineno-11-30" name="__codelineno-11-30"></a><span class="w">            </span><span class="nt">&lt;groupId&gt;</span>org.apache.avro<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-11-31"><a id="__codelineno-11-31" name="__codelineno-11-31"></a><span class="w">            </span><span class="nt">&lt;artifactId&gt;</span>avro-maven-plugin<span class="nt">&lt;/artifactId&gt;</span>
+</span><span id="__span-11-32"><a id="__codelineno-11-32" name="__codelineno-11-32"></a><span class="w">        </span><span class="nt">&lt;/plugin&gt;</span>
+</span><span id="__span-11-33"><a id="__codelineno-11-33" name="__codelineno-11-33"></a><span class="w">    </span><span class="nt">&lt;/plugins&gt;</span>
+</span><span id="__span-11-34"><a id="__codelineno-11-34" name="__codelineno-11-34"></a><span class="nt">&lt;/build&gt;</span>
+</span></code></pre></div></td></tr></table></div></p>
 <p>Read more at <a href="https://arc.net/l/quote/hilekvaw">Lg5Spring Wiki</a>.</p>
 <h2 id="project-structure">Project structure<a class="headerlink" href="#project-structure" title="Permanent link">&para;</a></h2>
-<div class="language-markdown highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-7-1"> 1</a></span>
-<span class="normal"><a href="#__codelineno-7-2"> 2</a></span>
-<span class="normal"><a href="#__codelineno-7-3"> 3</a></span>
-<span class="normal"><a href="#__codelineno-7-4"> 4</a></span>
-<span class="normal"><a href="#__codelineno-7-5"> 5</a></span>
-<span class="normal"><a href="#__codelineno-7-6"> 6</a></span>
-<span class="normal"><a href="#__codelineno-7-7"> 7</a></span>
-<span class="normal"><a href="#__codelineno-7-8"> 8</a></span>
-<span class="normal"><a href="#__codelineno-7-9"> 9</a></span>
-<span class="normal"><a href="#__codelineno-7-10">10</a></span>
-<span class="normal"><a href="#__codelineno-7-11">11</a></span>
-<span class="normal"><a href="#__codelineno-7-12">12</a></span>
-<span class="normal"><a href="#__codelineno-7-13">13</a></span>
-<span class="normal"><a href="#__codelineno-7-14">14</a></span>
-<span class="normal"><a href="#__codelineno-7-15">15</a></span>
-<span class="normal"><a href="#__codelineno-7-16">16</a></span>
-<span class="normal"><a href="#__codelineno-7-17">17</a></span>
-<span class="normal"><a href="#__codelineno-7-18">18</a></span>
-<span class="normal"><a href="#__codelineno-7-19">19</a></span>
-<span class="normal"><a href="#__codelineno-7-20">20</a></span>
-<span class="normal"><a href="#__codelineno-7-21">21</a></span>
-<span class="normal"><a href="#__codelineno-7-22">22</a></span>
-<span class="normal"><a href="#__codelineno-7-23">23</a></span>
-<span class="normal"><a href="#__codelineno-7-24">24</a></span>
-<span class="normal"><a href="#__codelineno-7-25">25</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-7-1"><a id="__codelineno-7-1" name="__codelineno-7-1"></a>./
-</span><span id="__span-7-2"><a id="__codelineno-7-2" name="__codelineno-7-2"></a>├── pom.xml
-</span><span id="__span-7-3"><a id="__codelineno-7-3" name="__codelineno-7-3"></a>├── src/
-</span><span id="__span-7-4"><a id="__codelineno-7-4" name="__codelineno-7-4"></a>│  ├── main/
-</span><span id="__span-7-5"><a id="__codelineno-7-5" name="__codelineno-7-5"></a>│  │  ├── java/
-</span><span id="__span-7-6"><a id="__codelineno-7-6" name="__codelineno-7-6"></a>│  │  │  └── com.blanksystem.blank.service
-</span><span id="__span-7-7"><a id="__codelineno-7-7" name="__codelineno-7-7"></a><span class="hll">│  │  │     └── Application.java
-</span></span><span id="__span-7-8"><a id="__codelineno-7-8" name="__codelineno-7-8"></a>│  │  └── resources/
-</span><span id="__span-7-9"><a id="__codelineno-7-9" name="__codelineno-7-9"></a>│  │     └── application.yml
-</span><span id="__span-7-10"><a id="__codelineno-7-10" name="__codelineno-7-10"></a>│  └── test/
-</span><span id="__span-7-11"><a id="__codelineno-7-11" name="__codelineno-7-11"></a>│     ├── java/
-</span><span id="__span-7-12"><a id="__codelineno-7-12" name="__codelineno-7-12"></a>│     │  └── com.blanksystem.blank.service
-</span><span id="__span-7-13"><a id="__codelineno-7-13" name="__codelineno-7-13"></a>│     │     └── boot/
-</span><span id="__span-7-14"><a id="__codelineno-7-14" name="__codelineno-7-14"></a><span class="hll">│     │        ├── AcceptanceTestCase.java
-</span></span><span id="__span-7-15"><a id="__codelineno-7-15" name="__codelineno-7-15"></a><span class="hll">│     │        ├── CucumberHooks.java
-</span></span><span id="__span-7-16"><a id="__codelineno-7-16" name="__codelineno-7-16"></a><span class="hll">│     │        └── TestContainersLoader.java
-</span></span><span id="__span-7-17"><a id="__codelineno-7-17" name="__codelineno-7-17"></a>│     └── resources/
-</span><span id="__span-7-18"><a id="__codelineno-7-18" name="__codelineno-7-18"></a>│        ├── features/
-</span><span id="__span-7-19"><a id="__codelineno-7-19" name="__codelineno-7-19"></a><span class="hll">│        │  └── blank-service.feature
-</span></span><span id="__span-7-20"><a id="__codelineno-7-20" name="__codelineno-7-20"></a>│        └── wiremock/
-</span><span id="__span-7-21"><a id="__codelineno-7-21" name="__codelineno-7-21"></a>│           └── placeholder/
-</span><span id="__span-7-22"><a id="__codelineno-7-22" name="__codelineno-7-22"></a>└── target(autogenerate)/
-</span><span id="__span-7-23"><a id="__codelineno-7-23" name="__codelineno-7-23"></a>   └── atdd-reports/
-</span><span id="__span-7-24"><a id="__codelineno-7-24" name="__codelineno-7-24"></a><span class="hll">      ├── cucumber-reports.html
-</span></span><span id="__span-7-25"><a id="__codelineno-7-25" name="__codelineno-7-25"></a>      └── cucumber.json
+<div class="language-markdown highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-12-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-12-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-12-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-12-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-12-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-12-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-12-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-12-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-12-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-12-10">10</a></span>
+<span class="normal"><a href="#__codelineno-12-11">11</a></span>
+<span class="normal"><a href="#__codelineno-12-12">12</a></span>
+<span class="normal"><a href="#__codelineno-12-13">13</a></span>
+<span class="normal"><a href="#__codelineno-12-14">14</a></span>
+<span class="normal"><a href="#__codelineno-12-15">15</a></span>
+<span class="normal"><a href="#__codelineno-12-16">16</a></span>
+<span class="normal"><a href="#__codelineno-12-17">17</a></span>
+<span class="normal"><a href="#__codelineno-12-18">18</a></span>
+<span class="normal"><a href="#__codelineno-12-19">19</a></span>
+<span class="normal"><a href="#__codelineno-12-20">20</a></span>
+<span class="normal"><a href="#__codelineno-12-21">21</a></span>
+<span class="normal"><a href="#__codelineno-12-22">22</a></span>
+<span class="normal"><a href="#__codelineno-12-23">23</a></span>
+<span class="normal"><a href="#__codelineno-12-24">24</a></span>
+<span class="normal"><a href="#__codelineno-12-25">25</a></span>
+<span class="normal"><a href="#__codelineno-12-26">26</a></span>
+<span class="normal"><a href="#__codelineno-12-27">27</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-12-1"><a id="__codelineno-12-1" name="__codelineno-12-1"></a>./
+</span><span id="__span-12-2"><a id="__codelineno-12-2" name="__codelineno-12-2"></a>├── pom.xml
+</span><span id="__span-12-3"><a id="__codelineno-12-3" name="__codelineno-12-3"></a>├── src/
+</span><span id="__span-12-4"><a id="__codelineno-12-4" name="__codelineno-12-4"></a>│  ├── main/
+</span><span id="__span-12-5"><a id="__codelineno-12-5" name="__codelineno-12-5"></a>│  │  ├── java/
+</span><span id="__span-12-6"><a id="__codelineno-12-6" name="__codelineno-12-6"></a>│  │  │  └── com.blanksystem.blank.service
+</span><span id="__span-12-7"><a id="__codelineno-12-7" name="__codelineno-12-7"></a><span class="hll">│  │  │     └── Application.java
+</span></span><span id="__span-12-8"><a id="__codelineno-12-8" name="__codelineno-12-8"></a>│  │  └── resources/
+</span><span id="__span-12-9"><a id="__codelineno-12-9" name="__codelineno-12-9"></a>│  │     └── application.yml
+</span><span id="__span-12-10"><a id="__codelineno-12-10" name="__codelineno-12-10"></a>│  └── test/
+</span><span id="__span-12-11"><a id="__codelineno-12-11" name="__codelineno-12-11"></a>│     ├── java/
+</span><span id="__span-12-12"><a id="__codelineno-12-12" name="__codelineno-12-12"></a>│     │  └── com.blanksystem.blank.service
+</span><span id="__span-12-13"><a id="__codelineno-12-13" name="__codelineno-12-13"></a>│     │     └── boot/
+</span><span id="__span-12-14"><a id="__codelineno-12-14" name="__codelineno-12-14"></a><span class="hll">│     │        ├── AcceptanceTestCase.java
+</span></span><span id="__span-12-15"><a id="__codelineno-12-15" name="__codelineno-12-15"></a><span class="hll">│     │        ├── CucumberHooks.java
+</span></span><span id="__span-12-16"><a id="__codelineno-12-16" name="__codelineno-12-16"></a><span class="hll">│     │        └── TestContainersLoader.java
+</span></span><span id="__span-12-17"><a id="__codelineno-12-17" name="__codelineno-12-17"></a>│     └── resources/
+</span><span id="__span-12-18"><a id="__codelineno-12-18" name="__codelineno-12-18"></a>|        └── application-test.yml
+</span><span id="__span-12-19"><a id="__codelineno-12-19" name="__codelineno-12-19"></a><span class="hll">│        ├── features/
+</span></span><span id="__span-12-20"><a id="__codelineno-12-20" name="__codelineno-12-20"></a>│        │  └── blank-service.feature
+</span><span id="__span-12-21"><a id="__codelineno-12-21" name="__codelineno-12-21"></a>│        └── wiremock/
+</span><span id="__span-12-22"><a id="__codelineno-12-22" name="__codelineno-12-22"></a>│           └── placeholder/
+</span><span id="__span-12-23"><a id="__codelineno-12-23" name="__codelineno-12-23"></a>│        
+</span><span id="__span-12-24"><a id="__codelineno-12-24" name="__codelineno-12-24"></a><span class="hll">└── target(autogenerate)/
+</span></span><span id="__span-12-25"><a id="__codelineno-12-25" name="__codelineno-12-25"></a>   └── atdd-reports/
+</span><span id="__span-12-26"><a id="__codelineno-12-26" name="__codelineno-12-26"></a>      ├── cucumber-reports.html
+</span><span id="__span-12-27"><a id="__codelineno-12-27" name="__codelineno-12-27"></a>      └── cucumber.json
 </span></code></pre></div></td></tr></table></div>
 <div class="admonition danger">
 <p class="admonition-title">Danger</p>
