@@ -611,6 +611,39 @@
   
 </li>
       
+        <li class="md-nav__item">
+  <a href="#dependencies" class="md-nav__link">
+    <span class="md-ellipsis">
+      Dependencies
+    </span>
+  </a>
+  
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
+  <a href="#unit-test-to-use-case" class="md-nav__link">
+    <span class="md-ellipsis">
+      Unit Test to Use Case
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structure-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure Project
+    </span>
+  </a>
+  
+</li>
+      
     </ul>
   
 </nav>
@@ -736,29 +769,241 @@
 
 <h1 id="application-service-domain-module">Application Service Domain Module<a class="headerlink" href="#application-service-domain-module" title="Permanent link">&para;</a></h1>
 <h2 id="defined-primary-adapters">Defined Primary Adapters<a class="headerlink" href="#defined-primary-adapters" title="Permanent link">&para;</a></h2>
-<p>
-Allows the isolated domain to communicate with an outside. Orchestrate transaction, security, looking up proper aggregates and saving state changes of the domain to the database. Does not common any business logic.
-
-Domain event listeners are special kind of Application services that are triggered by domain events. Each domain event listener can have a separate domain service to handle business logic.
-</p>
-
-<p><strong>Part I.</strong>
-- DTOs
-- Mappers
-- Exceptions
-- Ports
-    - Input
-        - Listeners
-        - Domain Service
-    - Output
-        - Publishers
-        - Repositories</p>
-<p><strong>Part II.</strong>
-- implementing input ports</p>
+<p>Allows the isolated domain to communicate with an outside. Orchestrate transaction, security, looking up proper aggregates and saving state changes of the domain to the database. It does not common any business logic.</p>
+<p>Domain event listeners are special kind of Application services that are triggered by domain events. Each domain event listener can have a separate domain service to handle business logic.</p>
+<div class="admonition quote">
+<div class="admonition quote inline">
+<p><strong>Part I.</strong></p>
+<ul>
+<li>DTOs</li>
+<li>Mappers</li>
+<li>Exceptions</li>
+<li>Ports<ul>
+<li>Input<ul>
+<li>Listeners</li>
+<li>Domain Service</li>
+</ul>
+</li>
+<li>Output<ul>
+<li>Publishers</li>
+<li>Repositories</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</div>
+<div class="admonition quote inline">
+<p><strong>Part II</strong></p>
+<ul>
+<li>Implementing input ports</li>
+</ul>
+</div>
+</div>
 <h2 id="why-use-lombok">Why use Lombok?<a class="headerlink" href="#why-use-lombok" title="Permanent link">&para;</a></h2>
 <p><em>Lombok is a Java library that helps to reduce boilerplate code in Java classes, such as constructors, getters, and setters. While it can be useful, some developers prefer not to use it due to concerns about code readability and maintainability.</em></p>
 <h3 id="why">Why ?<a class="headerlink" href="#why" title="Permanent link">&para;</a></h3>
-<p><strong>YES:</strong> In others modules: e.g: like in the Infrastructure module will use lombook to prevent Bolirplates Java codes.</p>
+<p><strong>YES:</strong> In others modules: e.g.: like in the Infrastructure module will use lombok to prevent Boilerplate Java codes.</p>
+<h2 id="dependencies">Dependencies<a class="headerlink" href="#dependencies" title="Permanent link">&para;</a></h2>
+<div class="tabbed-set tabbed-alternate" data-tabs="1:4"><input checked="checked" id="dependencies-blank-application-servicepomxml" name="__tabbed_1" type="radio" /><input id="dependencies-principal" name="__tabbed_1" type="radio" /><input id="dependencies-µ-service-dependencies" name="__tabbed_1" type="radio" /><input id="dependencies-extras" name="__tabbed_1" type="radio" /><div class="tabbed-labels"><label for="dependencies-blank-application-servicepomxml">blank-application-service(pom.xml)</label><label for="dependencies-principal">Principal</label><label for="dependencies-µ-service-dependencies">µ-service dependencies</label><label for="dependencies-extras">Extras</label></div>
+<div class="tabbed-content">
+<div class="tabbed-block">
+<div class="language-xml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">blank-application-service(pom.xml)</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-0-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-0-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-0-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-0-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-0-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-0-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-0-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-0-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-0-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-0-10">10</a></span>
+<span class="normal"><a href="#__codelineno-0-11">11</a></span>
+<span class="normal"><a href="#__codelineno-0-12">12</a></span>
+<span class="normal"><a href="#__codelineno-0-13">13</a></span>
+<span class="normal"><a href="#__codelineno-0-14">14</a></span>
+<span class="normal"><a href="#__codelineno-0-15">15</a></span>
+<span class="normal"><a href="#__codelineno-0-16">16</a></span>
+<span class="normal"><a href="#__codelineno-0-17">17</a></span>
+<span class="normal"><a href="#__codelineno-0-18">18</a></span>
+<span class="normal"><a href="#__codelineno-0-19">19</a></span>
+<span class="normal"><a href="#__codelineno-0-20">20</a></span>
+<span class="normal"><a href="#__codelineno-0-21">21</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">&lt;dependencies&gt;</span>
+</span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">    </span><span class="cm">&lt;!-- µ-service dependencies --&gt;</span>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="w">        </span><span class="nt">&lt;groupId&gt;</span>com.blanksystem<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-0-5"><a id="__codelineno-0-5" name="__codelineno-0-5"></a><span class="hll"><span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>blank-domain-core<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span id="__span-0-6"><a id="__codelineno-0-6" name="__codelineno-0-6"></a><span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
+</span><span id="__span-0-7"><a id="__codelineno-0-7" name="__codelineno-0-7"></a><span class="w">    </span><span class="cm">&lt;!-- lg5 dependencies --&gt;</span>
+</span><span id="__span-0-8"><a id="__codelineno-0-8" name="__codelineno-0-8"></a><span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-0-9"><a id="__codelineno-0-9" name="__codelineno-0-9"></a><span class="w">        </span><span class="nt">&lt;groupId&gt;</span>lg5.common<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-0-10"><a id="__codelineno-0-10" name="__codelineno-0-10"></a><span class="hll"><span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>lg5-common-application-service<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span id="__span-0-11"><a id="__codelineno-0-11" name="__codelineno-0-11"></a><span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
+</span><span id="__span-0-12"><a id="__codelineno-0-12" name="__codelineno-0-12"></a><span class="hll"><span class="w">    </span><span class="cm">&lt;!-- if you need SAGA Pattern/Outbox Pattern, else remove dependencies --&gt;</span>
+</span></span><span id="__span-0-13"><a id="__codelineno-0-13" name="__codelineno-0-13"></a><span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-0-14"><a id="__codelineno-0-14" name="__codelineno-0-14"></a><span class="w">        </span><span class="nt">&lt;groupId&gt;</span>com.lg5.spring.outbox<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-0-15"><a id="__codelineno-0-15" name="__codelineno-0-15"></a><span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>lg5-spring-outbox<span class="nt">&lt;/artifactId&gt;</span>
+</span><span id="__span-0-16"><a id="__codelineno-0-16" name="__codelineno-0-16"></a><span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
+</span><span id="__span-0-17"><a id="__codelineno-0-17" name="__codelineno-0-17"></a><span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-0-18"><a id="__codelineno-0-18" name="__codelineno-0-18"></a><span class="w">        </span><span class="nt">&lt;groupId&gt;</span>com.lg5.jvm<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-0-19"><a id="__codelineno-0-19" name="__codelineno-0-19"></a><span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>lg5-jvm-saga<span class="nt">&lt;/artifactId&gt;</span>
+</span><span id="__span-0-20"><a id="__codelineno-0-20" name="__codelineno-0-20"></a><span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
+</span><span id="__span-0-21"><a id="__codelineno-0-21" name="__codelineno-0-21"></a><span class="nt">&lt;/dependencies&gt;</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="language-xml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pom.xml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cm">&lt;!-- lg5 dependencies --&gt;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>lg5.common<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="hll"><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>lg5-common-application-service<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="nt">&lt;/dependency&gt;</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="language-xml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pom.xml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1">1</a></span>
+<span class="normal"><a href="#__codelineno-2-2">2</a></span>
+<span class="normal"><a href="#__codelineno-2-3">3</a></span>
+<span class="normal"><a href="#__codelineno-2-4">4</a></span>
+<span class="normal"><a href="#__codelineno-2-5">5</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a><span class="cm">&lt;!-- µ-service dependencies --&gt;</span>
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>com.blanksystem<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a><span class="hll"><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>blank-domain-core<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="nt">&lt;/dependency&gt;</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+<div class="tabbed-block">
+<div class="language-xml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pom.xml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-3-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-3-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-3-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-3-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-3-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-3-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-3-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-3-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-3-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-3-10">10</a></span>
+<span class="normal"><a href="#__codelineno-3-11">11</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-3-1"><a id="__codelineno-3-1" name="__codelineno-3-1"></a><span class="nt">&lt;dependencies&gt;</span>
+</span><span id="__span-3-2"><a id="__codelineno-3-2" name="__codelineno-3-2"></a><span class="w">    </span><span class="cm">&lt;!-- if you need SAGA Pattern/Outbox Pattern, else remove dependencies --&gt;</span>
+</span><span id="__span-3-3"><a id="__codelineno-3-3" name="__codelineno-3-3"></a><span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-3-4"><a id="__codelineno-3-4" name="__codelineno-3-4"></a><span class="w">        </span><span class="nt">&lt;groupId&gt;</span>com.lg5.spring.outbox<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-3-5"><a id="__codelineno-3-5" name="__codelineno-3-5"></a><span class="hll"><span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>lg5-spring-outbox<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span id="__span-3-6"><a id="__codelineno-3-6" name="__codelineno-3-6"></a><span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
+</span><span id="__span-3-7"><a id="__codelineno-3-7" name="__codelineno-3-7"></a><span class="w">    </span><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-3-8"><a id="__codelineno-3-8" name="__codelineno-3-8"></a><span class="w">        </span><span class="nt">&lt;groupId&gt;</span>com.lg5.jvm<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-3-9"><a id="__codelineno-3-9" name="__codelineno-3-9"></a><span class="hll"><span class="w">        </span><span class="nt">&lt;artifactId&gt;</span>lg5-jvm-saga<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span id="__span-3-10"><a id="__codelineno-3-10" name="__codelineno-3-10"></a><span class="w">    </span><span class="nt">&lt;/dependency&gt;</span>
+</span><span id="__span-3-11"><a id="__codelineno-3-11" name="__codelineno-3-11"></a><span class="nt">&lt;/dependencies&gt;</span>
+</span></code></pre></div></td></tr></table></div>
+</div>
+</div>
+</div>
+<h3 id="unit-test-to-use-case">Unit Test to Use Case<a class="headerlink" href="#unit-test-to-use-case" title="Permanent link">&para;</a></h3>
+<p>If you need to create tests (only unit test for this module), you can add the following dependency:</p>
+<div class="language-xml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pom.xml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-4-1">1</a></span>
+<span class="normal"><a href="#__codelineno-4-2">2</a></span>
+<span class="normal"><a href="#__codelineno-4-3">3</a></span>
+<span class="normal"><a href="#__codelineno-4-4">4</a></span>
+<span class="normal"><a href="#__codelineno-4-5">5</a></span>
+<span class="normal"><a href="#__codelineno-4-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-4-1"><a id="__codelineno-4-1" name="__codelineno-4-1"></a><span class="cm">&lt;!--unit test --&gt;</span>
+</span><span id="__span-4-2"><a id="__codelineno-4-2" name="__codelineno-4-2"></a><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-4-3"><a id="__codelineno-4-3" name="__codelineno-4-3"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>com.lg5.jvm<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-4-4"><a id="__codelineno-4-4" name="__codelineno-4-4"></a><span class="hll"><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>lg5-jvm-unit-test<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span id="__span-4-5"><a id="__codelineno-4-5" name="__codelineno-4-5"></a><span class="w">    </span><span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+</span><span id="__span-4-6"><a id="__codelineno-4-6" name="__codelineno-4-6"></a><span class="nt">&lt;/dependency&gt;</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="structure-project">Structure Project<a class="headerlink" href="#structure-project" title="Permanent link">&para;</a></h2>
+<div class="language-markdown highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-5-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-5-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-5-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-5-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-5-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-5-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-5-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-5-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-5-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-5-10">10</a></span>
+<span class="normal"><a href="#__codelineno-5-11">11</a></span>
+<span class="normal"><a href="#__codelineno-5-12">12</a></span>
+<span class="normal"><a href="#__codelineno-5-13">13</a></span>
+<span class="normal"><a href="#__codelineno-5-14">14</a></span>
+<span class="normal"><a href="#__codelineno-5-15">15</a></span>
+<span class="normal"><a href="#__codelineno-5-16">16</a></span>
+<span class="normal"><a href="#__codelineno-5-17">17</a></span>
+<span class="normal"><a href="#__codelineno-5-18">18</a></span>
+<span class="normal"><a href="#__codelineno-5-19">19</a></span>
+<span class="normal"><a href="#__codelineno-5-20">20</a></span>
+<span class="normal"><a href="#__codelineno-5-21">21</a></span>
+<span class="normal"><a href="#__codelineno-5-22">22</a></span>
+<span class="normal"><a href="#__codelineno-5-23">23</a></span>
+<span class="normal"><a href="#__codelineno-5-24">24</a></span>
+<span class="normal"><a href="#__codelineno-5-25">25</a></span>
+<span class="normal"><a href="#__codelineno-5-26">26</a></span>
+<span class="normal"><a href="#__codelineno-5-27">27</a></span>
+<span class="normal"><a href="#__codelineno-5-28">28</a></span>
+<span class="normal"><a href="#__codelineno-5-29">29</a></span>
+<span class="normal"><a href="#__codelineno-5-30">30</a></span>
+<span class="normal"><a href="#__codelineno-5-31">31</a></span>
+<span class="normal"><a href="#__codelineno-5-32">32</a></span>
+<span class="normal"><a href="#__codelineno-5-33">33</a></span>
+<span class="normal"><a href="#__codelineno-5-34">34</a></span>
+<span class="normal"><a href="#__codelineno-5-35">35</a></span>
+<span class="normal"><a href="#__codelineno-5-36">36</a></span>
+<span class="normal"><a href="#__codelineno-5-37">37</a></span>
+<span class="normal"><a href="#__codelineno-5-38">38</a></span>
+<span class="normal"><a href="#__codelineno-5-39">39</a></span>
+<span class="normal"><a href="#__codelineno-5-40">40</a></span>
+<span class="normal"><a href="#__codelineno-5-41">41</a></span>
+<span class="normal"><a href="#__codelineno-5-42">42</a></span>
+<span class="normal"><a href="#__codelineno-5-43">43</a></span>
+<span class="normal"><a href="#__codelineno-5-44">44</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-5-1"><a id="__codelineno-5-1" name="__codelineno-5-1"></a>com.blanksystem.blank.service
+</span><span id="__span-5-2"><a id="__codelineno-5-2" name="__codelineno-5-2"></a>└──domain/
+</span><span id="__span-5-3"><a id="__codelineno-5-3" name="__codelineno-5-3"></a><span class="hll">   ├── BlankApplicationServiceImpl.java
+</span></span><span id="__span-5-4"><a id="__codelineno-5-4" name="__codelineno-5-4"></a>   ├── BlankCreateCommandHandler.java
+</span><span id="__span-5-5"><a id="__codelineno-5-5" name="__codelineno-5-5"></a>   ├── BlankMessageListenerImpl.java
+</span><span id="__span-5-6"><a id="__codelineno-5-6" name="__codelineno-5-6"></a><span class="hll">   ├── config/
+</span></span><span id="__span-5-7"><a id="__codelineno-5-7" name="__codelineno-5-7"></a>   │  └── BlankServiceConfigData.java
+</span><span id="__span-5-8"><a id="__codelineno-5-8" name="__codelineno-5-8"></a><span class="hll">   ├── dto/
+</span></span><span id="__span-5-9"><a id="__codelineno-5-9" name="__codelineno-5-9"></a>   │  ├── create/
+</span><span id="__span-5-10"><a id="__codelineno-5-10" name="__codelineno-5-10"></a>   │  │  ├── CreateBlankCommand.java
+</span><span id="__span-5-11"><a id="__codelineno-5-11" name="__codelineno-5-11"></a>   │  │  └── CreateBlankResponse.java
+</span><span id="__span-5-12"><a id="__codelineno-5-12" name="__codelineno-5-12"></a>   │  ├── message/
+</span><span id="__span-5-13"><a id="__codelineno-5-13" name="__codelineno-5-13"></a>   │  │  └── BlankModel.java
+</span><span id="__span-5-14"><a id="__codelineno-5-14" name="__codelineno-5-14"></a>   │  └── track/
+</span><span id="__span-5-15"><a id="__codelineno-5-15" name="__codelineno-5-15"></a><span class="hll">   ├── exception/
+</span></span><span id="__span-5-16"><a id="__codelineno-5-16" name="__codelineno-5-16"></a>   │  └── BlankApplicationServiceException.java
+</span><span id="__span-5-17"><a id="__codelineno-5-17" name="__codelineno-5-17"></a><span class="hll">   ├── mapper/
+</span></span><span id="__span-5-18"><a id="__codelineno-5-18" name="__codelineno-5-18"></a>   │  └── BlankDataMapper.java
+</span><span id="__span-5-19"><a id="__codelineno-5-19" name="__codelineno-5-19"></a><span class="hll">   ├── outbox/
+</span></span><span id="__span-5-20"><a id="__codelineno-5-20" name="__codelineno-5-20"></a>   │  ├── model/
+</span><span id="__span-5-21"><a id="__codelineno-5-21" name="__codelineno-5-21"></a>   │  │  └── ...
+</span><span id="__span-5-22"><a id="__codelineno-5-22" name="__codelineno-5-22"></a>   │  └── scheduler/
+</span><span id="__span-5-23"><a id="__codelineno-5-23" name="__codelineno-5-23"></a>   │     └── ...
+</span><span id="__span-5-24"><a id="__codelineno-5-24" name="__codelineno-5-24"></a>   ├── ports/
+</span><span id="__span-5-25"><a id="__codelineno-5-25" name="__codelineno-5-25"></a><span class="hll">   │  ├── input/
+</span></span><span id="__span-5-26"><a id="__codelineno-5-26" name="__codelineno-5-26"></a>   │  │  ├── message/
+</span><span id="__span-5-27"><a id="__codelineno-5-27" name="__codelineno-5-27"></a>   │  │  │  └── listener/
+</span><span id="__span-5-28"><a id="__codelineno-5-28" name="__codelineno-5-28"></a>   │  │  │     ├── blank/
+</span><span id="__span-5-29"><a id="__codelineno-5-29" name="__codelineno-5-29"></a>   │  │  │     │  └── BlankMessageListener.java
+</span><span id="__span-5-30"><a id="__codelineno-5-30" name="__codelineno-5-30"></a>   │  │  │     └── customer/
+</span><span id="__span-5-31"><a id="__codelineno-5-31" name="__codelineno-5-31"></a>   │  │  └── service/
+</span><span id="__span-5-32"><a id="__codelineno-5-32" name="__codelineno-5-32"></a>   │  │     └── BlankApplicationService.java
+</span><span id="__span-5-33"><a id="__codelineno-5-33" name="__codelineno-5-33"></a><span class="hll">   │  └── output/
+</span></span><span id="__span-5-34"><a id="__codelineno-5-34" name="__codelineno-5-34"></a>   │     ├── message/
+</span><span id="__span-5-35"><a id="__codelineno-5-35" name="__codelineno-5-35"></a>   │     │  └── publisher/
+</span><span id="__span-5-36"><a id="__codelineno-5-36" name="__codelineno-5-36"></a>   │     │     ├── BlankMessagePublisher.java
+</span><span id="__span-5-37"><a id="__codelineno-5-37" name="__codelineno-5-37"></a>   │     │     ├── payment/
+</span><span id="__span-5-38"><a id="__codelineno-5-38" name="__codelineno-5-38"></a>   │     │     └── restaurantapproval/
+</span><span id="__span-5-39"><a id="__codelineno-5-39" name="__codelineno-5-39"></a>   │     └── repository/
+</span><span id="__span-5-40"><a id="__codelineno-5-40" name="__codelineno-5-40"></a>   │        ├── BlankRepository.java
+</span><span id="__span-5-41"><a id="__codelineno-5-41" name="__codelineno-5-41"></a>   │        ├── OtherRepository.java
+</span><span id="__span-5-42"><a id="__codelineno-5-42" name="__codelineno-5-42"></a>   │        └── ReportRepository.java
+</span><span id="__span-5-43"><a id="__codelineno-5-43" name="__codelineno-5-43"></a><span class="hll">   └── saga/
+</span></span><span id="__span-5-44"><a id="__codelineno-5-44" name="__codelineno-5-44"></a>       └── ...
+</span></code></pre></div></td></tr></table></div>
 
 
 

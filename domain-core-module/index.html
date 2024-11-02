@@ -607,12 +607,27 @@
     </span>
   </a>
   
-</li>
-      
-        <li class="md-nav__item">
+    <nav class="md-nav" aria-label="Dependencies">
+      <ul class="md-nav__list">
+        
+          <li class="md-nav__item">
   <a href="#unit-test-to-use-case" class="md-nav__link">
     <span class="md-ellipsis">
       Unit Test to Use Case
+    </span>
+  </a>
+  
+</li>
+        
+      </ul>
+    </nav>
+  
+</li>
+      
+        <li class="md-nav__item">
+  <a href="#structure-project" class="md-nav__link">
+    <span class="md-ellipsis">
+      Structure Project
     </span>
   </a>
   
@@ -763,7 +778,7 @@
 
 <h1 id="domain-core-module">Domain Core Module<a class="headerlink" href="#domain-core-module" title="Permanent link">&para;</a></h1>
 <h2 id="business-logic">Business Logic<a class="headerlink" href="#business-logic" title="Permanent link">&para;</a></h2>
-<p>Business logic that cannot fit in the aggregate. Used when multiple aggregates required in business logic Can interact with other domain services.</p>
+<p>Business logic that cannot fit in the aggregate. Used when multiple aggregates required in business logic can interact with other domain services.</p>
 <div class="admonition quote">
 <div class="admonition quote inline">
 <p>Use or need of common domain module.</p>
@@ -801,10 +816,52 @@
 <span class="normal"><a href="#__codelineno-0-3">3</a></span>
 <span class="normal"><a href="#__codelineno-0-4">4</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-0-1"><a id="__codelineno-0-1" name="__codelineno-0-1"></a><span class="nt">&lt;dependency&gt;</span>
 </span><span id="__span-0-2"><a id="__codelineno-0-2" name="__codelineno-0-2"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>lg5.common<span class="nt">&lt;/groupId&gt;</span>
-</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>lg5-common-domain<span class="nt">&lt;/artifactId&gt;</span>
-</span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="hll"><span class="nt">&lt;/dependency&gt;</span>
-</span></span></code></pre></div></td></tr></table></div>
-<h2 id="unit-test-to-use-case">Unit Test to Use Case<a class="headerlink" href="#unit-test-to-use-case" title="Permanent link">&para;</a></h2>
+</span><span id="__span-0-3"><a id="__codelineno-0-3" name="__codelineno-0-3"></a><span class="hll"><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>lg5-common-domain<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span id="__span-0-4"><a id="__codelineno-0-4" name="__codelineno-0-4"></a><span class="nt">&lt;/dependency&gt;</span>
+</span></code></pre></div></td></tr></table></div>
+<h3 id="unit-test-to-use-case">Unit Test to Use Case<a class="headerlink" href="#unit-test-to-use-case" title="Permanent link">&para;</a></h3>
+<p>If you need to create tests (only unit test for this module), you can add the following dependency:</p>
+<div class="language-xml highlight"><table class="highlighttable"><tr><th colspan="2" class="filename"><span class="filename">pom.xml</span></th></tr><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-1-1">1</a></span>
+<span class="normal"><a href="#__codelineno-1-2">2</a></span>
+<span class="normal"><a href="#__codelineno-1-3">3</a></span>
+<span class="normal"><a href="#__codelineno-1-4">4</a></span>
+<span class="normal"><a href="#__codelineno-1-5">5</a></span>
+<span class="normal"><a href="#__codelineno-1-6">6</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-1-1"><a id="__codelineno-1-1" name="__codelineno-1-1"></a><span class="cm">&lt;!--unit test --&gt;</span>
+</span><span id="__span-1-2"><a id="__codelineno-1-2" name="__codelineno-1-2"></a><span class="nt">&lt;dependency&gt;</span>
+</span><span id="__span-1-3"><a id="__codelineno-1-3" name="__codelineno-1-3"></a><span class="w">    </span><span class="nt">&lt;groupId&gt;</span>com.lg5.jvm<span class="nt">&lt;/groupId&gt;</span>
+</span><span id="__span-1-4"><a id="__codelineno-1-4" name="__codelineno-1-4"></a><span class="hll"><span class="w">    </span><span class="nt">&lt;artifactId&gt;</span>lg5-jvm-unit-test<span class="nt">&lt;/artifactId&gt;</span>
+</span></span><span id="__span-1-5"><a id="__codelineno-1-5" name="__codelineno-1-5"></a><span class="w">    </span><span class="nt">&lt;scope&gt;</span>test<span class="nt">&lt;/scope&gt;</span>
+</span><span id="__span-1-6"><a id="__codelineno-1-6" name="__codelineno-1-6"></a><span class="nt">&lt;/dependency&gt;</span>
+</span></code></pre></div></td></tr></table></div>
+<h2 id="structure-project">Structure Project<a class="headerlink" href="#structure-project" title="Permanent link">&para;</a></h2>
+<div class="language-markdown highlight"><table class="highlighttable"><tr><td class="linenos"><div class="linenodiv"><pre><span></span><span class="normal"><a href="#__codelineno-2-1"> 1</a></span>
+<span class="normal"><a href="#__codelineno-2-2"> 2</a></span>
+<span class="normal"><a href="#__codelineno-2-3"> 3</a></span>
+<span class="normal"><a href="#__codelineno-2-4"> 4</a></span>
+<span class="normal"><a href="#__codelineno-2-5"> 5</a></span>
+<span class="normal"><a href="#__codelineno-2-6"> 6</a></span>
+<span class="normal"><a href="#__codelineno-2-7"> 7</a></span>
+<span class="normal"><a href="#__codelineno-2-8"> 8</a></span>
+<span class="normal"><a href="#__codelineno-2-9"> 9</a></span>
+<span class="normal"><a href="#__codelineno-2-10">10</a></span>
+<span class="normal"><a href="#__codelineno-2-11">11</a></span>
+<span class="normal"><a href="#__codelineno-2-12">12</a></span>
+<span class="normal"><a href="#__codelineno-2-13">13</a></span>
+<span class="normal"><a href="#__codelineno-2-14">14</a></span></pre></div></td><td class="code"><div><pre><span></span><code><span id="__span-2-1"><a id="__codelineno-2-1" name="__codelineno-2-1"></a>com.blanksystem.blank.service
+</span><span id="__span-2-2"><a id="__codelineno-2-2" name="__codelineno-2-2"></a>└── domain/
+</span><span id="__span-2-3"><a id="__codelineno-2-3" name="__codelineno-2-3"></a><span class="hll">    ├── BlankDomainService.java
+</span></span><span id="__span-2-4"><a id="__codelineno-2-4" name="__codelineno-2-4"></a>    ├── BlankDomainServiceImpl.java
+</span><span id="__span-2-5"><a id="__codelineno-2-5" name="__codelineno-2-5"></a><span class="hll">    ├── entity/
+</span></span><span id="__span-2-6"><a id="__codelineno-2-6" name="__codelineno-2-6"></a>    │  └── Blank.java
+</span><span id="__span-2-7"><a id="__codelineno-2-7" name="__codelineno-2-7"></a><span class="hll">    ├── event/
+</span></span><span id="__span-2-8"><a id="__codelineno-2-8" name="__codelineno-2-8"></a>    │  ├── BlankCreatedEvent.java
+</span><span id="__span-2-9"><a id="__codelineno-2-9" name="__codelineno-2-9"></a>    │  └── BlankEvent.java
+</span><span id="__span-2-10"><a id="__codelineno-2-10" name="__codelineno-2-10"></a><span class="hll">    ├── exception/
+</span></span><span id="__span-2-11"><a id="__codelineno-2-11" name="__codelineno-2-11"></a>    │  ├── BlankDomainException.java
+</span><span id="__span-2-12"><a id="__codelineno-2-12" name="__codelineno-2-12"></a>    │  └── BlankNotFoundException.java
+</span><span id="__span-2-13"><a id="__codelineno-2-13" name="__codelineno-2-13"></a><span class="hll">    └── valueobject/
+</span></span><span id="__span-2-14"><a id="__codelineno-2-14" name="__codelineno-2-14"></a>       └── BlankId.java
+</span></code></pre></div></td></tr></table></div>
 
 
 
