@@ -57,7 +57,13 @@ public class BlankGlobalExceptionHandler extends GlobalExceptionHandler {
     }
 }
 ```
-## Service Healthy
+# Add OpenAPI file
+
+You must define an api before that written or autogenerate the controllers:     
+Create `src/main/resources/spec/openapi.yaml` as recommendation.
+
+
+# Service Healthy
 By default, has a health endpoint as GET method to `localhost:PORT/health`.     
 And, expected the response status with `200 OK`
 ## Project structure
