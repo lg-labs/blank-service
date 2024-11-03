@@ -66,7 +66,7 @@ It is recommended to create the following  `boot/` directory on your `test` dire
     │     ├── boot/
     │     │  └── AcceptanceTestCase.java
     │     │  └── CucumberHooks.java
-    │     │  └── TestOrderServiceApplication.java
+    │     │  └── TestContainersLoader.java
 ```
 
 To get started, you need to add the following classes:
@@ -190,7 +190,7 @@ To get started, you need to add the following classes:
     
     @Import(TestContainersLoader.class)
     @CucumberContextConfiguration
-    public class CucumberHooks extends Lg5TestBootPortNone {
+    public final class CucumberHooks extends Lg5TestBootPortNone {
     
     }
 
@@ -254,6 +254,9 @@ To get started, you need to add the following classes:
 
 
     ```java title="MyStepdefs.java" linenums="1" hl_lines="2 6 10"
+    import io.cucumber.java.en.Given;
+    import io.cucumber.java.en.Then;
+    import io.cucumber.java.en.When;
     public class MyStepdefs {
         @Given("a repository template")
         public void aRepositoryTemplate() {
