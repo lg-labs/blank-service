@@ -271,7 +271,7 @@ To get started, you need to add the following classes:
 
 === "Application Test Properties"
 
-    With `destination.path: ./target/logs` where stored logs file from blank-service aftet that tests finished.     
+    With `destination.path: ./target/logs` where stored logs file from blank-service after that tests finished.     
     Replace some name by your system and domain name: `blanksystem` and `blank`.
 
     > `application.image.name: your-docker.images:version

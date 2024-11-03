@@ -45,7 +45,7 @@ _Note: Please check the [latest version][2]_
 ```xml title="pom.xml" linenums="1" hl_lines="3"
 <dependency>
     <groupId>com.lg5.spring</groupId>
-    <artifactId>lg5-spring-integration-test</artifactId>
+    <artifactId>lg5-spring-acceptance-test</artifactId>
 </dependency> 
 ```
 
