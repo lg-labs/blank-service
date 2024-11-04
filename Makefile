@@ -18,7 +18,7 @@ install-skip-test-jib: clean
 run-checkstyle:
 	mvn validate
 run-verify: clean
-	mvn verify
+	mvn verify -Dit.test="**/*IT.java,**/*Test.java" -Dfailsafe.failIfNoSpecifiedTests=false -Djib.skip=true
 
 run-unit-test: clean
 	mvn test

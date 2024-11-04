@@ -217,7 +217,7 @@ jobs:
           echo "GROUP_ID=$GROUP_ID" >> $GITHUB_ENV  # <-- Export GROUP_ID to the GitHub environment
 
 
-      - name: Build and run tests using Makefile
+      - name: Build using Makefile
         run: make install-skip-test
 
       - name: Show docker image
