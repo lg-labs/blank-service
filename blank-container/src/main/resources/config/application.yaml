@@ -53,7 +53,7 @@ spring:
       probability: 1.0
 
 kafka-config:
-  bootstrap-servers: localhost:9092,localhost:9093,localhost:9094
+  bootstrap-servers: localhost:19092, localhost:29092, localhost:39092
   schema-registry-url-key: schema.registry.url
   schema-registry-url: http://localhost:8081
   num-of-partitions: 3
