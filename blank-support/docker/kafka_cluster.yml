@@ -1,70 +1,72 @@
-version: '3.9'
 services:
+  kafka:
+    image: confluentinc/cp-kafka:8.0.1
+    container_name: kafka
+    ports:
+      - "9101:9101"
+      - "9092:9092"
+    environment:
+      KAFKA_NODE_ID: 1
+      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: 'CONTROLLER:PLAINTEXT,PLAINTEXT:PLAINTEXT,PLAINTEXT_HOST:PLAINTEXT'
+      KAFKA_ADVERTISED_LISTENERS: 'PLAINTEXT://kafka:29092,PLAINTEXT_HOST://localhost:9092'
+      KAFKA_KRAFT_MODE: 'true'
+      KAFKA_JMX_PORT: 9101
+      KAFKA_JMX_HOSTNAME: localhost
+      KAFKA_PROCESS_ROLES: broker,controller
+      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 1
+      KAFKA_CONTROLLER_QUORUM_VOTERS: "1@kafka:29093"
+      KAFKA_LISTENERS: PLAINTEXT://kafka:29092,CONTROLLER://kafka:29093,PLAINTEXT_HOST://0.0.0.0:9092
+      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
+      KAFKA_CONTROLLER_LISTENER_NAMES: CONTROLLER
+      CLUSTER_ID: 'LEWdpqxjSRKfYAiJkcbDjw'
+      KAFKA_LOG_DIRS: /var/lib/kafka/data
+      KAFKA_AUTO_CREATE_TOPICS_ENABLE: 'true'
+      KAFKA_NUM_PARTITIONS: 3
+    volumes:
+      - kafka-data:/var/lib/kafka/data
+
+  #  confluent-local:
+  #    image: confluentinc/confluent-local:8.0.1
+  #    container_name: confluent
+  #    environment:
+  #      CLUSTER_ID: 6xKxdg08R7KhFtDb8lAP3A
+
   schema-registry:
-    image: confluentinc/cp-schema-registry:${KAFKA_VERSION}
-    hostname: schema-registry
+    image: confluentinc/cp-schema-registry:8.0.1
+    container_name: schema-registry
     depends_on:
-      - kafka-broker-1
-      - kafka-broker-2
-      - kafka-broker-3
+      - kafka
     ports:
       - "8081:8081"
     environment:
       SCHEMA_REGISTRY_HOST_NAME: schema-registry
-      SCHEMA_REGISTRY_KAFKASTORE_CONNECTION_URL: 'zookeeper:2181'
-      SCHEMA_REGISTRY_LISTENERS: http://schema-registry:8081
-      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka-broker-2:9092,LISTENER_LOCAL://localhost:29092
-      SCHEMA_REGISTRY_DEBUG: 'true'
-    networks:
-      - ${GLOBAL_NETWORK:-kafka}
-  kafka-broker-1:
-    image: confluentinc/cp-kafka:${KAFKA_VERSION}
-    hostname: kafka-broker-1
-    ports:
-      - "19092:19092"
+      SCHEMA_REGISTRY_KAFKASTORE_BOOTSTRAP_SERVERS: PLAINTEXT://kafka:29092
+      SCHEMA_REGISTRY_DEBUG: true
+
+
+
+  akhq:
+    image: tchiotludo/akhq
     environment:
-      KAFKA_BROKER_ID: 1
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-1:9092,LISTENER_LOCAL://localhost:19092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
-      KAFKA_COMPRESSION_TYPE: producer
-    volumes:
-      - "./volumes/kafka/broker-1:/var/lib/kafka/data"
-    networks:
-      - ${GLOBAL_NETWORK:-kafka}
-  kafka-broker-2:
-    image: confluentinc/cp-kafka:${KAFKA_VERSION}
-    hostname: kafka-broker-2
+      AKHQ_CONFIGURATION: |
+        akhq:
+          connections:
+            docker-kafka-server:
+              properties:
+                bootstrap.servers: "kafka:29092"
+              schema-registry:
+                url: "http://schema-registry:8081"
     ports:
-      - "29092:29092"
-    environment:
-      KAFKA_BROKER_ID: 2
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-2:9092,LISTENER_LOCAL://localhost:29092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
-      KAFKA_COMPRESSION_TYPE: producer
-    volumes:
-      - "./volumes/kafka/broker-2:/var/lib/kafka/data"
-    networks:
-      - ${GLOBAL_NETWORK:-kafka}
-  kafka-broker-3:
-    image: confluentinc/cp-kafka:${KAFKA_VERSION}
-    hostname: kafka-broker-3
-    ports:
-      - "39092:39092"
-    environment:
-      KAFKA_BROKER_ID: 3
-      KAFKA_ZOOKEEPER_CONNECT: zookeeper:2181
-      KAFKA_ADVERTISED_LISTENERS: PLAINTEXT://kafka-broker-3:9092,LISTENER_LOCAL://localhost:39092
-      KAFKA_LISTENER_SECURITY_PROTOCOL_MAP: PLAINTEXT:PLAINTEXT,LISTENER_LOCAL:PLAINTEXT
-      KAFKA_INTER_BROKER_LISTENER_NAME: PLAINTEXT
-      KAFKA_OFFSETS_TOPIC_REPLICATION_FACTOR: 3
-      KAFKA_COMPRESSION_TYPE: producer
-    volumes:
-      - "./volumes/kafka/broker-3:/var/lib/kafka/data"
-    networks:
-      - ${GLOBAL_NETWORK:-kafka}
+      - "4545:8080"
+      - "28081:28081"
+    depends_on:
+      - schema-registry
+    healthcheck:
+      test: [ "CMD-SHELL", "wget --no-verbose --tries=1 --spider http://localhost:28081/health || exit 1" ]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+volumes:
+  kafka-data:
+  control-center-data:
