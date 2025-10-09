@@ -13,6 +13,7 @@
 
     <properties>
         <start-class>com.blanksystem.blank.service.container.Application</start-class>
+        <testcontainers.docker.client.strategy>org.testcontainers.dockerclient.UnixSocketClientProviderStrategy</testcontainers.docker.client.strategy>
     </properties>
 
     <dependencies>

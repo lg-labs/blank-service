@@ -193,6 +193,19 @@ You can specify the directory for stored the *.log files. Now, genera two file l
 
 You can show the [Acceptance Test Report Online][13].
 
+## Problems?
+### Kafka connection refused or message no produced
+If you have problems with Kafka connection refused or message no produced, you can check the following:
+1. Check if the Kafka container is running.
+2. Check the application.properties file for the correct Kafka bootstrap servers.
+3. Check the network configuration of the Docker containers.
+4. Check the application logs for any errors related to Kafka.
+```
+logging:
+  level:
+    org.apache.kafka: DEBUG
+```
+
 ## ⚖️ License
 
 The MIT License (MIT). Please see [License][LIC] for more information.

@@ -6,8 +6,8 @@
       "Host": "postgres",
       "Port": 5432,
       "MaintenanceDB": "blank",
-      "Username": "blanksystem-db",
-      "Password": "blanksystem-db",
+      "Username": "sa",
+      "Password": "sa",
       "SSLMode": "prefer",
       "UseSSHTunnel": 0
     }

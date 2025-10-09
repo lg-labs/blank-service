@@ -71,4 +71,12 @@
             </dependency>
         </dependencies>
     </dependencyManagement>
+    <dependencies>
+
+            <dependency>
+                <groupId>io.confluent</groupId>
+                <artifactId>kafka-avro-serializer</artifactId>
+                <version>8.0.0</version>
+            </dependency>
+    </dependencies>
 </project>

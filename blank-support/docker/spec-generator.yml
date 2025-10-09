@@ -1,4 +1,3 @@
-version: '3.9'
 services:
   asyncapi-gen-html:
     image: asyncapi/cli

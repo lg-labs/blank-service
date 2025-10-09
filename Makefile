@@ -1,3 +1,11 @@
+# Verify if docker compose modern is installed
+APP = blank-container
+INFRA = blank-support/docker
+AVRO_MODEL = blank-message/blank-message-model
+ATDD = blank-acceptance-test
+FILE_LOG ?=false
+DOCKER_COMPOSE := docker-compose
+
 build_to_arm:
 	 mvn clean install -Parch-aarch64
 build_to_amd:
@@ -47,37 +55,39 @@ run-it-spec: install-skip-test-jib run-test-spec-base
 run-at-spec: run-test-spec
 
 # SETUP INFRASTRUCTURE
-zookeeper-down:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/zookeeper.yml down --volumes
-kafka-cluster-down:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/kafka_cluster.yml down --volumes
-kafka-init-down:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/init_kafka.yml down --volumes
-kafka-mngr-down:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/kafka_mngr.yml down --volumes
-ddbb-down:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/postgres-ddbb.yml down --volumes
-spec-ui-down:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-ui.yml down --volumes
-spec-generator-down:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml down --volumes
-graph-generator-down:
-	docker-compose -f ${INFRA}/graph/docker-compose.yml down --volumes
+# Docker Commands
+docker-kill:
+	@echo "🛑 Killing all Docker containers..."
+	@docker ps -aq | xargs -r docker rm -f
 
-zookeeper-up:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/zookeeper.yml up -d
-kafka-cluster-up:
+docker-prune:
+	@echo "🛑 Cleaning Docker..."
+	@docker system prune --volumes --force
+
+docker-down: docker-kill
+	@echo "🛑 Removing all Volumes..."
+	@docker volume prune -f
+
+kafka-down: docker-kill
+	@echo "🛑 Stopping Docker Compose..."
+	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/kafka_cluster.yml down --volumes --remove-orphans
+ddbb-down: docker-kill
+	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/postgres-ddbb.yml down --volumes --remove-orphans
+spec-ui-down: docker-kill
+	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-ui.yml down --volumes --remove-orphans
+spec-generator-down: docker-kill
+	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml down --volumes --remove-orphans
+graph-generator-down: docker-kill
+	docker-compose -f ${INFRA}/graph/docker-compose.yml down --volumes --remove-orphans
+
+kafka-up:
 	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/kafka_cluster.yml up -d
-kafka-init-up:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/init_kafka.yml up -d
-kafka-mngr-up:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/kafka_mngr.yml up -d
 ddbb-up:
 	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/postgres-ddbb.yml up -d
 spec-ui-up:
 	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-ui.yml up -d
 
-# DOCS GENERATOR 
+# DOCS GENERATOR
 spec-generator-up:
 	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml up -d
 graph-generator-up:
@@ -91,10 +101,12 @@ openapi-gen-html-up:
 
 
 # DOWN ALL
-docker-down: zookeeper-down kafka-cluster-down kafka-init-down kafka-mngr-down ddbb-down spec-ui-down spec-generator-down
+docker-down: kafka-down ddbb-down spec-ui-down spec-generator-down docker-prune
+d-down: docker-down
 
 # UP ALL
-docker-up: zookeeper-up kafka-cluster-up kafka-init-up kafka-mngr-up ddbb-up spec-ui-up spec-generator-up
+docker-up: d-down kafka-up ddbb-up spec-ui-up spec-generator-up
+d-up: d-down docker-up
 
 
 ## APPs
@@ -113,9 +125,5 @@ run-avro-model:
 run-atdd-module:
 	mvn -pl ${ATDD} clean install -Dapplication.traces.file.enabled=${FILE_LOG}
 
-APP = blank-container
-INFRA = blank-support/docker
-AVRO_MODEL = blank-message/blank-message-model
-ATDD = blank-acceptance-test
-FILE_LOG ?=false
+
 
