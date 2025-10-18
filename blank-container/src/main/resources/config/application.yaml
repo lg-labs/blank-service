@@ -8,7 +8,7 @@ info:
 logging:
   level:
     com.blanksystem: INFO
-    org.apache.kafka: DEBUG
+    org.apache.kafka: ERROR
     io.confluent.kafka: ERROR
     org.apache: ERROR
     feign: DEBUG
@@ -113,5 +113,5 @@ wiremock:
     url: "third.jsonplaceholder.url"
     port: 7070
 
-#log:
-#  path: /logs
+log:
+  path: /Users/luis.quiroga/Documents/lg/labs/infrastructure/elk/filebeat_ingest_data
