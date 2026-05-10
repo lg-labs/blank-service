@@ -114,4 +114,4 @@ wiremock:
     port: 7070
 
 log:
-  path: /Users/luis.quiroga/Documents/lg/labs/infrastructure/elk/filebeat_ingest_data
+  path: ${APPLICATION_LOG_DESTINATION_PATH:${java.io.tmpdir}}
