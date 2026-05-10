@@ -5,7 +5,7 @@ Consumer repositories that install this bundle should copy or merge it
 into their own root-level `AGENTS.md`.
 
 > **Path convention in this repo.** Artifacts live in `.agent-os/`, which IS
-> the git submodule (pinned to `v1.0.0`). The submodule is the single source
+> the git submodule (pinned to `v1.0.1`). The submodule is the single source
 > of truth — no copies. OpenCode loads the bundle via `.opencode/*` symlinks
 > (gitignored) that point back into `.agent-os/`. All relative links below
 > point at `.agent-os/...`.
