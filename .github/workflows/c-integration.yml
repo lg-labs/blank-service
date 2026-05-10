@@ -72,42 +72,10 @@ jobs:
           name: maven-details
           path: maven_details.env
 
-      - name: Configure Maven settings.xml
-        env:
-          GITHUB_USERNAME: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.PKG_GITHUB_TOKEN }}
-        run: |
-          cat > ~/.m2/settings.xml <<EOF
-          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
-                    http://maven.apache.org/xsd/settings-1.0.0.xsd">
-              <servers>
-                  <server>
-                      <id>github</id>
-                      <username>${GITHUB_USERNAME}</username>
-                      <password>${GITHUB_TOKEN}</password>
-                  </server>
-              </servers>
-              <profiles>
-                  <profile>
-                      <id>github</id>
-                      <repositories>
-                          <repository>
-                              <id>github</id>
-                              <url>https://maven.pkg.github.com/lg-labs-pentagon/*</url>
-                              <snapshots>
-                                <enabled>true</enabled>
-                              </snapshots>
-                          </repository>
-                      </repositories>
-                  </profile>
-              </profiles>
-              <activeProfiles>
-                  <activeProfile>github</activeProfile>
-              </activeProfiles>
-          </settings>
-          EOF
+      - name: Setup Maven credentials
+        uses: ./.github/actions/setup-maven-credentials
+        with:
+          github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
@@ -132,6 +100,10 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Setup Maven credentials
+        uses: ./.github/actions/setup-maven-credentials
+        with:
+          github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
       - name: Run Checkstyle
         run: make run-checkstyle
   coverage:
@@ -151,6 +123,10 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Setup Maven credentials
+        uses: ./.github/actions/setup-maven-credentials
+        with:
+          github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
       - name: Run verify using Makefile
@@ -201,6 +177,10 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Setup Maven credentials
+        uses: ./.github/actions/setup-maven-credentials
+        with:
+          github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
       - name: Download Maven details artifact
         uses: actions/download-artifact@v5
         with:
@@ -283,6 +263,11 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
+      - name: Setup Maven credentials
+        uses: ./.github/actions/setup-maven-credentials
+        with:
+          github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
 
       - name: Run acceptance tests using Makefile
         run: make run-atdd-module
