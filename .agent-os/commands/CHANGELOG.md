@@ -4,6 +4,19 @@ All notable changes to the **commands** artifact set are documented here.
 Uses [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.3] — 2026-05-10
+### Added
+- New building-block command **`/scaffold-ci-cd`** (v0.1.0) that
+  installs the CI/CD pipeline into a consumer service by copying the
+  templates shipped by the new `lg5-github-actions`, `lg5-api-docs`,
+  and `lg5-allure-report` skills (workflow, composite action, Swagger
+  UI / AsyncAPI HTML wrappers, Allure properties). Also performs the
+  in-place edits in `<svc>-acceptance-test/pom.xml` and
+  `AcceptanceTestCase.java` that Allure requires. Pre-flight ensures
+  the bundle is installed at `.agent-os/`.
+### Notes
+- **No existing command behavior changed** in this release.
+
 ## [0.3.2] — 2026-05-10
 ### Changed
 - Framework SHA pin bumped from `af81c7c` to `d0d754a` (PATCH).
