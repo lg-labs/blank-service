@@ -23,6 +23,35 @@ commits is unsupported.
 
 ## [Unreleased]
 
+## [0.3.6] — 2026-05-10
+### Added
+- **Developer tooling** — `scripts/dev-link.sh` self-hosts the bundle for
+  OpenCode in the upstream working tree by materializing `.opencode/` as
+  symlinks pointing at the source-of-truth artifact directories
+  (`.opencode/skills → ../skills`, `.opencode/commands → ../commands`,
+  `.opencode/agents → ../subagents`, `.opencode/AGENTS.md → ../AGENTS.md`).
+  `.opencode/` is gitignored. Idempotent; supports `--clean`.
+  Lets bundle authors dogfood OpenCode against the same artifacts a
+  consumer sees, with zero copying or drift.
+
+### Notes
+- **No artifact contract changes** — no skill, command, subagent, rule, or
+  spec was modified. Consumers do not need to bump. This release exists
+  only because cross-bundle invariants (`scripts/validate.sh`) require all
+  five `manifest.yaml` files to declare the same `bundle.version`, and the
+  new dev script is part of the bundle release surface.
+
+## [0.3.5] — 2026-05-10
+### Added
+- **Subagent `lg5-ci-cd-engineer`** (v0.1.0) — CI/CD specialist that loads
+  the three CI/CD skills (`lg5-github-actions`, `lg5-api-docs`,
+  `lg5-allure-report`) on demand. Declares an explicit out-of-scope
+  section listing 8 future skills (container delivery, k8s manifests,
+  GitOps, release automation, secrets, env promotion, perf pipelines,
+  quality gates) with a refusal protocol to avoid invented patterns
+  (RULE-018). Backfilled here for completeness — see `subagents/CHANGELOG.md`
+  for the original entry.
+
 ## [0.3.4] — 2026-05-10
 ### Security
 - **`lg5-github-actions`** (0.1.0 → 0.1.1) — pinned
