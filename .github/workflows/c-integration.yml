@@ -283,6 +283,14 @@ jobs:
           name: cucumber-report
           path: ./blank-acceptance-test/target/atdd-reports/cucumber-reports.html
 
+      - name: Upload Allure raw results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: ./blank-acceptance-test/target/allure-results
+          if-no-files-found: ignore
+
   openapi:
     name: OpenAPI
     runs-on: ubuntu-latest
@@ -329,6 +337,44 @@ jobs:
         with:
           name: asyncapi-doc
           path: ./blank-support/asyncapi
+
+  allure:
+    name: Allure Report
+    runs-on: ubuntu-latest
+    needs: test
+    if: always()
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download Allure raw results
+        uses: actions/download-artifact@v5
+        with:
+          name: allure-results
+          path: ./allure-results
+        continue-on-error: true
+
+      - name: Set up Allure CLI
+        run: |
+          set -euo pipefail
+          ALLURE_VERSION=2.32.0
+          curl -sL "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz" \
+            | tar -xz -C "$HOME"
+          echo "$HOME/allure-${ALLURE_VERSION}/bin" >> "$GITHUB_PATH"
+
+      - name: Generate Allure HTML report
+        run: |
+          set -euo pipefail
+          allure --version
+          allure generate ./allure-results --clean -o ./allure-report
+
+      - name: Display generated files
+        run: ls -al ./allure-report
+
+      - name: Upload Allure HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: ./allure-report
   docs:
     name: Docs
     runs-on: ubuntu-latest
