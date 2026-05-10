@@ -289,13 +289,14 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v5
-      - name: Download docker compose
-        run: sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      - name: Permissions to docker compose
-        run: sudo chmod +x /usr/local/bin/docker-compose
 
-      - name: Generate docs to OpenAPI as html
-        run: make openapi-gen-html-up
+      - name: Assemble OpenAPI site (Swagger UI via CDN)
+        run: |
+          set -euo pipefail
+          mkdir -p ./blank-support/openapi
+          cp ./blank-support/openapi-template/index.html ./blank-support/openapi/index.html
+          cp ./blank-api/src/main/resources/spec/openapi.yaml \
+             ./blank-support/openapi/openapi.yaml
 
       - name: List files in target directory
         run: ls -al ./blank-support/openapi
