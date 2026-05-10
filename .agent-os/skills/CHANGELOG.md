@@ -23,6 +23,19 @@ commits is unsupported.
 
 ## [Unreleased]
 
+## [0.3.4] — 2026-05-10
+### Security
+- **`lg5-github-actions`** (0.1.0 → 0.1.1) — pinned
+  `NBprojekt/gource-action@v1.2.1` to its commit SHA
+  (`d2fdf85904db416b69445dae5551282528e052ae`) in the `visualization`
+  job of `templates/.github/workflows/c-integration.yml`. Mutable tag
+  references on non-verified third-party actions are a supply-chain
+  risk flagged by Codacy / OpenSSF Scorecard / actionlint. Surfaced by
+  Codacy on consumer repo `blank-service` PR #7.
+### Notes
+- No other skill changed in this release. `lg5-api-docs` and
+  `lg5-allure-report` remain at `0.1.0`.
+
 ## [0.3.3] — 2026-05-10
 ### Added
 - New skill **`lg5-github-actions`** (v0.1.0) capturing the canonical

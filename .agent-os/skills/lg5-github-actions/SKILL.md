@@ -1,6 +1,6 @@
 ---
 name: lg5-github-actions
-version: 0.1.0
+version: 0.1.1
 lg5-spring-sha: d0d754a
 last-validated: 2026-05-10
 description: How to wire a GitHub Actions Continuous Integration pipeline for an lg5-spring service. Covers the canonical 11-job topology (Setup → Visualization, Checkstyle, Coverage → Quality, Build → Acceptance Test → OpenAPI, AsyncAPI, Allure Report, Docs), the shared `setup-maven-credentials` composite action that provisions `~/.m2/settings.xml` with the GitHub Packages registry of the `lg-labs-pentagon` org, Maven cache restore, JDK 21 (zulu), Make-targets-driven steps, and Docker image hand-off between `build` and `test`. Load this skill when the user asks about CI/CD, GitHub Actions, Maven authentication failures, the `PKG_GITHUB_TOKEN` secret, the composite action, the Continuous Integration workflow, or how to ship the `c-integration.yml` pipeline to a new service.

@@ -420,7 +420,7 @@ jobs:
         with:
           fetch-depth: 0
       - name: Gource-Action
-        uses: NBprojekt/gource-action@v1.2.1
+        uses: NBprojekt/gource-action@d2fdf85904db416b69445dae5551282528e052ae # v1.2.1
         with:
           gource_title: ${{ github.repository }}
           gource_resolution: '2160p'

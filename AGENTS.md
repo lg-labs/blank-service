@@ -6,7 +6,7 @@ into their own root-level `AGENTS.md`.
 
 > **Path convention in this repo.** Artifacts are installed at `.agent-os/`
 > (rules, skills, commands, subagents, specs). The upstream bundle is pinned
-> as a git submodule at `.lg5-agent-os/` (currently `v0.3.3`). All relative
+> as a git submodule at `.lg5-agent-os/` (currently `v0.3.4`). All relative
 > links below have been rewritten to point at `.agent-os/...`.
 
 ---

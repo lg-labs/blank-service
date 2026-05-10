@@ -9,6 +9,17 @@ commit against which the skill was last validated.
 
 ## [Unreleased]
 
+## [0.1.1] — 2026-05-10
+### Security
+- Pin `NBprojekt/gource-action@v1.2.1` to its commit SHA
+  (`d2fdf85904db416b69445dae5551282528e052ae`) in the `visualization`
+  job of `templates/.github/workflows/c-integration.yml`. Mutable tag
+  references on third-party (non-verified) actions are flagged by
+  Codacy / OpenSSF Scorecard / actionlint as a supply-chain risk; the
+  SHA pin makes the dependency immutable while the trailing `# v1.2.1`
+  comment preserves human readability. Surfaced by Codacy on consumer
+  repo `blank-service` PR #7.
+
 ## [0.1.0] — 2026-05-10
 ### Added
 - Initial skill capturing the canonical 11-job CI topology of `blank-service`

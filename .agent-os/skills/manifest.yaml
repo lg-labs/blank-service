@@ -8,7 +8,7 @@
 # Bundle version follows SemVer; bump when any included artifact changes.
 bundle:
   name: lg5-spring-agent-os
-  version: 0.3.3
+  version: 0.3.4
   released: 2026-05-10
   repository: https://github.com/lg-labs-pentagon/lg5-spring-agent-os
   # Framework commit against which the WHOLE bundle is validated.
@@ -60,7 +60,7 @@ skills:
     description: Reference implementation breakdown.
 
   - name: lg5-github-actions
-    version: 0.1.0
+    version: 0.1.1
     lg5-spring-sha: d0d754a
     path: lg5-github-actions/SKILL.md
     description: Canonical GitHub Actions CI pipeline + shared Maven-credentials composite action.
