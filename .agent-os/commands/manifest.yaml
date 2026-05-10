@@ -1,0 +1,63 @@
+# Commands manifest — lg5-spring-agent-os bundle
+# Slash commands that drive repeatable workflow tasks.
+# Format: each command is a single .md file at the root of commands/ with
+# YAML frontmatter (description, argument-hint, allowed-tools) and a body
+# that is the prompt/instructions injected into the agent when invoked.
+#
+# CI validates that every entry below maps 1:1 to a file on disk and that
+# every file declares the required frontmatter keys.
+#
+# Two categories:
+#   - sdd-*       : drive the SDD workflow phases (Specify/Plan/Tasks/Implement)
+#   - building blocks (no prefix) : invoked from inside /sdd-implement to
+#                                   actually generate code
+
+bundle:
+  name: lg5-spring-agent-os
+  version: 0.3.2
+  lg5-spring-sha: d0d754a
+
+commands:
+  # SDD workflow commands
+  - name: sdd-specify
+    file: sdd-specify.md
+    version: 0.1.0
+    category: sdd
+    description: Convert an informal product prompt into a functional PRD (technology-free).
+  - name: sdd-plan
+    file: sdd-plan.md
+    version: 0.1.0
+    category: sdd
+    description: Generate plan.md + ADRs (+ data-model.md if persistent state) from an approved PRD.
+  - name: sdd-tasks
+    file: sdd-tasks.md
+    version: 0.1.0
+    category: sdd
+    description: Decompose an approved Plan into atomic TASK-NNN with Given/When/Then AC.
+  - name: sdd-implement
+    file: sdd-implement.md
+    version: 0.1.0
+    category: sdd
+    description: Execute ONE task (write code + tests + commit). Loops by re-invocation.
+
+  # Building-block commands (invoked from inside /sdd-implement)
+  - name: scaffold-service
+    file: scaffold-service.md
+    version: 0.1.0
+    category: building-block
+    description: Scaffold a new microservice from the blank-service skeleton.
+  - name: add-saga
+    file: add-saga.md
+    version: 0.1.0
+    category: building-block
+    description: Add an end-to-end SagaStep (publisher + listener + outbox + scheduler).
+  - name: add-outbox
+    file: add-outbox.md
+    version: 0.1.0
+    category: building-block
+    description: Add a Transactional Outbox (entity + DDL + helper + scheduler) for one event type.
+  - name: add-kafka-listener
+    file: add-kafka-listener.md
+    version: 0.1.0
+    category: building-block
+    description: Add a batch Kafka listener with NO-OP exception handling per RULE-010.
