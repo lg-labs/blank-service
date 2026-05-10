@@ -76,7 +76,7 @@ ddbb-down: docker-kill
 spec-ui-down: docker-kill
 	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-ui.yml down --volumes --remove-orphans
 spec-generator-down: docker-kill
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml down --volumes --remove-orphans
+	@echo "spec-generator stack removed (CDN-based templates do not need a container)"
 graph-generator-down: docker-kill
 	docker-compose -f ${INFRA}/graph/docker-compose.yml down --volumes --remove-orphans
 
@@ -89,15 +89,17 @@ spec-ui-up:
 
 # DOCS GENERATOR
 spec-generator-up:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml up -d
+	@echo "spec-generator no longer runs containers (asyncapi/openapi sites are CDN-based static HTML)"
 graph-generator-up:
 	docker-compose -f ${INFRA}/graph/docker-compose.yml up -d
 
 asyncapi-gen-html-up:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml run --rm asyncapi-gen-html
+	@echo "AsyncAPI docs are now assembled directly in CI from blank-support/asyncapi-template/index.html"
+	@echo "(uses @asyncapi/web-component via CDN — same renderer as https://studio.asyncapi.com)"
 
 openapi-gen-html-up:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml run --rm  openapi-generator-cli
+	@echo "OpenAPI docs are now assembled directly in CI from blank-support/openapi-template/index.html"
+	@echo "(uses Swagger UI via CDN — same renderer as https://petstore.swagger.io/)"
 
 
 # DOWN ALL

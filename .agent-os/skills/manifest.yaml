@@ -1,0 +1,60 @@
+# Skills manifest — lg5-spring-agent-os bundle
+# This file is the single source of truth for installed skill versions and
+# the framework commit each one is validated against.
+#
+# Convention: each entry mirrors the frontmatter of the corresponding SKILL.md.
+# CI validates that the values here match the frontmatter (see scripts/validate.sh).
+
+# Bundle version follows SemVer; bump when any included artifact changes.
+bundle:
+  name: lg5-spring-agent-os
+  version: 0.3.2
+  released: 2026-05-10
+  repository: https://github.com/lg-labs-pentagon/lg5-spring-agent-os
+  # Framework commit against which the WHOLE bundle is validated.
+  # All skills must declare the same `lg5-spring-sha`.
+  lg5-spring-sha: d0d754a
+  lg5-spring-repo: https://github.com/lg-labs-pentagon/lg5-spring
+
+skills:
+  - name: lg5-spring-overview
+    version: 0.1.0
+    lg5-spring-sha: d0d754a
+    path: lg5-spring-overview/SKILL.md
+    description: Framework module map and global conventions.
+
+  - name: lg5-new-service
+    version: 0.1.0
+    lg5-spring-sha: d0d754a
+    path: lg5-new-service/SKILL.md
+    description: Recipe to scaffold a new microservice from blank-service.
+
+  - name: lg5-saga
+    version: 0.1.0
+    lg5-spring-sha: d0d754a
+    path: lg5-saga/SKILL.md
+    description: SagaStep<T> implementation pattern.
+
+  - name: lg5-outbox
+    version: 0.1.0
+    lg5-spring-sha: d0d754a
+    path: lg5-outbox/SKILL.md
+    description: Transactional Outbox + scheduler relay.
+
+  - name: lg5-kafka-avro
+    version: 0.1.0
+    lg5-spring-sha: d0d754a
+    path: lg5-kafka-avro/SKILL.md
+    description: Kafka producer/consumer + Avro schema wiring.
+
+  - name: lg5-atdd
+    version: 0.1.0
+    lg5-spring-sha: d0d754a
+    path: lg5-atdd/SKILL.md
+    description: Cucumber + Testcontainers acceptance tests.
+
+  - name: food-ordering-system
+    version: 0.1.0
+    lg5-spring-sha: d0d754a
+    path: food-ordering-system/SKILL.md
+    description: Reference implementation breakdown.

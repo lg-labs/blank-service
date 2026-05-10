@@ -72,42 +72,10 @@ jobs:
           name: maven-details
           path: maven_details.env
 
-      - name: Configure Maven settings.xml
-        env:
-          GITHUB_USERNAME: ${{ github.actor }}
-          GITHUB_TOKEN: ${{ secrets.PKG_GITHUB_TOKEN }}
-        run: |
-          cat > ~/.m2/settings.xml <<EOF
-          <settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-                    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-                    xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0
-                    http://maven.apache.org/xsd/settings-1.0.0.xsd">
-              <servers>
-                  <server>
-                      <id>github</id>
-                      <username>${GITHUB_USERNAME}</username>
-                      <password>${GITHUB_TOKEN}</password>
-                  </server>
-              </servers>
-              <profiles>
-                  <profile>
-                      <id>github</id>
-                      <repositories>
-                          <repository>
-                              <id>github</id>
-                              <url>https://maven.pkg.github.com/lg-labs-pentagon/*</url>
-                              <snapshots>
-                                <enabled>true</enabled>
-                              </snapshots>
-                          </repository>
-                      </repositories>
-                  </profile>
-              </profiles>
-              <activeProfiles>
-                  <activeProfile>github</activeProfile>
-              </activeProfiles>
-          </settings>
-          EOF
+      - name: Setup Maven credentials
+        uses: ./.github/actions/setup-maven-credentials
+        with:
+          github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
@@ -132,6 +100,10 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Setup Maven credentials
+        uses: ./.github/actions/setup-maven-credentials
+        with:
+          github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
       - name: Run Checkstyle
         run: make run-checkstyle
   coverage:
@@ -151,6 +123,10 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Setup Maven credentials
+        uses: ./.github/actions/setup-maven-credentials
+        with:
+          github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
       - name: Run verify using Makefile
@@ -201,6 +177,10 @@ jobs:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+      - name: Setup Maven credentials
+        uses: ./.github/actions/setup-maven-credentials
+        with:
+          github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
       - name: Download Maven details artifact
         uses: actions/download-artifact@v5
         with:
@@ -284,6 +264,11 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
 
+      - name: Setup Maven credentials
+        uses: ./.github/actions/setup-maven-credentials
+        with:
+          github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
+
       - name: Run acceptance tests using Makefile
         run: make run-atdd-module
 
@@ -298,19 +283,28 @@ jobs:
           name: cucumber-report
           path: ./blank-acceptance-test/target/atdd-reports/cucumber-reports.html
 
+      - name: Upload Allure raw results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: ./blank-acceptance-test/target/allure-results
+          if-no-files-found: ignore
+
   openapi:
     name: OpenAPI
     runs-on: ubuntu-latest
     needs: test
     steps:
       - uses: actions/checkout@v5
-      - name: Download docker compose
-        run: sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      - name: Permissions to docker compose
-        run: sudo chmod +x /usr/local/bin/docker-compose
 
-      - name: Generate docs to OpenAPI as html
-        run: make openapi-gen-html-up
+      - name: Assemble OpenAPI site (Swagger UI via CDN)
+        run: |
+          set -euo pipefail
+          mkdir -p ./blank-support/openapi
+          cp ./blank-support/openapi-template/index.html ./blank-support/openapi/index.html
+          cp ./blank-api/src/main/resources/spec/openapi.yaml \
+             ./blank-support/openapi/openapi.yaml
 
       - name: List files in target directory
         run: ls -al ./blank-support/openapi
@@ -326,15 +320,16 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v5
-      - name: Download docker compose
-        run: sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      - name: Permissions to docker compose
-        run: sudo chmod +x /usr/local/bin/docker-compose
 
-      - name: Generate docs to asyncapi as html
-        run: make asyncapi-gen-html-up
+      - name: Assemble AsyncAPI site (Studio-like, web-component via CDN)
+        run: |
+          set -euo pipefail
+          mkdir -p ./blank-support/asyncapi
+          cp ./blank-support/asyncapi-template/index.html ./blank-support/asyncapi/index.html
+          cp ./blank-message/blank-message-model/src/main/resources/spec/asyncapi.yaml \
+             ./blank-support/asyncapi/asyncapi.yaml
 
-      - name: Display structure of downloaded files
+      - name: Display structure of generated files
         run: ls -al ./blank-support/asyncapi
 
       - name: Upload AsyncAPI artifact
@@ -342,6 +337,44 @@ jobs:
         with:
           name: asyncapi-doc
           path: ./blank-support/asyncapi
+
+  allure:
+    name: Allure Report
+    runs-on: ubuntu-latest
+    needs: test
+    if: always()
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Download Allure raw results
+        uses: actions/download-artifact@v5
+        with:
+          name: allure-results
+          path: ./allure-results
+        continue-on-error: true
+
+      - name: Set up Allure CLI
+        run: |
+          set -euo pipefail
+          ALLURE_VERSION=2.32.0
+          curl -sL "https://github.com/allure-framework/allure2/releases/download/${ALLURE_VERSION}/allure-${ALLURE_VERSION}.tgz" \
+            | tar -xz -C "$HOME"
+          echo "$HOME/allure-${ALLURE_VERSION}/bin" >> "$GITHUB_PATH"
+
+      - name: Generate Allure HTML report
+        run: |
+          set -euo pipefail
+          allure --version
+          allure generate ./allure-results --clean -o ./allure-report
+
+      - name: Display generated files
+        run: ls -al ./allure-report
+
+      - name: Upload Allure HTML report
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-report
+          path: ./allure-report
   docs:
     name: Docs
     runs-on: ubuntu-latest

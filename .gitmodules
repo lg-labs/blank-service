@@ -1,0 +1,4 @@
+[submodule ".lg5-agent-os"]
+	path = .lg5-agent-os
+	url = git@github.com:lg-labs-pentagon/lg5-spring-agent-os.git
+	branch = main
