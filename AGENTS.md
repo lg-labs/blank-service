@@ -4,10 +4,11 @@ This file is the **upstream template** shipped by `lg5-spring-agent-os`.
 Consumer repositories that install this bundle should copy or merge it
 into their own root-level `AGENTS.md`.
 
-> **Path convention in this repo.** Artifacts are installed at `.agent-os/`
-> (rules, skills, commands, subagents, specs). The upstream bundle is pinned
-> as a git submodule at `.lg5-agent-os/` (currently `v0.3.5`). All relative
-> links below have been rewritten to point at `.agent-os/...`.
+> **Path convention in this repo.** Artifacts live in `.agent-os/`, which IS
+> the git submodule (pinned to `v1.0.0`). The submodule is the single source
+> of truth — no copies. OpenCode loads the bundle via `.opencode/*` symlinks
+> (gitignored) that point back into `.agent-os/`. All relative links below
+> point at `.agent-os/...`.
 
 ---
 
