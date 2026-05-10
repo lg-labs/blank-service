@@ -311,15 +311,16 @@ jobs:
     needs: test
     steps:
       - uses: actions/checkout@v5
-      - name: Download docker compose
-        run: sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-      - name: Permissions to docker compose
-        run: sudo chmod +x /usr/local/bin/docker-compose
 
-      - name: Generate docs to asyncapi as html
-        run: make asyncapi-gen-html-up
+      - name: Assemble AsyncAPI site (Studio-like, web-component via CDN)
+        run: |
+          set -euo pipefail
+          mkdir -p ./blank-support/asyncapi
+          cp ./blank-support/asyncapi-template/index.html ./blank-support/asyncapi/index.html
+          cp ./blank-message/blank-message-model/src/main/resources/spec/asyncapi.yaml \
+             ./blank-support/asyncapi/asyncapi.yaml
 
-      - name: Display structure of downloaded files
+      - name: Display structure of generated files
         run: ls -al ./blank-support/asyncapi
 
       - name: Upload AsyncAPI artifact

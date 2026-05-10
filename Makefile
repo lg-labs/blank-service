@@ -94,7 +94,8 @@ graph-generator-up:
 	docker-compose -f ${INFRA}/graph/docker-compose.yml up -d
 
 asyncapi-gen-html-up:
-	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml run --rm asyncapi-gen-html
+	@echo "AsyncAPI docs are now assembled directly in CI from blank-support/asyncapi-template/index.html"
+	@echo "(uses @asyncapi/web-component via CDN — same renderer as https://studio.asyncapi.com)"
 
 openapi-gen-html-up:
 	docker-compose -f ${INFRA}/common.yml -f ${INFRA}/spec-generator.yml run --rm  openapi-generator-cli
