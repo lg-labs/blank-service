@@ -206,52 +206,6 @@ logging:
     org.apache.kafka: DEBUG
 ```
 
-## 🤖 AI Agents (lg5-spring-agent-os)
-
-This repo ships the [`lg5-spring-agent-os`](https://github.com/lg-labs-pentagon/lg5-spring-agent-os)
-bundle (rules, skills, commands, subagents, spec templates) for AI coding
-agents (OpenCode, Claude Code, Cursor, …).
-
-- Upstream submodule pinned at: `.lg5-agent-os/` (currently `v0.3.2`)
-- Installed artifacts: `.agent-os/` (`skills/`, `rules/`, `commands/`, `subagents/`, `specs/`)
-- Always-loaded index: [`AGENTS.md`](AGENTS.md)
-
-After cloning the repo, fetch the submodule:
-
-```bash
-git submodule update --init --recursive
-```
-
-### Spec-Driven Development workflow
-
-Use these slash commands inside your AI agent (e.g. OpenCode) to drive a
-feature end-to-end. Per-feature artifacts land in `docs/specs/<NNN-slug>/`.
-
-```
-/sdd-specify <slug> "<feature description>"   # → docs/specs/NNN-slug/prd.md
-/sdd-plan    <NNN-slug>                       # → plan.md + adr/ + data-model.md
-/sdd-tasks   <NNN-slug>                       # → tasks.md (atomic TASK-NNN)
-/sdd-implement TASK-NNN                       # executes one task end-to-end
-```
-
-Building-block commands (called from inside `/sdd-implement` or directly):
-`/scaffold-service`, `/add-saga`, `/add-outbox`, `/add-kafka-listener`.
-
-### Upgrading the agent-os bundle
-
-```bash
-git -C .lg5-agent-os fetch --tags
-git -C .lg5-agent-os checkout v0.3.3            # new version
-.lg5-agent-os/scripts/install.sh --force .agent-os
-git add .lg5-agent-os .agent-os && git commit -m "chore(agents): bump v0.3.3"
-```
-
-Validate the bundle locally at any time:
-
-```bash
-bash .lg5-agent-os/scripts/validate.sh
-```
-
 ## ⚖️ License
 
 The MIT License (MIT). Please see [License][LIC] for more information.
