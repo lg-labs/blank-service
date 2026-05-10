@@ -8,7 +8,7 @@
 # Bundle version follows SemVer; bump when any included artifact changes.
 bundle:
   name: lg5-spring-agent-os
-  version: 0.3.2
+  version: 0.3.3
   released: 2026-05-10
   repository: https://github.com/lg-labs-pentagon/lg5-spring-agent-os
   # Framework commit against which the WHOLE bundle is validated.
@@ -58,3 +58,21 @@ skills:
     lg5-spring-sha: d0d754a
     path: food-ordering-system/SKILL.md
     description: Reference implementation breakdown.
+
+  - name: lg5-github-actions
+    version: 0.1.0
+    lg5-spring-sha: d0d754a
+    path: lg5-github-actions/SKILL.md
+    description: Canonical GitHub Actions CI pipeline + shared Maven-credentials composite action.
+
+  - name: lg5-api-docs
+    version: 0.1.0
+    lg5-spring-sha: d0d754a
+    path: lg5-api-docs/SKILL.md
+    description: Static-HTML OpenAPI (Swagger UI) and AsyncAPI (Studio look) doc sites via CDN.
+
+  - name: lg5-allure-report
+    version: 0.1.0
+    lg5-spring-sha: d0d754a
+    path: lg5-allure-report/SKILL.md
+    description: Allure Report wiring for Cucumber 7 + JUnit Platform acceptance tests.

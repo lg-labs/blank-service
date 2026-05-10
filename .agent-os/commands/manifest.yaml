@@ -14,7 +14,7 @@
 
 bundle:
   name: lg5-spring-agent-os
-  version: 0.3.2
+  version: 0.3.3
   lg5-spring-sha: d0d754a
 
 commands:
@@ -61,3 +61,8 @@ commands:
     version: 0.1.0
     category: building-block
     description: Add a batch Kafka listener with NO-OP exception handling per RULE-010.
+  - name: scaffold-ci-cd
+    file: scaffold-ci-cd.md
+    version: 0.1.0
+    category: building-block
+    description: Scaffold the canonical CI/CD pipeline (workflow + composite action + API docs + Allure) into a consumer service.

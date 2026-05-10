@@ -23,6 +23,34 @@ commits is unsupported.
 
 ## [Unreleased]
 
+## [0.3.3] — 2026-05-10
+### Added
+- New skill **`lg5-github-actions`** (v0.1.0) capturing the canonical
+  11-job CI topology used by `blank-service` and the shared
+  `setup-maven-credentials` composite action that solved the recurring
+  Maven 401 in parallel jobs (Checkstyle/Coverage/Build/Test).
+  Ships byte-identical templates for
+  `templates/.github/actions/setup-maven-credentials/action.yml` and
+  `templates/.github/workflows/c-integration.yml`.
+- New skill **`lg5-api-docs`** (v0.1.0) capturing the static-HTML
+  approach for OpenAPI (Swagger UI 5 from unpkg) and AsyncAPI
+  (`@asyncapi/web-component@3` from unpkg). Replaces the legacy
+  `openapitools/openapi-generator-cli` and `asyncapi/cli` Docker
+  pipelines that broke on `--use-new-generator` and puppeteer install.
+  Ships `templates/openapi-template/index.html` and
+  `templates/asyncapi-template/index.html`.
+- New skill **`lg5-allure-report`** (v0.1.0) capturing the Allure
+  Report wiring for Cucumber 7 + JUnit Platform acceptance tests
+  (`allure-cucumber7-jvm` 2.29.1 dep, Cucumber plugin registration in
+  `AcceptanceTestCase`, `allure.properties`, and the CI job that runs
+  Allure CLI 2.32.0 with `if: always()` so dashboards survive flaky
+  runs). Ships `templates/src/test/resources/allure.properties`.
+### Notes
+- Per the policy in this CHANGELOG, MINOR is normally reserved for new
+  skills. We chose **PATCH (0.3.3)** intentionally to mark this release
+  as **early-access** while consumer repos validate the templates. A
+  `0.4.0` MINOR will follow once the templates are battle-tested.
+
 ## [0.3.2] — 2026-05-10
 ### Changed
 - Framework SHA pin bumped from `af81c7c` to `d0d754a` (PATCH).
