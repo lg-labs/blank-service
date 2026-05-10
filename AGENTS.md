@@ -6,7 +6,7 @@ into their own root-level `AGENTS.md`.
 
 > **Path convention in this repo.** Artifacts are installed at `.agent-os/`
 > (rules, skills, commands, subagents, specs). The upstream bundle is pinned
-> as a git submodule at `.lg5-agent-os/` (currently `v0.3.4`). All relative
+> as a git submodule at `.lg5-agent-os/` (currently `v0.3.5`). All relative
 > links below have been rewritten to point at `.agent-os/...`.
 
 ---
@@ -125,6 +125,7 @@ See `commands/<name>.md` for each command's full prompt and parameters.
 | `lg5-code-reviewer`   | Reviews diffs against the 18 rules; cites violations by RULE-ID. |
 | `lg5-test-generator`  | Generates IT/ATDD test scaffolds (RULE-012/013 patterns).        |
 | `lg5-planner`         | Decomposes feature → rule-aligned implementation plan.           |
+| `lg5-ci-cd-engineer`  | Specialist for CI/CD pipelines (GitHub Actions topology, Maven-creds action, API docs, Allure, supply-chain hardening). |
 
 ---
 

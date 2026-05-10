@@ -8,7 +8,7 @@
 # Bundle version follows SemVer; bump when any included artifact changes.
 bundle:
   name: lg5-spring-agent-os
-  version: 0.3.4
+  version: 0.3.5
   released: 2026-05-10
   repository: https://github.com/lg-labs-pentagon/lg5-spring-agent-os
   # Framework commit against which the WHOLE bundle is validated.

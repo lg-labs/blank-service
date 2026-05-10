@@ -9,7 +9,7 @@
 
 bundle:
   name: lg5-spring-agent-os
-  version: 0.3.4
+  version: 0.3.5
   lg5-spring-sha: d0d754a
 
 subagents:
@@ -25,3 +25,7 @@ subagents:
     file: lg5-planner.md
     version: 0.1.0
     description: Decomposes a feature request into rule-aligned implementation steps.
+  - name: lg5-ci-cd-engineer
+    file: lg5-ci-cd-engineer.md
+    version: 0.1.0
+    description: Specialist for GitHub Actions CI/CD on lg5-spring (workflow, composite Maven-creds action, API doc sites, Allure, supply-chain hardening).

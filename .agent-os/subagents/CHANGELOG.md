@@ -4,6 +4,26 @@ All notable changes to the **subagents** artifact set are documented here.
 Uses [Keep a Changelog](https://keepachangelog.com/en/1.1.0/) and
 [SemVer 2.0.0](https://semver.org/spec/v2.0.0.html).
 
+## [0.3.5] — 2026-05-10
+### Added
+- New subagent **`lg5-ci-cd-engineer`** (v0.1.0) — specialist for
+  designing, implementing, debugging, and reviewing GitHub Actions
+  CI/CD pipelines on lg5-spring services. Owns the canonical 11-job
+  topology, the shared `setup-maven-credentials` composite action,
+  the static-HTML OpenAPI/AsyncAPI doc sites, the Allure Report
+  wiring, and supply-chain hardening (SHA-pinning per OpenSSF
+  Scorecard / Codacy).
+- The subagent loads `lg5-github-actions`, `lg5-api-docs`, and
+  `lg5-allure-report` skills on demand and prefers the
+  `/scaffold-ci-cd` command for net-new pipelines.
+- An explicit **out-of-scope** section enumerates topics the
+  subagent must refuse to author until the matching skill ships
+  (container delivery, k8s manifests, GitOps, release automation,
+  secrets, env promotion, perf, extra quality gates). Per RULE-018,
+  the subagent will not invent patterns for those.
+### Notes
+- No existing subagent behavior changed.
+
 ## [0.3.2] — 2026-05-10
 ### Changed
 - Framework SHA pin bumped from `af81c7c` to `d0d754a` (PATCH).
