@@ -5,7 +5,7 @@ Consumer repositories that install this bundle should copy or merge it
 into their own root-level `AGENTS.md`.
 
 > **Path convention in this repo.** Artifacts live in `.agent-os/`, which IS
-> the git submodule (pinned to `v1.0.1`). The submodule is the single source
+> the git submodule (pinned to `v2.0.0`). The submodule is the single source
 > of truth — no copies. OpenCode loads the bundle via `.opencode/*` symlinks
 > (gitignored) that point back into `.agent-os/`. All relative links below
 > point at `.agent-os/...`.
@@ -121,12 +121,22 @@ See `commands/<name>.md` for each command's full prompt and parameters.
 
 ## Subagent catalog
 
+Cross-cutting (apply to any phase):
+
 | Subagent              | Purpose                                                          |
 |-----------------------|------------------------------------------------------------------|
 | `lg5-code-reviewer`   | Reviews diffs against the 18 rules; cites violations by RULE-ID. |
 | `lg5-test-generator`  | Generates IT/ATDD test scaffolds (RULE-012/013 patterns).        |
-| `lg5-planner`         | Decomposes feature → rule-aligned implementation plan.           |
 | `lg5-ci-cd-engineer`  | Specialist for CI/CD pipelines (GitHub Actions topology, Maven-creds action, API docs, Allure, supply-chain hardening). |
+
+SDD phase specialists (1:1 with the four `/sdd-*` commands):
+
+| Subagent           | Phase     | Pairs with        | Purpose                                                       |
+|--------------------|-----------|-------------------|---------------------------------------------------------------|
+| `sdd-specifier`    | Specify   | `/sdd-specify`    | Informal prompt → tech-free PRD with REQ-NNN + clarifications. |
+| `sdd-planner`      | Plan      | `/sdd-plan`       | PRD → `plan.md` + ADRs (+ `data-model.md`); cites RULE-NNN.   |
+| `sdd-tasker`       | Tasks     | `/sdd-tasks`      | Plan → atomic `TASK-NNN` with Given/When/Then AC.             |
+| `sdd-implementer`  | Implement | `/sdd-implement`  | One TASK → code + tests + `lg5-code-reviewer` + commit.       |
 
 ---
 
