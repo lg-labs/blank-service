@@ -7,7 +7,7 @@
     <parent>
         <groupId>com.lg5.spring</groupId>
         <artifactId>lg5-spring-parent</artifactId>
-        <version>1.0.0-alpha.01d4f48</version>
+        <version>1.0.0-alpha.9f56184</version>
         <relativePath/>
     </parent>
 
