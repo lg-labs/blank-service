@@ -18,7 +18,7 @@ jobs:
     name: Setup
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Set up JDK 25
@@ -67,7 +67,7 @@ jobs:
           echo "Extracted IMAGE_NAME: $IMAGE_NAME"
 
       - name: Upload Maven details artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: maven-details
           path: maven_details.env
@@ -77,7 +77,7 @@ jobs:
         with:
           github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
       - name: Cache Maven packages
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -88,14 +88,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Set up JDK 25
         uses: actions/setup-java@v5
         with:
           java-version: 25
           distribution: 'zulu'
       - name: Restore Maven Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -111,14 +111,14 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Set up JDK 25
         uses: actions/setup-java@v5
         with:
           java-version: 25
           distribution: 'zulu'
       - name: Restore Maven Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -134,7 +134,7 @@ jobs:
       - name: List files in target directory
         run: ls -al ./blank-support/target/site
       - name: Upload Test reports
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: test-reports
           path: ./blank-support/target/site/jacoco-aggregate-all
@@ -143,9 +143,9 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ checkstyle, coverage ]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Download Test reports
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: test-reports
           path: ./site
@@ -163,7 +163,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ checkstyle, coverage ]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Set up JDK 25
         uses: actions/setup-java@v5
         with:
@@ -172,7 +172,7 @@ jobs:
       - name: Install Graphviz
         run: sudo apt-get update && sudo apt-get install -y graphviz
       - name: Restore Maven Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -182,7 +182,7 @@ jobs:
         with:
           github-token: ${{ secrets.PKG_GITHUB_TOKEN }}
       - name: Download Maven details artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: maven-details
           path: .
@@ -210,17 +210,17 @@ jobs:
           docker save -o blank-service-image.tar ${{ env.IMAGE_NAME }}
 
       - name: Upload Docker image as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: docker-image
           path: blank-service-image.tar
       - name: Upload dependency-graph.png as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: dependency-graph
           path: ./target/dependency-graph.png
       - name: Upload firebase.json as artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: firebase-json
           path: ./firebase.json
@@ -235,7 +235,7 @@ jobs:
       APPLICATION_LOG_SOURCE_PATH: "/logs"
       APPLICATION_LOG_DESTINATION_PATH: "./target/logs"
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - name: Set up JDK 25
         uses: actions/setup-java@v5
         with:
@@ -246,7 +246,7 @@ jobs:
         run: sudo apt-get update && sudo apt-get install -y graphviz
 
       - name: Download Docker image artifact
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: docker-image
           path: .
@@ -258,7 +258,7 @@ jobs:
         run: docker image list | grep com.
 
       - name: Restore Maven Cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
@@ -278,14 +278,14 @@ jobs:
         run: ls -R ./
 
       - name: Upload Cucumber Report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: cucumber-report
           path: ./blank-acceptance-test/target/atdd-reports/cucumber-reports.html
 
       - name: Upload Allure raw results
         if: always()
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: allure-results
           path: ./blank-acceptance-test/target/allure-results
@@ -296,7 +296,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Assemble OpenAPI site (Swagger UI via CDN)
         run: |
@@ -310,7 +310,7 @@ jobs:
         run: ls -al ./blank-support/openapi
 
       - name: Upload OpenAPI artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: openapi-doc
           path: ./blank-support/openapi
@@ -319,7 +319,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: test
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Assemble AsyncAPI site (Studio-like, web-component via CDN)
         run: |
@@ -333,7 +333,7 @@ jobs:
         run: ls -al ./blank-support/asyncapi
 
       - name: Upload AsyncAPI artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: asyncapi-doc
           path: ./blank-support/asyncapi
@@ -344,10 +344,10 @@ jobs:
     needs: test
     if: always()
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: Download Allure raw results
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: allure-results
           path: ./allure-results
@@ -371,7 +371,7 @@ jobs:
         run: ls -al ./allure-report
 
       - name: Upload Allure HTML report
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: allure-report
           path: ./allure-report
@@ -380,23 +380,23 @@ jobs:
     runs-on: ubuntu-latest
     needs: [ test, visualization ]
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
       - uses: actions/setup-python@v6
         with:
           python-version: 3.x
-      - uses: actions/cache@v4
+      - uses: actions/cache@v5
         with:
           key: ${{ github.ref }}
           path: .cache
       - run: pip install mkdocs-material
       - run: pip install pillow cairosvg
       - name: Download dependency-graph
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: dependency-graph
           path: ./blank-support/app/docs/img
       - name: Download Gource
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v8
         with:
           name: gource
           path: ./blank-support/app/docs/video
@@ -407,7 +407,7 @@ jobs:
         run: ls -R ./blank-support/app
 
       - name: Upload MkDocs artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: mkdocs
           path: ./blank-support/app/site
@@ -416,7 +416,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: setup
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
         with:
           fetch-depth: 0
       - name: Gource-Action
@@ -427,7 +427,7 @@ jobs:
           gource_fps: 30
           gource_font_size: 10
           gource_background_color: 555555
-      - uses: actions/upload-artifact@v4
+      - uses: actions/upload-artifact@v7
         with:
           name: gource
           path: ./gource/gource.mp4
